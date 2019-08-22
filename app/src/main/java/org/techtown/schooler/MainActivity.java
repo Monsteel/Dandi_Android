@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences LoginCheck = getSharedPreferences("Check", MODE_PRIVATE);
         boolean first = LoginCheck.getBoolean("Check", false);//첫 실행임
         if(first==false){
-            Intent StatMember = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(StatMember);
+            Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(StatLogin);
+            Log.d("[LoginCheck]", "로그인 X");
         }else{
-            Log.d("Is first Time?", "not first");
+            Log.d("[LoginCheck] ", "로그인 O");
         }
     }
 }
