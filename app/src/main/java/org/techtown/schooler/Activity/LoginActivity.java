@@ -16,9 +16,8 @@ import org.techtown.schooler.network.response.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class Login {
+public class LoginActivity{
 
-    public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class Login {
                     String Message = response.message();
                     try {
                         if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
-                            Toast.makeText(org.techtown.schooler.MainActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(org.techtown.schooler.Activity.LoginActivity, Status + ":" + Message, Toast.LENGTH_SHORT).show();
                             Log.d("[Login] Status", Status + ":" + Message);
                         }
                     }  catch (Exception err) {
@@ -56,4 +55,4 @@ public class Login {
             });
         }
     }
-}
+
