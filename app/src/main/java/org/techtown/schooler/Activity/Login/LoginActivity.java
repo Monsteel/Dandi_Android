@@ -1,4 +1,4 @@
-package org.techtown.schooler.Activity;
+package org.techtown.schooler.Activity.Login;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
@@ -38,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
                     String Message = response.message();
                     try {
                         if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
-                            Toast.makeText(org.techtown.schooler.Activity.LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
                             Log.d("[Login] Status", Status + ":" + Message);
                         }
                     } catch (Exception err) {
