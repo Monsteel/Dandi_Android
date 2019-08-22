@@ -16,8 +16,7 @@ import org.techtown.schooler.network.response.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class LoginActivity{
-
+public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +38,10 @@ public class LoginActivity{
                     String Message = response.message();
                     try {
                         if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
-                            Toast.makeText(org.techtown.schooler.Activity.LoginActivity, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(org.techtown.schooler.Activity.LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
                             Log.d("[Login] Status", Status + ":" + Message);
                         }
-                    }  catch (Exception err) {
+                    } catch (Exception err) {
                         //Toast.makeText(MainActivity.this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
                         Log.e("[Login][ERROR] : ", "네트워크 연결 오류");
                     }
@@ -54,5 +53,6 @@ public class LoginActivity{
                 }
             });
         }
-    }
+
+}
 
