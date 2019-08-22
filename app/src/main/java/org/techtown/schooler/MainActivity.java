@@ -3,6 +3,7 @@ package org.techtown.schooler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String id = "user";
-        String pw = "user";
+        String id = "대소고 존잘남:이영은";
+        String pw = "없다";
         login(new LoginPostRequest(id, pw));
 
     }
@@ -37,15 +38,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<org.techtown.schooler.network.response.Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-                int Status = response.code();
-
-                if (Status == 200) {
-                    Toast.makeText(MainActivity.this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-                    Log.d("[Login]", "로그인에 성공했습니다.");
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    Log.d("[Login]", "로그인에 실패했습니다.");
+                Integer Status = response.code();
+                String Message = response.message();
+                try {
+                    if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
+                        Toast.makeText(MainActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                        Log.d("[Login] Status", Status + ":" + Message);
+                    }
+                }  catch (Exception err) {
+                    //Toast.makeText(MainActivity.this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
+                    Log.e("[Login][ERROR] : ", "네트워크 연결 오류");
                 }
             }
 

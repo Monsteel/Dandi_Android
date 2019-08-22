@@ -16,7 +16,7 @@ public class NetRetrofit {
     }
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.80.162.191:3000")
+            .baseUrl("http://10.80.162.191:2000")
             .addConverterFactory(GsonConverterFactory.create()) // 파싱등록
             .build();
 
