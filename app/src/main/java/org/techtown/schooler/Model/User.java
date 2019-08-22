@@ -9,7 +9,7 @@ public class User {
     private String school;
     private String school_class;
     private String school_grade;
-    private String prifle_pic;
+    private String profile_pic;
     private String pushNotify;
     private String isPublic;
 
@@ -24,7 +24,7 @@ public class User {
        this.school = school;
        this.school_class = school_class;
        this.school_grade = school_grade;
-       this.prifle_pic = prifle_pic;
+       this.profile_pic = prifle_pic;
        this.pushNotify = pushNotify;
        this.isPublic = isPublic;
     }
@@ -62,7 +62,7 @@ public class User {
     }
 
     public String getPrifle_pic() {
-        return prifle_pic;
+        return profile_pic;
     }
 
     public String getPushNotify() {
@@ -106,7 +106,7 @@ public class User {
     }
 
     public void setPrifle_pic(String prifle_pic) {
-        this.prifle_pic = prifle_pic;
+        this.profile_pic = prifle_pic;
     }
 
     public void setPushNotify(String pushNotify) {

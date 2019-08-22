@@ -10,7 +10,9 @@ public class NetRetrofit {
     public static NetRetrofit getInstance() {
         return ourInstance;
     }
+
     private NetRetrofit() {
+
     }
 
     Retrofit retrofit = new Retrofit.Builder()
@@ -19,8 +21,10 @@ public class NetRetrofit {
             .build();
 
     Login service = retrofit.create(Login.class);
+
     public Login getService() {
         return service;
+
     }
     //로그인 인터페이스 등록
 
