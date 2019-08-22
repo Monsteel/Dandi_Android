@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_login);
             String id = "대소고 존잘남:이영은";
             String pw = "없다";
             login(new LoginPostRequest(id, pw));
