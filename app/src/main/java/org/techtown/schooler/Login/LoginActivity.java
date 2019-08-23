@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.techtown.schooler.R;
@@ -23,8 +25,17 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         // String 형을 사용해서 id, pw 변수에 데이터를 저장합니다.
-        String id = "user";
+        String id = "uesr";
         String pw = "user";
+
+
+        Button button = findViewById(R.id.Login_Button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(LoginActivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // login 매서드를 호출하면서 login 매서드의 파라미터인 LoginPostRequest 클래스로 위에서 생성한 id, pw 를 전달하고있습니다.
         login(new LoginPostRequest(id, pw));
@@ -33,6 +44,8 @@ public class LoginActivity extends AppCompatActivity{
 
     // login 매서드
     private void login(LoginPostRequest loginPostRequest) {
+
+
         final Call<Response<Data>> res = NetRetrofit.getInstance().getService().loginPost(loginPostRequest);
         res.enqueue(new Callback<Response<Data>>() {
             @Override
@@ -40,11 +53,13 @@ public class LoginActivity extends AppCompatActivity{
 
                 Integer Status = response.body().getStatus();
                 String Message = response.body().getMessage();
-                if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
-                    Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
-                    Log.d("[Login] Status", Status + ":" + Message);
-                } else {
-                    Toast.makeText(LoginActivity.this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
+                try {
+                    if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
+                        Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                        Log.d("[Login] Status", Status + ":" + Message);
+                    }
+                } catch (Exception err) {
+                    //Toast.makeText(MainActivity.this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
                     Log.e("[Login][ERROR] : ", "네트워크 연결 오류");
                 }
             }

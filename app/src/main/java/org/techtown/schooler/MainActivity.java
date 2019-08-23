@@ -27,26 +27,17 @@ public class MainActivity extends AppCompatActivity {
         final boolean first = LoginCheck.getBoolean("Check", false);//첫 실행임
 
 
-        Button button = findViewById(R.id.button);
+        // first 변수가 false 일 경우
+        if(first==false){
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            // Intent 클래스를 사용해서 LoginActivity 화면으로 전환을 합니다.
+            Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(StatLogin);
+            Log.d("[LoginCheck]", "로그인 X");
 
-                // first 변수가 false 일 경우
-                if(first==false){
-
-                    // Intent 클래스를 사용해서 LoginActivity 화면으로 전환을 합니다.
-                    Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(StatLogin);
-                    Log.d("[LoginCheck]", "로그인 X");
-
-                    // first 변수가 true 일 경우
-                }else{
-                    Log.d("[LoginCheck] ", "로그인 O");
-                }
-            }
-        });
-
+            // first 변수가 true 일 경우
+        }else{
+            Log.d("[LoginCheck] ", "로그인 O");
+        }
     }
 }
