@@ -1,4 +1,4 @@
-package org.techtown.schooler;
+package org.techtown.schooler.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;

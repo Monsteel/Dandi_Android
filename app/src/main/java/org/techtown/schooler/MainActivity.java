@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import org.techtown.schooler.Login.LoginActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
