@@ -39,7 +39,5 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Log.d("[LoginCheck] ", "로그인 O");
         }
-
-
     }
 }
