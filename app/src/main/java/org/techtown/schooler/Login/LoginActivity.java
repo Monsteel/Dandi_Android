@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         // String 형을 사용해서 id, pw 변수에 데이터를 저장합니다.
-        String id = "uesr";
+        String id = "user";
         String pw = "user";
 
 
