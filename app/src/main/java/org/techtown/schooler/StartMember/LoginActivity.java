@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -20,26 +21,30 @@ import retrofit2.Callback;
 
 public class LoginActivity extends AppCompatActivity{
 
+
+    EditText Id_EditText; // Id 입력 창
+    EditText Pw_EditText; // Pw 입력 창
+
+    String Id;
+    String Pw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // String 형을 사용해서 id, pw 변수에 데이터를 저장합니다.
-        String id = "user";
-        String pw = "user";
+        Id_EditText = findViewById(R.id.Id_EditText);
+        Pw_EditText = findViewById(R.id.Pw_EditText);
 
 
-        Button button = findViewById(R.id.Login_Button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "hello", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Id, Pw 변수에 editText 값에 입력한 값들을 저장하고있습니다.
+        Id = Id_EditText.getText().toString();
+        Pw = Pw_EditText.getText().toString();
+
 
         // login 매서드를 호출하면서 login 매서드의 파라미터인 LoginPostRequest 클래스로 위에서 생성한 id, pw 를 전달하고있습니다.
-        login(new LoginPostRequest(id, pw));
+        login(new LoginPostRequest(Id, Pw));
+
 
     }
 
