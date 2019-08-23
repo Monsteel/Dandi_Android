@@ -8,11 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
+
+import java.io.IOException;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +30,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         // String 형을 사용해서 id, pw 변수에 데이터를 저장합니다.
-        String id = "userr";
+        String id = "user";
         String pw = "user";
 
 
@@ -50,15 +55,24 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-                Integer Status = response.code();
-                if (Status == 200) {
-                    String Message =response.body().getMessage();
+                if (response.isSuccessful()) {
+                    Integer Status = response.body().getStatus();
+                    String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
                     Log.d("[Login] Status", Status + ":" + Message);
-
-                }else if (Status == 401 || Status == 403 || Status == 500){
-                    Toast.makeText(LoginActivity.this, Status+"", Toast.LENGTH_SHORT).show();
-                    Log.e("[Login][ERROR]", Status+"");
+                }else{
+                    try {
+                        JSONObject errorBody = new JSONObject(response.errorBody().string());
+                        Integer Error =errorBody.getInt("status");
+                        if (Error == 401 ||errorBody.getInt("status") == 405) {
+                            Response response1 = new Response();
+                            response1.setStatus(errorBody.getInt("status"));
+                            response1.setMessage(errorBody.getString("message"));
+                            Log.e("[Login] Status", errorBody.getString("message"));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

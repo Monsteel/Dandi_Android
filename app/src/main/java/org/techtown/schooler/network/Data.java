@@ -4,13 +4,14 @@ import org.techtown.schooler.Model.User;
 
 public class Data {
     private User user;
-    private Token token;
 
-    public Token getToken() {
+    private String token;
+
+    public String getToken() {
         return token;
     }
 
-    public void setToken(Token token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
