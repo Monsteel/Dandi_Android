@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         // String 형을 사용해서 id, pw 변수에 데이터를 저장합니다.
-        String id = "uesr";
+        String id = "user";
         String pw = "user";
 
         // login 매서드를 호출하면서 login 매서드의 파라미터인 LoginPostRequest 클래스로 위에서 생성한 id, pw 를 전달하고있습니다.
@@ -33,8 +33,6 @@ public class LoginActivity extends AppCompatActivity{
 
     // login 매서드
     private void login(LoginPostRequest loginPostRequest) {
-
-
         final Call<Response<Data>> res = NetRetrofit.getInstance().getService().loginPost(loginPostRequest);
         res.enqueue(new Callback<Response<Data>>() {
             @Override
@@ -42,13 +40,11 @@ public class LoginActivity extends AppCompatActivity{
 
                 Integer Status = response.body().getStatus();
                 String Message = response.body().getMessage();
-                try {
-                    if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
-                        Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
-                        Log.d("[Login] Status", Status + ":" + Message);
-                    }
-                } catch (Exception err) {
-                    //Toast.makeText(MainActivity.this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
+                if (Status == 200 || Status == 401 || Status == 403 || Status == 500) {
+                    Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                    Log.d("[Login] Status", Status + ":" + Message);
+                } else {
+                    Toast.makeText(LoginActivity.this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
                     Log.e("[Login][ERROR] : ", "네트워크 연결 오류");
                 }
             }
