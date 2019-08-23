@@ -14,7 +14,7 @@ import org.techtown.schooler.network.response.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
