@@ -4,6 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login.Login">
+    tools:context=".Activity.Login.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_background"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="184dp"
+            android:layout_height="156dp"
+            android:src="@drawable/login_logo" />
+
+        <FrameLayout
+            android:id="@+id/FrameLayout_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp">
+
+            <EditText
+                android:id="@+id/Id_EditText"
+                android:layout_width="218dp"
+                android:layout_height="40dp"
+                android:background="@drawable/login_button3"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/Pw_EditText"
+                android:layout_width="218dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="65dp"
+                android:background="@drawable/login_button3"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/FrameLayout_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Login_Button"
+                android:layout_width="126dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/login_button"
+                android:text="LOGIN"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/join_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_button2"
+            android:gravity="center"
+            android:text="회원가입"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

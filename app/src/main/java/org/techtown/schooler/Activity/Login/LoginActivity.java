@@ -1,7 +1,9 @@
 package org.techtown.schooler.Activity.Login;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_login);
 
             // String 형을 사용해서 id, pw 변수에 데이터를 저장합니다.
             String id = "대소고 존잘남:이영은";
