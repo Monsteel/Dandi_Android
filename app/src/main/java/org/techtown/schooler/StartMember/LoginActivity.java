@@ -25,8 +25,11 @@ public class LoginActivity extends AppCompatActivity{
     EditText Id_EditText; // Id 입력 창
     EditText Pw_EditText; // Pw 입력 창
 
+    // String 형 Id, Pw 변수에 EditText 에서 입력한 값들을 저장합니다.
     String Id;
     String Pw;
+
+    Button button; // Login 버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +38,23 @@ public class LoginActivity extends AppCompatActivity{
 
         Id_EditText = findViewById(R.id.Id_EditText);
         Pw_EditText = findViewById(R.id.Pw_EditText);
+        button = findViewById(R.id.Login_Button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                login(new LoginPostRequest(Id_EditText.getText().toString(), Pw_EditText.getText().toString()));
+            }
+        });
+
 
 
         // Id, Pw 변수에 editText 값에 입력한 값들을 저장하고있습니다.
-        Id = Id_EditText.getText().toString();
-        Pw = Pw_EditText.getText().toString();
-
-
-        // login 매서드를 호출하면서 login 매서드의 파라미터인 LoginPostRequest 클래스로 위에서 생성한 id, pw 를 전달하고있습니다.
-        login(new LoginPostRequest(Id, Pw));
 
 
     }
+
     // login 매서드
     private void login(LoginPostRequest loginPostRequest) {
 
@@ -83,5 +91,8 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
     }
+
+
+
 }
 

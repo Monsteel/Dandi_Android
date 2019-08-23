@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/Logo"
+            android:id="@+id/imageView"
             android:layout_width="184dp"
             android:layout_height="156dp"
             android:src="@drawable/login_logo" />
@@ -49,7 +49,6 @@
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="ID"
                 android:inputType="textPersonName|text|textEmailAddress"
                 android:textSize="16sp" />
 
@@ -62,7 +61,6 @@
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="Password"
                 android:inputType="textPassword"
                 android:textSize="16sp" />
 
