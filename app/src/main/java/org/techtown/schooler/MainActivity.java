@@ -30,12 +30,9 @@ public class MainActivity extends AppCompatActivity {
             Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(StatLogin);
             Log.d("[LoginCheck]", "로그인 X");
-
             // first 변수가 true 일 경우
         }else{
             Log.d("[LoginCheck] ", "로그인 O");
         }
-
-
     }
 }

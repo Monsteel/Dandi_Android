@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity{
 
 
     }
-
     // login 매서드
     private void login(LoginPostRequest loginPostRequest) {
 
