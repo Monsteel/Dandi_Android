@@ -1,14 +1,12 @@
 package org.techtown.schooler.SignUpViewPager;
 
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.linda.Fragment.calendarFragment;
-import com.example.linda.Fragment.schoolMealsFragment;
-import com.example.linda.Fragment.timeTableFragment;
-import com.example.linda.Fragment.weatherFragment;
+import org.techtown.schooler.SignUpViewPager.Fragment.CallFragment;
+
 
 public class PageAdapter extends FragmentPagerAdapter {
 
@@ -26,13 +24,13 @@ public class PageAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new calendarFragment();
-            case 1:
-                return new schoolMealsFragment();
-            case 2:
-                return new weatherFragment();
-            case 3:
-                return new timeTableFragment();
+                return new CallFragment();
+//            case 1:
+//                return new schoolMealsFragment();
+//            case 2:
+//                return new weatherFragment();
+//            case 3:
+//                return new timeTableFragment();
             default:
                 return null;
         }
