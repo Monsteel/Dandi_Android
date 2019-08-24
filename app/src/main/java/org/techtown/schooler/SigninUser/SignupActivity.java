@@ -74,21 +74,6 @@ public class SignupActivity extends AppCompatActivity {
 
         // 스크롤을 움직이게 해주는 코드
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-
-
-        String id ="";
-        String pw="";
-        String permission="";
-        String email="";
-        String phone="";
-        String school="";
-        String Class="";
-        String grade="";
-        String pic="";
-        String pushNotify="";
-        String isPublic="";
-
-        signup(new User(id,pw,permission,email,phone,school,Class,grade,pic,pushNotify,isPublic));
 }
 
     // signup 메소드

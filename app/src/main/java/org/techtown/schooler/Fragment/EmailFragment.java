@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.Email;
@@ -61,13 +62,16 @@ public class EmailFragment extends Fragment {
         authCodeCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(AuthCode.equals(inputAuthCode)){
-                    
+                String inputAuthCodeSaver = inputAuthCode.getText().toString()+"";
+                if(AuthCode.equals(inputAuthCodeSaver)){
+                    User a = new User();
+                    a.setUser_email(email.getText().toString());
+                }else{
+                    Toast.makeText(getActivity(),"인증번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                    Log.e("[CheckAuthCode]", "인증번호가 올바르지 않습니다.");
                 }
             }
         });
-
-
         return rootView;
     }
 

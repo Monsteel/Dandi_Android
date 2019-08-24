@@ -15,19 +15,19 @@ public class User {
 
 
 
-    public User(String user_id, String user_pw, String permission, String user_email, String user_phone, String school, String school_class, String school_grade, String prifle_pic, String pushNotify, String isPublic) {
-       this.user_id = user_id;
-       this.user_pw = user_pw;
-       this.permission = permission;
-       this.user_email = user_email;
-       this.user_phone = user_phone;
-       this.school = school;
-       this.school_class = school_class;
-       this.school_grade = school_grade;
-       this.profile_pic = prifle_pic;
-       this.pushNotify = pushNotify;
-       this.isPublic = isPublic;
-    }
+//    public User(String user_id, String user_pw, String permission, String user_email, String user_phone, String school, String school_class, String school_grade, String prifle_pic, String pushNotify, String isPublic) {
+//       this.user_id = user_id;
+//       this.user_pw = user_pw;
+//       this.permission = permission;
+//       this.user_email = user_email;
+//       this.user_phone = user_phone;
+//       this.school = school;
+//       this.school_class = school_class;
+//       this.school_grade = school_grade;
+//       this.profile_pic = prifle_pic;
+//       this.pushNotify = pushNotify;
+//       this.isPublic = isPublic;
+//    }
 
     public String getUser_id() {
         return user_id;
