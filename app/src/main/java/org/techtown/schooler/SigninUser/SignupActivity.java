@@ -3,25 +3,16 @@ package org.techtown.schooler.SigninUser;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
-import org.techtown.schooler.Fragment.EmailFragment;
-import org.techtown.schooler.Fragment.EndFragment;
-import org.techtown.schooler.Fragment.IdFragment;
-import org.techtown.schooler.Fragment.PwFragment;
-import org.techtown.schooler.Fragment.SearchSchoolFragment;
-import org.techtown.schooler.Fragment.StartFragment;
-import org.techtown.schooler.Fragment.UserFragment;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
@@ -42,9 +33,11 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        mTabLayout = findViewById(R.id.layout_tab); // TabLayout
+        pager = findViewById(R.id.pager); // ViewPager
 
-        mTabLayout = findViewById(R.id.layout_tab);
 
+        // 각각의 TabLayout 의 탭을 생성하고있습니다.
         mTabLayout.addTab(mTabLayout.newTab().setText("Start"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Id"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Pw"));
@@ -54,11 +47,10 @@ public class SignupActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText("End"));
 
 
-
-        pager = findViewById(R.id.pager);
-
+        // SignupPagerAdapter 클래스를 사용하여 signupPagerAdapter 클래스를 참조하여 인스턴스를 생성하고있습니다.
         SignupPagerAdapter signupPagerAdapter = new SignupPagerAdapter(getSupportFragmentManager(),mTabLayout.getTabCount());
 
+        // pager 속성을 사용하여 signupPagerAdapter 클래스를 전달하고있습니다.
         pager.setAdapter(signupPagerAdapter);
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -81,11 +73,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
         // 스크롤을 움직이게 해주는 코드
-        mTabLayout.setupWithViewPager(pager);
-
-
-
-
+        //mTabLayout.setupWithViewPager(pager);
 
 
         String id ="";
