@@ -2,6 +2,7 @@ package org.techtown.schooler.network.retrofit.interfaces;
 
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.network.Data;
+import org.techtown.schooler.network.Email;
 import org.techtown.schooler.network.IsOverlapped;
 import org.techtown.schooler.network.response.Response;
 
@@ -18,4 +19,8 @@ public interface SignUp {
     // Id 중복 체크를 확인
     @POST("auth/signup/isoverlapped")
     Call<Response<Data>> isoverlapped(@Body IsOverlapped id);
+
+
+    @POST("auth/signup/sendemail")
+    Call<Response<Data>> eamilPost(@Body Email email);
 }

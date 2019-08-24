@@ -10,13 +10,20 @@ public class Data {
     // token
     private String token;
 
+    private String authCode;
 
     // IsOverlapped (true, false 를 확인하는 것이다.)
     // true 면 중복 false 면 중복 X
     private Boolean isOverlapped;
 
 
+    public String getAuthCode() {
+        return authCode;
+    }
 
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
 
     public User getUser() {
         return user;
