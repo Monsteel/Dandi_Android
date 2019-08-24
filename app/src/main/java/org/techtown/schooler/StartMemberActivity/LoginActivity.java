@@ -1,4 +1,4 @@
-package org.techtown.schooler.StartMember;
+package org.techtown.schooler.StartMemberActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity{
                 login(new LoginPostRequest(Id_EditText.getText().toString(), Pw_EditText.getText().toString()));
             }
         });
-
 
 
         // Id, Pw 변수에 editText 값에 입력한 값들을 저장하고있습니다.

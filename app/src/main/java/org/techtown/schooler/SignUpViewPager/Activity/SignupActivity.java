@@ -1,16 +1,23 @@
-package org.techtown.schooler.StartMember;
+package org.techtown.schooler.SignUpViewPager.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
-import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
@@ -23,6 +30,66 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        Toolbar toolbar;
+        TabLayout tabLayout;
+        ViewPager viewPager;
+        PageAdapter pageAdapter;
+        TabItem tabCalendar;
+        TabItem tabSchoolMeals;
+        TabItem tabTimeTable;
+        TabItem tabWeather;
+
+        private final long FINISH_INTERVAL_TIME = 2000;
+        private long   backPressedTime = 0;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+
+            toolbar = findViewById(R.id.MainToolbar);
+            toolbar.setTitle(getResources().getString(R.string.app_name));
+            setSupportActionBar(toolbar);
+
+            tabLayout = findViewById(R.id.tablayout);
+            tabCalendar = findViewById(R.id.tabCalendar);
+            tabSchoolMeals = findViewById(R.id.tabSchoolMeals);
+            tabWeather = findViewById(R.id.tabWeather);
+            tabTimeTable = findViewById(R.id.tabTimeTable);
+            viewPager = findViewById(R.id.viewPager);
+
+
+            SharedPreferences pref = getSharedPreferences("FirstStart", MODE_PRIVATE);
+            boolean first = pref.getBoolean("Code", false);
+            if(first==false){
+                Intent newIntent = new Intent(MainActivity.this, SchoolRegistrationActivity.class);
+                startActivity(newIntent);
+            }else{
+                Log.d("Is first Time?", "not first");
+                pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+                viewPager.setAdapter(pageAdapter);
+                viewPager.setOffscreenPageLimit(4);//시작시, 정보다받아옴
+            }
+
+
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         String id ="";
         String pw="";
@@ -53,7 +120,6 @@ public class SignupActivity extends AppCompatActivity {
                     Log.d("[SignUp] Status", Status + ":" + Message);
                 }else{
                     try {
-
                         JSONObject errorBody = new JSONObject(response.errorBody().string());
                         Integer Error =errorBody.getInt("status");
 

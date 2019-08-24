@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.techtown.schooler.StartMember.LoginActivity;
+import org.techtown.schooler.StartMemberActivity.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
