@@ -113,7 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Integer Status = response.body().getStatus();
                     String Message = response.body().getMessage();
-                    Toast.makeText(SignupActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
                     Log.d("[SignUp] Status", Status + ":" + Message);
                 }else{
                     try {
@@ -125,7 +125,6 @@ public class SignupActivity extends AppCompatActivity {
                             response1.setStatus(errorBody.getInt("status"));
                             response1.setMessage(errorBody.getString("message"));
                             Log.e("[SignUp] Status", errorBody.getString("message"));
-
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -136,8 +135,11 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("Err", "네트워크 연결오류");
+                Toast.makeText(SignupActivity.this, "네트워크에 연결되지 않았습니다.\nError:200", Toast.LENGTH_SHORT).show();
+
             }
         });
+
     }
 
 
