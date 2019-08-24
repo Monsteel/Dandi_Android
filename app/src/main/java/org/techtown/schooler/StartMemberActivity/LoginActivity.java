@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.techtown.schooler.R;
-import org.techtown.schooler.SignUpViewPager.Activity.SignupActivity;
+//import org.techtown.schooler.SignUpViewPager.Activity.SignupActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
@@ -43,13 +43,17 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // 사용자가 화면을 세로로 할 시 activity_login 화면이 출력이 되고 반면에 가로로 할 시 activity_login_land 화면이 출력됩니다.
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_login);
+        } else {
+            setContentView(R.layout.activity_login_land);
+        }
+
         Id_EditText = findViewById(R.id.Id_EditText); // ID
         Pw_EditText = findViewById(R.id.Pw_EditText); // PW
         button = findViewById(R.id.Login_Button); // Login 버튼
-        textView = findViewById(R.id.join_TextView);
-
-
-
+        textView = findViewById(R.id.join_TextView); // 회원가입 텍스트
 
 
 
@@ -65,7 +69,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
         // 회원가입 버튼을 클릭 시 SignupActivity 즉 회원가입 페이지로 화면을 전환합니다.
-        textView.setOnClickListener(new View.OnClickListener() {
+        /*textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -73,7 +77,7 @@ public class LoginActivity extends AppCompatActivity{
                 Intent StartSignup = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(StartSignup);
             }
-        });
+        });*/
 
 
     }
@@ -108,12 +112,7 @@ public class LoginActivity extends AppCompatActivity{
                     }
                 }
 
-                // if 문에서 조건이 성립할 경우 세로로 화면이 표시되고 조건이 성립하지 않을 경우 가로로 화면을 바꿉니다.
-                /*if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    setContentView(R.layout.activity_login);
-                } else {
-                    setContentView(R.layout.activity_login_land);
-                }*/ // 서버 연동에 힘들다
+
             }
 
             @Override
