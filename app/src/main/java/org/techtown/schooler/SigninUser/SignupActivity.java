@@ -1,11 +1,8 @@
-package org.techtown.schooler.SignUpViewPager.Activity;
+package org.techtown.schooler.SigninUser;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,7 +14,6 @@ import com.google.android.material.tabs.TabLayout;
 import org.json.JSONObject;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
-import org.techtown.schooler.SignUpViewPager.PageAdapter;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
@@ -27,38 +23,10 @@ import retrofit2.Callback;
 
 public class SignupActivity extends AppCompatActivity {
 
-
-    Toolbar toolbar;
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    PageAdapter pageAdapter;
-
-    TabItem Start;
-    TabItem tabId;
-    TabItem tabPw;
-    TabItem tabEmail;
-    TabItem tabSchool;
-    TabItem tabGradeClass;
-    TabItem tabUserSetInfomation;
-    TabItem tabFinish ;
-    TabItem Finish;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.app_name));
-        setSupportActionBar(toolbar);
-
-        tabLayout = findViewById(R.id.tablayout);
-        tabCalendar = findViewById(R.id.tabCalendar);
-        tabSchoolMeals = findViewById(R.id.tabSchoolMeals);
-        tabWeather = findViewById(R.id.tabWeather);
-        tabTimeTable = findViewById(R.id.tabTimeTable);
-        viewPager = findViewById(R.id.viewPager);
 
         String id ="";
         String pw="";
@@ -71,24 +39,6 @@ public class SignupActivity extends AppCompatActivity {
         String pic="";
         String pushNotify="";
         String isPublic="";
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         signup(new User(id,pw,permission,email,phone,school,Class,grade,pic,pushNotify,isPublic));
     }

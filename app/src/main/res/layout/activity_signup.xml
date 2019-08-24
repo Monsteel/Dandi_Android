@@ -5,68 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignUpViewPager.Activity.SignupActivity">
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@android:color/black">
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetId" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabPw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetPw" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetEmail" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabSchool"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetSchool" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabGradeClass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetGrade/Class" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabUserSetInfomation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SetUserInfomation" />
-
-    </android.support.design.widget.TabLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context=".SigninUser.SignupActivity">
 
 </LinearLayout>
