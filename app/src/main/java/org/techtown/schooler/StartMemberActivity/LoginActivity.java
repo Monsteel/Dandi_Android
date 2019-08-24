@@ -2,6 +2,7 @@ package org.techtown.schooler.StartMemberActivity;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 import org.techtown.schooler.R;
 //import org.techtown.schooler.SignUpViewPager.Activity.SignupActivity;
+import org.techtown.schooler.SigninUser.SignupActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
         // 회원가입 버튼을 클릭 시 SignupActivity 즉 회원가입 페이지로 화면을 전환합니다.
-        /*textView.setOnClickListener(new View.OnClickListener() {
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -77,7 +79,7 @@ public class LoginActivity extends AppCompatActivity{
                 Intent StartSignup = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(StartSignup);
             }
-        });*/
+        });
 
 
     }
@@ -126,6 +128,8 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     public void onBackPressed(){
 
+        // 뒤로가기 버튼을 클릭 시 앱이 종료된다.
+        ActivityCompat.finishAffinity(this);
     }
 
 

@@ -3,15 +3,25 @@ package org.techtown.schooler.SigninUser;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONObject;
+import org.techtown.schooler.Fragment.EmailFragment;
+import org.techtown.schooler.Fragment.EndFragment;
+import org.techtown.schooler.Fragment.IdFragment;
+import org.techtown.schooler.Fragment.PwFragment;
+import org.techtown.schooler.Fragment.SearchSchoolFragment;
+import org.techtown.schooler.Fragment.StartFragment;
+import org.techtown.schooler.Fragment.UserFragment;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
@@ -23,10 +33,60 @@ import retrofit2.Callback;
 
 public class SignupActivity extends AppCompatActivity {
 
+
+    TabLayout mTabLayout; // TabLayout 입니다.
+    ViewPager pager; // ViewPager 입니다.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+
+        mTabLayout = findViewById(R.id.layout_tab);
+
+        mTabLayout.addTab(mTabLayout.newTab().setText("Start"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Id"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Pw"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Email"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("School"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("User"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("End"));
+
+
+
+        pager = findViewById(R.id.pager);
+
+        SignupPagerAdapter signupPagerAdapter = new SignupPagerAdapter(getSupportFragmentManager(),mTabLayout.getTabCount());
+
+        pager.setAdapter(signupPagerAdapter);
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                pager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        // 스크롤을 움직이게 해주는 코드
+        mTabLayout.setupWithViewPager(pager);
+
+
+
+
+
 
         String id ="";
         String pw="";
@@ -41,7 +101,7 @@ public class SignupActivity extends AppCompatActivity {
         String isPublic="";
 
         signup(new User(id,pw,permission,email,phone,school,Class,grade,pic,pushNotify,isPublic));
-    }
+}
 
     // signup 메소드
     private void signup(User user) {
@@ -79,4 +139,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
