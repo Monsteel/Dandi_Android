@@ -128,4 +128,7 @@ public class EmailFragment extends Fragment {
 
     }
 
+    //인증코드 띄어쓰기 포함되면 제거해서 확인하는 로직 추가하기
+    //인증완료 후, EditText 수정못하는 명령어 추가하기
+    //메일발송후, 일정시간동안만 인증가능하게하는 로직 추가하기
 }
