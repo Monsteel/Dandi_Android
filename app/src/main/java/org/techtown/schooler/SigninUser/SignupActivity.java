@@ -72,8 +72,7 @@ public class SignupActivity extends AppCompatActivity {
         });
 
 
-//         스크롤을 움직이게 해주는 코드
-        //mTabLayout.setupWithViewPager(pager);
+        // 스크롤을 움직이게 해주는 코드
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
 

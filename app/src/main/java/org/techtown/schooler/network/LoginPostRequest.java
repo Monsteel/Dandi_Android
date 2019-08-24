@@ -26,4 +26,5 @@ public class LoginPostRequest {
     public void setUser_pw(String user_pw) {
         this.user_pw = user_pw;
     }
+
 }
