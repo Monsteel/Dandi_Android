@@ -8,20 +8,22 @@
     android:orientation="vertical"
     tools:context=".SigninUser.SignupActivity">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/layout_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="#000000" />
 
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>

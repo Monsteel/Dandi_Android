@@ -38,13 +38,13 @@ public class SignupActivity extends AppCompatActivity {
 
 
         // 각각의 TabLayout 의 탭을 생성하고있습니다.
-        mTabLayout.addTab(mTabLayout.newTab().setText("Start"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Id"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Pw"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Email"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("School"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("User"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("End"));
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.start));//start icon
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.id));//id logo
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.password));//password icon
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.email));//email icon
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.school));//school icon
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.user_info));//user_info icon
+        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.complete));//complete icon
 
 
         // SignupPagerAdapter 클래스를 사용하여 signupPagerAdapter 클래스를 참조하여 인스턴스를 생성하고있습니다.
@@ -72,8 +72,9 @@ public class SignupActivity extends AppCompatActivity {
         });
 
 
-        // 스크롤을 움직이게 해주는 코드
+//         스크롤을 움직이게 해주는 코드
         //mTabLayout.setupWithViewPager(pager);
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
 
         String id ="";
