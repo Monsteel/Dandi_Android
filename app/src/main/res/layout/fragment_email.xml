@@ -1,15 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:orientation="vertical"
     tools:context=".Fragment.IdFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="이메일"
-        android:textSize="36sp"
-        android:background="#000000"/>
+        android:id="@+id/EmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="220dp"
+        android:gravity="start|right"
+        android:text="이메일 인증을 진행해 주세요"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" >
+
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="E-mail 입력"
+            android:inputType="textPersonName"
+            android:textCursorDrawable="#FFFFFF" />
+
+        <Button
+            android:id="@+id/SendAuthCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인증번호 발송" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/inputAuthCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="인증코드 입력"
+            android:inputType="textPersonName"
+            android:textCursorDrawable="#FFFFFF" />
+
+        <Button
+            android:id="@+id/CheckAuthCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인증하기" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -29,16 +30,32 @@ import retrofit2.Callback;
 
 public class EmailFragment extends Fragment {
 
-
+    EditText email;
+    EditText authCode;
+    Button EmailSend;
+    Button authCodeCheck;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        idCheck(new Email("eun36739@"));
-
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_email, container, false);
+
+        email = rootView.findViewById(R.id.inputEmail);
+        authCode = rootView.findViewById(R.id.inputAuthCode);
+
+        EmailSend = rootView.findViewById(R.id.SendAuthCode);
+        authCodeCheck = rootView.findViewById(R.id.CheckAuthCode);
+
+        EmailSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // idCheck 매서드를 호출하면서 파라미터로 IsOverlapped 클래스의 파라미터인 editText 에 입력한 값을 전달한다.
+                SendMail(new Email(authCode.getText().toString()));
+            }
+        });
+
         return rootView;
     }
 
@@ -50,7 +67,7 @@ public class EmailFragment extends Fragment {
         }
     }
 
-    private void idCheck(Email email) {
+    private void SendMail(Email email) {
 
         final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().eamilPost(email);
         res.enqueue(new Callback<Response<Data>>() {
