@@ -1,16 +1,23 @@
 package org.techtown.schooler.StartMemberActivity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.techtown.schooler.R;
+import org.techtown.schooler.SignUpViewPager.Activity.SignupActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
@@ -25,34 +32,52 @@ public class LoginActivity extends AppCompatActivity{
     EditText Id_EditText; // Id 입력 창
     EditText Pw_EditText; // Pw 입력 창
 
-    // String 형 Id, Pw 변수에 EditText 에서 입력한 값들을 저장합니다.
-    String Id;
-    String Pw;
-
     Button button; // Login 버튼
 
+    TextView textView; // 회원가입 버튼
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Id_EditText = findViewById(R.id.Id_EditText);
-        Pw_EditText = findViewById(R.id.Pw_EditText);
-        button = findViewById(R.id.Login_Button);
+        Id_EditText = findViewById(R.id.Id_EditText); // ID
+        Pw_EditText = findViewById(R.id.Pw_EditText); // PW
+        button = findViewById(R.id.Login_Button); // Login 버튼
+        textView = findViewById(R.id.join_TextView);
 
+
+
+
+
+
+        // Login 버튼을 클릭 시 login() 매서드를 호출합니다.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                // login() 매서드의 파라미터로 사용자가 입력한 Id, Pw 를 전달하고있습니다.
                 login(new LoginPostRequest(Id_EditText.getText().toString(), Pw_EditText.getText().toString()));
             }
         });
 
 
-        // Id, Pw 변수에 editText 값에 입력한 값들을 저장하고있습니다.
+        // 회원가입 버튼을 클릭 시 SignupActivity 즉 회원가입 페이지로 화면을 전환합니다.
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Intent 클래스를 참조해서 화면을 전환하고있습니다.
+                Intent StartSignup = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(StartSignup);
+            }
+        });
 
 
     }
+
 
     // login 매서드
     private void login(LoginPostRequest loginPostRequest) {
@@ -82,6 +107,13 @@ public class LoginActivity extends AppCompatActivity{
                         e.printStackTrace();
                     }
                 }
+
+                // if 문에서 조건이 성립할 경우 세로로 화면이 표시되고 조건이 성립하지 않을 경우 가로로 화면을 바꿉니다.
+                /*if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    setContentView(R.layout.activity_login);
+                } else {
+                    setContentView(R.layout.activity_login_land);
+                }*/ // 서버 연동에 힘들다
             }
 
             @Override
@@ -91,6 +123,11 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
+    // onBackPresses() 매서드를 사용하여 뒤로가기 버튼을 방지합니다.
+    @Override
+    public void onBackPressed(){
+
+    }
 
 
 }
