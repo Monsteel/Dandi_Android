@@ -1,6 +1,7 @@
 package org.techtown.schooler.Fragment;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,8 +32,8 @@ import retrofit2.Callback;
 
 public class IdFragment extends Fragment {
 
-    EditText editText;
-    Button button;
+    EditText editText; // 아이디 입력
+    Button button; // 다음 버튼
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,8 +41,9 @@ public class IdFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_id, container, false);
 
-        editText = rootView.findViewById(R.id.editText);
-        button = rootView.findViewById(R.id.button);
+        editText = rootView.findViewById(R.id.editText); // 아이디 입력
+        button = rootView.findViewById(R.id.button); // 다음 버튼
+
 
         // button 을 클릭 시 중복 체크를 합니다.
         button.setOnClickListener(new View.OnClickListener() {
