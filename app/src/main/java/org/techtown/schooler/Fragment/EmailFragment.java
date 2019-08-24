@@ -31,9 +31,11 @@ import retrofit2.Callback;
 public class EmailFragment extends Fragment {
 
     EditText email;
-    EditText authCode;
+    EditText inputAuthCode;
     Button EmailSend;
     Button authCodeCheck;
+
+    String AuthCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +45,7 @@ public class EmailFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_email, container, false);
 
         email = rootView.findViewById(R.id.inputEmail);
-        authCode = rootView.findViewById(R.id.inputAuthCode);
+        inputAuthCode = rootView.findViewById(R.id.inputAuthCode);
 
         EmailSend = rootView.findViewById(R.id.SendAuthCode);
         authCodeCheck = rootView.findViewById(R.id.CheckAuthCode);
@@ -52,9 +54,19 @@ public class EmailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // idCheck 매서드를 호출하면서 파라미터로 IsOverlapped 클래스의 파라미터인 editText 에 입력한 값을 전달한다.
-                SendMail(new Email(authCode.getText().toString()));
+                SendMail(new Email(email.getText().toString()));
             }
         });
+
+        authCodeCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(AuthCode.equals(inputAuthCode)){
+                    
+                }
+            }
+        });
+
 
         return rootView;
     }
@@ -79,7 +91,7 @@ public class EmailFragment extends Fragment {
 
                     Integer Status = response.body().getStatus(); // Status 값
                     String Message = response.body().getMessage(); // Message 값
-                    String authCode = response.body().getData().getAuthCode(); // authCode(이메일 코드)
+                    AuthCode = response.body().getData().getAuthCode(); // authCode(이메일 코드)
                     Toast.makeText(getActivity(), Status + ":" + Message, Toast.LENGTH_SHORT).show();
                     Log.d("[SandEmail] Status", Status + ":" + Message);
                 }

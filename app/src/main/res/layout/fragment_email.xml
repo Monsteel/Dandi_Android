@@ -34,7 +34,7 @@
             android:ems="10"
             android:hint="E-mail 입력"
             android:inputType="textPersonName"
-            android:textCursorDrawable="#FFFFFF" />
+            android:theme="@style/EditTheme" />
 
         <Button
             android:id="@+id/SendAuthCode"
@@ -60,7 +60,7 @@
             android:ems="10"
             android:hint="인증코드 입력"
             android:inputType="textPersonName"
-            android:textCursorDrawable="#FFFFFF" />
+            android:theme="@style/EditTheme"/>
 
         <Button
             android:id="@+id/CheckAuthCode"
