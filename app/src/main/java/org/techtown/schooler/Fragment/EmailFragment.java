@@ -66,6 +66,8 @@ public class EmailFragment extends Fragment {
                 if(AuthCode.equals(inputAuthCodeSaver)){
                     User a = new User();
                     a.setUser_email(email.getText().toString());
+                    Toast.makeText(getActivity(),"인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("[CheckAuthCode]", "인증이 완료되었습니다.");
                 }else{
                     Toast.makeText(getActivity(),"인증번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("[CheckAuthCode]", "인증번호가 올바르지 않습니다.");

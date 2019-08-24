@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -33,7 +34,7 @@ import retrofit2.Callback;
 public class IdFragment extends Fragment {
 
     EditText editText; // 아이디 입력
-    Button button; // 다음 버튼
+    ImageButton button; // 다음 버튼
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
