@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
     android:orientation="vertical"
-    tools:context=".Fragment.IdFragment">
+    tools:context=".Fragment.IdFragment"
+    android:id="@+id/layout">
 
     <TextView
         android:id="@+id/EmailText"

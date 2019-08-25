@@ -13,9 +13,6 @@ import org.techtown.schooler.Fragment.SearchSchoolFragment;
 import org.techtown.schooler.Fragment.StartFragment;
 import org.techtown.schooler.Fragment.UserFragment;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class SignupPagerAdapter extends FragmentStatePagerAdapter {
 
     private int mPageCount;
@@ -33,10 +30,12 @@ public class SignupPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
 
             case 0:
+
                 StartFragment startFragment = new StartFragment();
                 return startFragment;
 
             case 1:
+
                 IdFragment idFragment = new IdFragment();
                 return idFragment;
 

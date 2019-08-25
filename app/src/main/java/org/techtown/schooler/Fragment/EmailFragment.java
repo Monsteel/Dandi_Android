@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,6 +34,8 @@ import java.util.regex.Pattern;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 
 public class EmailFragment extends Fragment {
 
@@ -45,6 +48,9 @@ public class EmailFragment extends Fragment {
     String AuthCode;
     Boolean isSendMail;
     LinearLayout AuthCodeLayout;
+
+    LinearLayout layout;
+    InputMethodManager imm; // 가상 키패드 내리기
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +77,8 @@ public class EmailFragment extends Fragment {
             public void onClick(View view) {
                 // idCheck 매서드를 호출하면서 파라미터로 IsOverlapped 클래스의 파라미터인 editText 에 입력한 값을 전달한다.
 
+
+
                 if(isEmail(email.getText().toString())){
                     SendMail(new Email(email.getText().toString()));
                 }else{
@@ -90,6 +98,9 @@ public class EmailFragment extends Fragment {
         authCodeCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 String inputAuthCodeSaver = inputAuthCode.getText().toString()+"";
                 if(AuthCode.equals(inputAuthCodeSaver)){
                     User a = new User();
@@ -105,7 +116,21 @@ public class EmailFragment extends Fragment {
                 }
             }
         });
-        //
+
+        layout = rootView.findViewById(R.id.layout);
+
+        imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+
+
+        // 레이아웃 클릭 시 키패드 취소
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(inputAuthCode.getWindowToken(), 0);
+            }
+        });
 
         return rootView;
     }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
@@ -27,6 +29,7 @@ public class SignupActivity extends AppCompatActivity {
 
     TabLayout mTabLayout; // TabLayout 입니다.
     ViewPager pager; // ViewPager 입니다.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class SignupActivity extends AppCompatActivity {
 
         // 스크롤을 움직이게 해주는 코드
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
 }
 
     // signup 메소드

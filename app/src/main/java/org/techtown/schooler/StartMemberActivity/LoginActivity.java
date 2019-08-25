@@ -11,8 +11,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,9 @@ public class LoginActivity extends AppCompatActivity{
 
     TextView textView; // 회원가입 버튼
 
+    InputMethodManager imm; // 가상 키패드 내리기
+
+    LinearLayout layout; // 레이아웃
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -57,8 +62,19 @@ public class LoginActivity extends AppCompatActivity{
         button = findViewById(R.id.Login_Button); // Login 버튼
         textView = findViewById(R.id.join_TextView); // 회원가입 텍스트
 
+        layout = findViewById(R.id.layout); // 레이아웃
 
+        // 가상 키패드를 내리기 위한 코드이다.
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+        // 레이아웃을 클릭 시 가상 키패드를 내린다.
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
+            }
+        });
         // Login 버튼을 클릭 시 login() 매서드를 호출합니다.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +109,13 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-                if (response.isSuccessful()) {
+
+                if(Id_EditText.getText().toString().length() == 0 || Pw_EditText.getText().toString().length() == 0){
+
+                    Toast.makeText(LoginActivity.this, "아이디 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    Log.d("[Login]","아이디 비밀번호를 입력해주세요");
+                }
+                else if (response.isSuccessful()) {
                     Integer Status = response.body().getStatus();
                     String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
@@ -132,6 +154,12 @@ public class LoginActivity extends AppCompatActivity{
         ActivityCompat.finishAffinity(this);
     }
 
+   public void touchLayout(){
+
+       imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
+
+       imm.hideSoftInputFromWindow(Pw_EditText.getWindowToken(), 0);
+   }
 
 }
 
