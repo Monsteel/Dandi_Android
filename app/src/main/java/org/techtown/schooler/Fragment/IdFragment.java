@@ -1,7 +1,6 @@
 package org.techtown.schooler.Fragment;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +11,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
+import org.techtown.schooler.SigninUser.SignupPagerAdapter;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.IsOverlapped;
-import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
@@ -34,17 +36,19 @@ import retrofit2.Callback;
 public class IdFragment extends Fragment {
 
     EditText editText; // 아이디 입력
-    ImageButton button; // 다음 버튼
+    Button button; // 중복 확인
+    ImageButton button2; // 다음으로 버튼
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_id, container, false);
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_id, container, false);
 
         editText = rootView.findViewById(R.id.editText); // 아이디 입력
-        button = rootView.findViewById(R.id.button); // 다음 버튼
-
+        button = rootView.findViewById(R.id.button); // 중복 확인
+        button2 = rootView.findViewById(R.id.button2); // 다음으로 버튼
 
         // button 을 클릭 시 중복 체크를 합니다.
         button.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +59,15 @@ public class IdFragment extends Fragment {
                 idCheck(new IsOverlapped(editText.getText().toString()));
             }
         });
+
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
         return rootView;
     }
