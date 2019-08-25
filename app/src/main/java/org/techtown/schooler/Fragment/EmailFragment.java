@@ -109,6 +109,7 @@ public class EmailFragment extends Fragment {
                     Log.d("[CheckAuthCode]", "인증이 완료되었습니다.");
 
                     email.setInputType(InputType.TYPE_NULL);//Email 읽기모드 변경
+                    EmailSend.setEnabled(false);
                     inputAuthCode.setInputType(InputType.TYPE_NULL);//authCode 읽기모드 변경
                 }else{
                     Toast.makeText(getActivity(),"인증번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -209,16 +210,11 @@ public class EmailFragment extends Fragment {
         isEmailText.setTextColor(Color.parseColor("#bc0000"));
         isEmailText.setText("이메일 전송에 실패했습니다");
     }
-
-
-    //이메일 유효성 검사하기
     //메일발송후, 일정시간동안만 인증가능하게하는 로직 추가하기
-
+    /////////////////////이메일 유효성 검사하기
     /////////////////////인증코드 띄어쓰기 포함되면 제거해서 확인하는 로직 추가하기(서버에서)
     ////////////////////인증완료 후, EditText 둘 다 수정못하는 명령어 추가하기
     ////////////////////인증코드 받기 버튼을 누르면, 인증코드 입력하는 칸 + 버튼 보이게 하기
-
-
 
 
 }
