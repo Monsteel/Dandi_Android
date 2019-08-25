@@ -37,7 +37,7 @@ public class IdFragment extends Fragment {
 
     EditText editText; // 아이디 입력
     Button button; // 중복 확인
-    ImageButton button2; // 다음으로 버튼
+
 
 
     @Override
@@ -48,7 +48,7 @@ public class IdFragment extends Fragment {
 
         editText = rootView.findViewById(R.id.editText); // 아이디 입력
         button = rootView.findViewById(R.id.button); // 중복 확인
-        button2 = rootView.findViewById(R.id.button2); // 다음으로 버튼
+
 
         // button 을 클릭 시 중복 체크를 합니다.
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,12 +61,6 @@ public class IdFragment extends Fragment {
         });
 
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
 
         return rootView;

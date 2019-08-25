@@ -35,13 +35,17 @@
             android:ems="10"
             android:hint="E-mail 입력"
             android:inputType="textPersonName"
-            android:theme="@style/EditTheme" />
+            android:theme="@style/EditTheme"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#C2C2C2"/>
 
         <Button
             android:id="@+id/SendAuthCode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="인증번호 발송" />
+            android:layout_height="35dp"
+            android:background="@drawable/button_design"
+            android:text="인증번호 발송"
+            android:textColor="#01024E"/>
 
     </LinearLayout>
 
@@ -50,7 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#FFFFFF"/>
 
     <LinearLayout
         android:id="@+id/AuthCodeLayout"
@@ -69,13 +74,16 @@
             android:ems="10"
             android:hint="인증코드 입력"
             android:inputType="textPersonName"
-            android:theme="@style/EditTheme" />
+            android:theme="@style/EditTheme"
+            android:textColorHint="#C2C2C2"/>
 
         <Button
             android:id="@+id/CheckAuthCode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="인증하기" />
+            android:layout_height="35dp"
+            android:background="@drawable/button_design"
+            android:text="인증하기"
+            android:textColor="#01024E"/>
 
     </LinearLayout>
 

@@ -36,8 +36,9 @@
             android:ems="10"
             android:hint="아이디 입력"
             android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
             android:textColorHint="#C2C2C2"
-            android:theme="@style/EditTheme"/>
+            android:theme="@style/EditTheme" />
 
         <Button
             android:id="@+id/button"
@@ -49,15 +50,5 @@
             android:textColor="#01024E" />
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/button2"
-        android:layout_width="40dp"
-        android:layout_height="37dp"
-        android:layout_gravity="right"
-        android:layout_marginTop="180dp"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/arrow"
-        android:text="Button" />
 
 </LinearLayout>
