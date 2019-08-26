@@ -3,12 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.IdFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="유저정보"
-        android:textSize="36sp" />
-
-</FrameLayout>
+    tools:context=".Fragment.IdFragment"
+    android:background="@drawable/login_background"/>
