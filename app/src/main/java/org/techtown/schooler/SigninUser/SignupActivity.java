@@ -31,6 +31,9 @@ public class SignupActivity extends AppCompatActivity {
     ViewPager pager; // ViewPager 입니다.
 
 
+    // static 자료형을 사용해서 user 인스턴스를 생성하였습니다.
+    public static User user = new User();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

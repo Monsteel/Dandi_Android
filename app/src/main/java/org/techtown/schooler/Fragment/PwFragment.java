@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import org.techtown.schooler.R;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static org.techtown.schooler.SigninUser.SignupActivity.user;
 
 
 public class PwFragment extends Fragment {
@@ -94,6 +95,9 @@ public class PwFragment extends Fragment {
 
                 // 만약 비밀번호 입력 pw1 과 비밀번호 확인 pw2 가 같을 시 성공 이미지를 출력해준다.
                 else if(pw1.getText().toString().equals(pw2.getText().toString()) ){
+
+                        // user 인스턴스에 사용자가 입력한 pw 를 저장한다.
+                        user.setUser_pw(pw1.getText().toString());
 
                         // 성공 이미지를 출력해준다.
                         okay_Image.setVisibility(View.VISIBLE);

@@ -21,6 +21,9 @@ public class NetRetrofit {
             .addConverterFactory(GsonConverterFactory.create()) // 파싱등록
             .build();
 
+//http://10.80.162.124:5000 바인드 서버
+// http://192.168.64.1:5000 진우 서버
+
     Login login = retrofit.create(Login.class);
     public Login getLogin() {
         return login;

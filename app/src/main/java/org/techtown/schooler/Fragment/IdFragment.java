@@ -30,6 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static org.techtown.schooler.SigninUser.SignupActivity.user;
 
 
 public class IdFragment extends Fragment {
@@ -103,6 +104,9 @@ public class IdFragment extends Fragment {
                 }
                 // 중복이 아닐 경우
                 else if(response.isSuccessful()){
+
+                    // 사용자가 입력한 id 를 저장합니다.
+                    user.setUser_id(Input_Id.getText().toString());
 
                     Integer Status = response.body().getStatus(); // Status 값
                     String Message = response.body().getMessage(); // Message 값
