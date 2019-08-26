@@ -8,7 +8,9 @@ import org.techtown.schooler.network.response.Response;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface SignUp {
 
@@ -23,4 +25,7 @@ public interface SignUp {
 
     @POST("auth/signup/sendemail")
     Call<Response<Data>> eamilPost(@Body Email email);
+
+    @GET("school/searchschool")
+    Call<Response<Data>> SearchSchoolGet(@Query("school_name") String SchoolName);
 }

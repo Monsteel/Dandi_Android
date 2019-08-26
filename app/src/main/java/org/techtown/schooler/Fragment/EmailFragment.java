@@ -77,8 +77,6 @@ public class EmailFragment extends Fragment {
             public void onClick(View view) {
                 // idCheck 매서드를 호출하면서 파라미터로 IsOverlapped 클래스의 파라미터인 editText 에 입력한 값을 전달한다.
 
-
-
                 if(isEmail(email.getText().toString())){
                     SendMail(new Email(email.getText().toString()));
                 }else{
@@ -211,6 +209,10 @@ public class EmailFragment extends Fragment {
         isEmailText.setText("이메일 전송에 실패했습니다");
     }
     //메일발송후, 일정시간동안만 인증가능하게하는 로직 추가하기
+    //텍스트박스 필수입력
+
+
+
     /////////////////////이메일 유효성 검사하기
     /////////////////////인증코드 띄어쓰기 포함되면 제거해서 확인하는 로직 추가하기(서버에서)
     ////////////////////인증완료 후, EditText 둘 다 수정못하는 명령어 추가하기

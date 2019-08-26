@@ -1,6 +1,9 @@
 package org.techtown.schooler.network;
 
+import org.techtown.schooler.Model.SchoolInformations;
 import org.techtown.schooler.Model.User;
+
+import java.util.List;
 
 public class Data {
 
@@ -16,6 +19,16 @@ public class Data {
     // true 면 중복 false 면 중복 X
     private Boolean isOverlapped;
 
+    private List<SchoolInformations> schoolInfo;
+
+
+    public List<SchoolInformations> getSchoolInfo() {
+        return schoolInfo;
+    }
+
+    public void setSchoolInfo(List<SchoolInformations> schoolInfo) {
+        this.schoolInfo = schoolInfo;
+    }
 
     public String getAuthCode() {
         return authCode;
