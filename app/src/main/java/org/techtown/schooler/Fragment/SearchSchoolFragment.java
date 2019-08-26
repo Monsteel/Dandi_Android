@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class SearchSchoolFragment extends Fragment {
     EditText SearchSchoolName;
     private ListView listView;
     EditText decideSchoolName;
+    LinearLayout step2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,17 +48,16 @@ public class SearchSchoolFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_serachschool, container, false);
 
         Button button = rootView.findViewById(R.id.Search);
-        Button nextpage = rootView.findViewById(R.id.NextPage);
         adapter = new Adapter();
 
         listView = (ListView) rootView.findViewById(R.id.School_ListView);
+        step2 = (LinearLayout) rootView.findViewById(R.id.Step2);
 
         listView.setAdapter(adapter);
+        step2.setVisibility(View.INVISIBLE);
 
         SearchSchoolName = (EditText) rootView.findViewById(R.id.SearchSchoolName);
         decideSchoolName = (EditText) rootView.findViewById(R.id.decideSchoolName);
-
-        Button yourButton = (Button)rootView.findViewById(R.id.NextPage);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,13 +66,6 @@ public class SearchSchoolFragment extends Fragment {
             }
         });
 
-        nextpage.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                SignupActivity.pager.setCurrentItem(gegetItem(+1), true); //getItem(-1) for previous
-            }
-        });
         return rootView;
     }
 
@@ -132,6 +126,7 @@ public class SearchSchoolFragment extends Fragment {
 
                         if (response.body().getData() != null) {
                             decideSchoolName.setText(response.body().getData().getSchoolInfo().get(position).getSchool_name());
+                            step2.setVisibility(View.VISIBLE);
                             //세터에다가 set하는 코드짜기
                         }
                     }
