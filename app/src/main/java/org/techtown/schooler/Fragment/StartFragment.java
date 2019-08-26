@@ -21,9 +21,6 @@ public class StartFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_start, container, false);
 
-
-
-
         return rootView;
     }
 

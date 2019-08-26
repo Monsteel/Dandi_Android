@@ -28,7 +28,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     TabLayout mTabLayout; // TabLayout 입니다.
-    ViewPager pager; // ViewPager 입니다.
+    public static ViewPager pager; // ViewPager 입니다.
 
 
     // static 자료형을 사용해서 user 인스턴스를 생성하였습니다.
@@ -58,6 +58,8 @@ public class SignupActivity extends AppCompatActivity {
 
         // pager 속성을 사용하여 signupPagerAdapter 클래스를 전달하고있습니다.
         pager.setAdapter(signupPagerAdapter);
+
+        pager.setOffscreenPageLimit(7);//시작시, 정보다받아옴
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -66,7 +66,6 @@ public class SignupPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-
         return mPageCount;
     }
 

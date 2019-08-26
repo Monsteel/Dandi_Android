@@ -1,6 +1,7 @@
 package org.techtown.schooler.Fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import org.techtown.schooler.Adapter;
 import org.techtown.schooler.DTO;
 import org.techtown.schooler.R;
+import org.techtown.schooler.SigninUser.SignupActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
@@ -44,6 +46,7 @@ public class SearchSchoolFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_serachschool, container, false);
 
         Button button = rootView.findViewById(R.id.Search);
+        Button nextpage = rootView.findViewById(R.id.NextPage);
         adapter = new Adapter();
 
         listView = (ListView) rootView.findViewById(R.id.School_ListView);
@@ -53,10 +56,20 @@ public class SearchSchoolFragment extends Fragment {
         SearchSchoolName = (EditText) rootView.findViewById(R.id.SearchSchoolName);
         decideSchoolName = (EditText) rootView.findViewById(R.id.decideSchoolName);
 
+        Button yourButton = (Button)rootView.findViewById(R.id.NextPage);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSearch();
+            }
+        });
+
+        nextpage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                SignupActivity.pager.setCurrentItem(gegetItem(+1), true); //getItem(-1) for previous
             }
         });
         return rootView;
