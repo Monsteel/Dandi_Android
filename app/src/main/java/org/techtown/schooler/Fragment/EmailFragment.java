@@ -35,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static org.techtown.schooler.SigninUser.SignupActivity.user;
 
 
 public class EmailFragment extends Fragment {
@@ -101,8 +102,10 @@ public class EmailFragment extends Fragment {
 
                 String inputAuthCodeSaver = inputAuthCode.getText().toString()+"";
                 if(AuthCode.equals(inputAuthCodeSaver)){
-                    User a = new User();
-                    a.setUser_email(email.getText().toString());
+
+
+                    // 이메일 세터 저장
+                    user.setUser_email(email.getText().toString());
                     Toast.makeText(getActivity(),"인증이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     Log.d("[CheckAuthCode]", "인증이 완료되었습니다.");
 
