@@ -146,6 +146,16 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/Step2Finish"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button_design"
+            android:text="입력완료"
+            android:textColor="#01024E" />
+
     </LinearLayout>
 
 </LinearLayout>

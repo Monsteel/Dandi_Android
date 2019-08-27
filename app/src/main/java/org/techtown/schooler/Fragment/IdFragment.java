@@ -60,7 +60,6 @@ public class IdFragment extends Fragment {
         IsOverLapped_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // idCheck 매서드를 호출하면서 파라미터로 IsOverlapped 클래스의 파라미터인 editText 에 입력한 값을 전달한다.
                 idCheck(new IsOverlapped(Input_Id.getText().toString()));
             }
@@ -76,13 +75,9 @@ public class IdFragment extends Fragment {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 imm.hideSoftInputFromWindow(Input_Id.getWindowToken(), 0);
             }
         });
-
-
-
         return rootView;
     }
 

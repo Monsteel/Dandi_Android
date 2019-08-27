@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static androidx.core.content.ContextCompat.getSystemService;
+import static org.techtown.schooler.SigninUser.SignupActivity.user;
 
 
 public class SearchSchoolFragment extends Fragment {
@@ -40,6 +42,9 @@ public class SearchSchoolFragment extends Fragment {
     private ListView listView;
     EditText decideSchoolName;
     LinearLayout step2;
+    Button  Step2Finish;
+    EditText Grade;
+    EditText Class;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +55,11 @@ public class SearchSchoolFragment extends Fragment {
         Button button = rootView.findViewById(R.id.Search);
         adapter = new Adapter();
 
+        Step2Finish = rootView.findViewById(R.id.Step2Finish);
         listView = (ListView) rootView.findViewById(R.id.School_ListView);
         step2 = (LinearLayout) rootView.findViewById(R.id.Step2);
+        Grade = (EditText)rootView.findViewById(R.id.Grade);
+        Class = (EditText)rootView.findViewById(R.id.Class);
 
         listView.setAdapter(adapter);
         step2.setVisibility(View.INVISIBLE);
@@ -113,6 +121,18 @@ public class SearchSchoolFragment extends Fragment {
             }
         });
 
+        Step2Finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setSchool(decideSchoolName.getText().toString());
+                user.setSchool_class(Class.getText().toString());
+                user.setSchool_grade(Grade.getText().toString());
+                Class.setEnabled(false);
+                Grade.setEnabled(false);
+            }
+        });
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -127,7 +147,6 @@ public class SearchSchoolFragment extends Fragment {
                         if (response.body().getData() != null) {
                             decideSchoolName.setText(response.body().getData().getSchoolInfo().get(position).getSchool_name());
                             step2.setVisibility(View.VISIBLE);
-                            //세터에다가 set하는 코드짜기
                         }
                     }
                     @Override

@@ -1,6 +1,7 @@
 package org.techtown.schooler.Model;
 
 public class User {
+    private String user_name;
     private String user_id;
     private String user_pw;
     private String permission;
@@ -28,6 +29,15 @@ public class User {
 //       this.pushNotify = pushNotify;
 //       this.isPublic = isPublic;
 //    }
+
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
 
     public String getUser_id() {
         return user_id;
@@ -71,6 +81,14 @@ public class User {
 
     public String getIsPublic() {
         return isPublic;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
     }
 
     public void setUser_id(String user_id) {

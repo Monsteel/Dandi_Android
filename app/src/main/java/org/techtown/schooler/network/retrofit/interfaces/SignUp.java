@@ -28,4 +28,5 @@ public interface SignUp {
 
     @GET("school/searchschool")
     Call<Response<Data>> SearchSchoolGet(@Query("school_name") String SchoolName);
+    
 }
