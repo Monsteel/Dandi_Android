@@ -2,14 +2,12 @@ package org.techtown.schooler.SplashActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
-import org.techtown.schooler.StartMemberActivity.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler();
 
         // handler 인스턴스의 속성인 postDelayed 속성을 사용하여 splashHandler() 객체를 전달하고 있으며 딜레이 시간을 3초로 지정하고있습니다.
-        handler.postDelayed(new splashHandler(), 3000);
+        handler.postDelayed(new splashHandler(), 400);
     }
 
     // splashHandler 클래스입니다. implements 속성을 사용하여 Runnable 를 참조합니다. Runnable 속성은 run() 매서드를 필수로 필요합니다.
@@ -42,5 +40,6 @@ public class SplashActivity extends AppCompatActivity {
     // 뒤로가기 버튼을 제어해두었습니다.
     public void onBackPressed(){
 
+        }
     }
-}
+
