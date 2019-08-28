@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler();
 
         // handler 인스턴스의 속성인 postDelayed 속성을 사용하여 splashHandler() 객체를 전달하고 있으며 딜레이 시간을 3초로 지정하고있습니다.
-        handler.postDelayed(new splashHandler(), 500);
+        handler.postDelayed(new splashHandler(), 650);
     }
 
     // splashHandler 클래스입니다. implements 속성을 사용하여 Runnable 를 참조합니다. Runnable 속성은 run() 매서드를 필수로 필요합니다.
@@ -34,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
 
             // 그 후 splashActivity 화면이 종료됩니다.
             SplashActivity.this.finish();
+
+            overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
         }
     }
 
