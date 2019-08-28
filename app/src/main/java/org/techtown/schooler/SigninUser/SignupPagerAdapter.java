@@ -55,10 +55,6 @@ public class SignupPagerAdapter extends FragmentStatePagerAdapter {
                 UserFragment userFragment = new UserFragment();
                 return userFragment;
 
-            case 6:
-                EndFragment endFragment = new EndFragment();
-                return endFragment;
-
                 default:
                     return null;
         }

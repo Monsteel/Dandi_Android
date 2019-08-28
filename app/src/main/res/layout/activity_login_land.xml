@@ -28,10 +28,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="-150dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="5dp">
+
+            <CheckBox
+                android:id="@+id/check_Id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="110dp"
+                android:buttonTint="#FFFFFF"
+                android:text="아이디 저장"
+                android:textColor="#FFFFFF" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/Pw_Image"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:background="@drawable/login_button3"
+                app:srcCompat="@drawable/login_background2" />
+
+            <ImageView
+                android:id="@+id/Id_Logo"
+                android:layout_width="28dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                app:srcCompat="@drawable/login_image1" />
+
+            <ImageView
+                android:id="@+id/Id_Image"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="65dp"
@@ -39,23 +63,12 @@
                 app:srcCompat="@drawable/login_background2" />
 
             <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="250dp"
-                android:layout_height="35dp"
-                android:background="@drawable/login_button3"
-                app:srcCompat="@drawable/login_background2" />
-
-            <EditText
-                android:id="@+id/Pw_EditText"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="71dp"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="left"
-                android:inputType="textPassword"
-                android:textSize="16sp" />
+                android:id="@+id/Pw_Logo"
+                android:layout_width="28dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="72dp"
+                app:srcCompat="@drawable/login_image2" />
 
             <EditText
                 android:id="@+id/Id_EditText"
@@ -69,21 +82,17 @@
                 android:inputType="textPersonName|text|textEmailAddress"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="28dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="7dp"
-                app:srcCompat="@drawable/login_image1" />
-
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="28dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="72dp"
-                app:srcCompat="@drawable/login_image2" />
+            <EditText
+                android:id="@+id/Pw_EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="71dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:gravity="left"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
 
         </FrameLayout>
 
@@ -93,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="-35dp"
             android:layout_marginTop="150dp"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/Login_Button"

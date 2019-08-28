@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,6 +47,9 @@ public class LoginActivity extends AppCompatActivity{
 
     LinearLayout layout; // 레이아웃
 
+    CheckBox checkBox; // Id 저장 체크박스
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +63,35 @@ public class LoginActivity extends AppCompatActivity{
             setContentView(R.layout.activity_login_land);
         }
 
+        // 각각의 뷰들을 설정하고있습니다.
         Id_EditText = findViewById(R.id.Id_EditText); // ID
         Pw_EditText = findViewById(R.id.Pw_EditText); // PW
         button = findViewById(R.id.Login_Button); // Login 버튼
         textView = findViewById(R.id.join_TextView); // 회원가입 텍스트
-
         layout = findViewById(R.id.layout); // 레이아웃
+        checkBox = findViewById(R.id.check_Id); // Id 저장 체크박스
+
+
+
+            // SharedPreferences 클래스를 참조해서 sf 라는 인스턴스를 생성하였습니다.
+            SharedPreferences sf = getSharedPreferences("sFile", MODE_PRIVATE);
+
+            // Number 변수에 앞에서 저장한 Number 이름으로 설정한 값을 저장합니다.
+            // 만약 값이 없을 경우 0을 저장한다.
+            int Number = sf.getInt("Number", 0);
+
+            // Id 라는 변수에 Id 이름으로 설정한 값을 저장합니다.
+            String Id = sf.getString("Id","");
+
+            // 저장한 Number 변수의 값이 1이라면 저장한 텍스트 값을 다시 복구하고 checkBox 값도 복구한다.
+            if(Number == 1){
+
+                Id_EditText.setText(Id);
+
+                checkBox.setChecked(true);
+
+            }
+
 
         // 가상 키패드를 내리기 위한 코드이다.
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -75,6 +104,7 @@ public class LoginActivity extends AppCompatActivity{
                 imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
             }
         });
+
         // Login 버튼을 클릭 시 login() 매서드를 호출합니다.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +114,6 @@ public class LoginActivity extends AppCompatActivity{
                 login(new LoginPostRequest(Id_EditText.getText().toString(), Pw_EditText.getText().toString()));
             }
         });
-
 
         // 회원가입 버튼을 클릭 시 SignupActivity 즉 회원가입 페이지로 화면을 전환합니다.
         textView.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +126,55 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+        // 아이디 저장 체크박스를 클릭 시 사용자가 입력한 아이디를 저장하는 이벤트 입니다.
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean check) {
+
+                // Id 저장 클릭 (O)
+                if(check == true){
+
+                    // SharedPreferences 클래스를 참조해서 sharedPreferences 인스턴스를 생성합니다.
+                    // 파라미터로 sFile, MODE_PRIVATE 기본으로 설정을합니다.
+                    SharedPreferences sharedPreferences = getSharedPreferences("sFile", MODE_PRIVATE);
+
+                    // SharedPreferences 클래스를 참조해서 Editor 속성을 사용하여 editor 라는 변수를 생성하였습니다.
+                    // 앞에서 만든 sharedPreferences 인스턴스의 속성인 edit() 속성을 저장합니다.
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    // Id 변수를 생성해 Id_EditText 에서 입력한 아이디를 저장합니다.
+                    String Id = Id_EditText.getText().toString();
+
+                    // editor 변수의 속성인 putString 속성을 사용합니다.
+                    // 파라미터로 Id 라는 이름으로 Id 변수를 전달합니다.
+                    editor.putString("Id", Id);
+
+                    editor.putInt("Number", 1);
+
+                    // editor 을 최종적으로 커밋합니다.
+                    editor.commit();
+
+                }
+
+                // Id 저장 클릭 (X)
+                else if(check == false){
+
+
+                    // SharedPreferences 클래스를 참조해서 sharedPreferences 인스턴스를 생성합니다.
+                    // 파라미터로 sFile, MODE_PRIVATE 기본으로 설정을합니다.
+                    SharedPreferences sharedPreferences = getSharedPreferences("sFile", MODE_PRIVATE);
+
+                    // SharedPreferences 클래스를 참조해서 Editor 속성을 사용하여 editor 라는 변수를 생성하였습니다.
+                    // 앞에서 만든 sharedPreferences 인스턴스의 속성인 edit() 속성을 저장합니다.
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+                    // check 가 해제된다면 editor 변수에 있는 값들을 clear() 합니다.
+                    editor.clear();
+                    editor.commit();
+                }
+            }
+        });
 
     }
 
@@ -154,6 +232,8 @@ public class LoginActivity extends AppCompatActivity{
         ActivityCompat.finishAffinity(this);
     }
 
+
+    // 레이아웃 선택 시 키패드가 종료되도록 설정하는 매서드입니다.
    public void touchLayout(){
 
        imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);

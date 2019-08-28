@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         // boolean 자료형을 사용하여 first 변수를 생성 후 앞서 생성한 Login8Check 변수에 있는 값을 getBoolean 속성을 사용합니다.
         // 파라미터로 위에서 생성한 getSharedPreferences 의 name 부분이 만약 null 값이라면 first 변수를 false 로 지정합니다.
-        final boolean first = LoginCheck.getBoolean("Check", false);//첫 실행임
+        final boolean first = LoginCheck.getBoolean("Check", false); //첫 실행임
 
         // first 변수가 false 일 경우
         if(first==false){

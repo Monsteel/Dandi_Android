@@ -50,7 +50,6 @@ public class SignupActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.email));//email icon
         mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.school));//school icon
         mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.user_info));//user_info icon
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.complete));//complete icon
 
 
         // SignupPagerAdapter 클래스를 사용하여 signupPagerAdapter 클래스를 참조하여 인스턴스를 생성하고있습니다.
@@ -59,7 +58,7 @@ public class SignupActivity extends AppCompatActivity {
         // pager 속성을 사용하여 signupPagerAdapter 클래스를 전달하고있습니다.
         pager.setAdapter(signupPagerAdapter);
 
-        pager.setOffscreenPageLimit(7);//시작시, 정보다받아옴
+        pager.setOffscreenPageLimit(6);//시작시, 정보다받아옴
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

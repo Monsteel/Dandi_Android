@@ -27,7 +27,7 @@
             android:paddingTop="40dp">
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/Id_Image"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="65dp"
@@ -35,7 +35,7 @@
                 app:srcCompat="@drawable/login_background2" />
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/Pw_Image"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
                 android:background="@drawable/login_button3"
@@ -66,7 +66,7 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/imageView12"
+                android:id="@+id/Id_Logo"
                 android:layout_width="28dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="5dp"
@@ -74,7 +74,7 @@
                 app:srcCompat="@drawable/login_image1" />
 
             <ImageView
-                android:id="@+id/imageView13"
+                android:id="@+id/Pw_Logo"
                 android:layout_width="28dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="5dp"
@@ -83,6 +83,16 @@
                 />
 
         </FrameLayout>
+
+        <CheckBox
+            android:id="@+id/check_Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="75dp"
+            android:buttonTint="#FFFFFF"
+            android:text="아이디 저장"
+            android:textColor="#FFFFFF" />
 
         <FrameLayout
             android:id="@+id/FrameLayout_Button"
@@ -93,7 +103,7 @@
                 android:id="@+id/Login_Button"
                 android:layout_width="126dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="55dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/login_button"
                 android:text="LOGIN"
                 android:textColor="#FFFFFF"
