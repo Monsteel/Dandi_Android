@@ -189,11 +189,9 @@ public class LoginActivity extends AppCompatActivity{
 
 
                 if(Id_EditText.getText().toString().length() == 0 || Pw_EditText.getText().toString().length() == 0){
-
                     Toast.makeText(LoginActivity.this, "아이디 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
                     Log.d("[Login]","아이디 비밀번호를 입력해주세요");
-                }
-                else if (response.isSuccessful()) {
+                } else if (response.isSuccessful()) {
                     Integer Status = response.body().getStatus();
                     String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
@@ -201,20 +199,20 @@ public class LoginActivity extends AppCompatActivity{
                 }else{
                     try {
                         JSONObject errorBody = new JSONObject(response.errorBody().string());
-
                         Integer Error =errorBody.getInt("status");//error status value
-                        if (Error == 401 ||Error == 405) {
+                        System.out.println("s");
+
+                        if (Error == 401 || Error == 403) {
                             Response response1 = new Response();
                             response1.setStatus(errorBody.getInt("status"));
                             response1.setMessage(errorBody.getString("message"));
-                            Log.e("[Login] Status", errorBody.getString("message"));
+                            Log.e("[Login] Status", errorBody.getInt("status")+":"+errorBody.getString("message"));
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-
-
             }
 
             @Override
