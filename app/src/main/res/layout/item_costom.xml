@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_width="82dp"
+        android:layout_height="68dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/school"/>
+        android:src="@drawable/school" />
 
     <LinearLayout
         android:layout_width="match_parent"
