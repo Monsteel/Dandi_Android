@@ -60,4 +60,16 @@
         android:gravity="center"
         android:textColor="#FFFFFF" />
 
+    <TextView
+        android:id="@+id/inputText4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="160dp"
+        android:gravity="center_horizontal"
+        android:text=">>    슬라이드해서 시작하기    >>"
+        android:textColor="#11119B"
+        android:textSize="24sp" />
+
 </LinearLayout>

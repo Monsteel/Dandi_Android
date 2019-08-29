@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity{
                 // Intent 클래스를 참조해서 화면을 전환하고있습니다.
                 Intent StartSignup = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(StartSignup);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

@@ -9,11 +9,20 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/Error"
+        android:layout_width="match_parent"
+        android:layout_height="209dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="[회원가입을 진행할 수 없습니다]\n"
+        android:textColor="#FF0007" />
+
+    <TextView
         android:id="@+id/Step1NoticeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:text="이제, 마지막입니다"
         android:textColor="#FFFFFF"

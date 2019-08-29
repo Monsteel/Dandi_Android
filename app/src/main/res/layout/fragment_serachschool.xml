@@ -70,6 +70,15 @@
 
     </ListView>
 
+    <ImageView
+        android:id="@+id/ListImage"
+        android:layout_width="wrap_content"
+        android:layout_height="215dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/button_design"
+        android:src="@drawable/no_search" />
+
     <LinearLayout
         android:id="@+id/Step2"
         android:layout_width="match_parent"

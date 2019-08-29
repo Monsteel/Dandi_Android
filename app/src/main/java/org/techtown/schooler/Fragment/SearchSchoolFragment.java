@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class SearchSchoolFragment extends Fragment {
     Button  Step2Finish;
     EditText Grade;
     EditText Class;
+    ImageView ListImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,9 +59,12 @@ public class SearchSchoolFragment extends Fragment {
 
         Step2Finish = rootView.findViewById(R.id.Step2Finish);
         listView = (ListView) rootView.findViewById(R.id.School_ListView);
+        listView.setVisibility(View.GONE);
         step2 = (LinearLayout) rootView.findViewById(R.id.Step2);
         Grade = (EditText)rootView.findViewById(R.id.Grade);
         Class = (EditText)rootView.findViewById(R.id.Class);
+        ListImage = (ImageView)rootView.findViewById(R.id.ListImage);
+        ListImage.setImageResource(R.drawable.no_search);
 
         listView.setAdapter(adapter);
         step2.setVisibility(View.INVISIBLE);
@@ -109,9 +114,12 @@ public class SearchSchoolFragment extends Fragment {
                             adapter.addItem(dto);
                         }
                     }
+                    listView.setVisibility(View.VISIBLE);
+                    ListImage.setVisibility(View.GONE);
                 } else {
-                    Toast.makeText(getActivity(), "검색결과가 없습니다", Toast.LENGTH_SHORT)
-                            .show();
+                    listView.setVisibility(View.GONE);
+                    ListImage.setVisibility(View.VISIBLE);
+                    ListImage.setImageResource(R.drawable.no_school);
                 }
             }
 
@@ -124,11 +132,16 @@ public class SearchSchoolFragment extends Fragment {
         Step2Finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (Class.getText() != null || Grade.getText() != null) {
                 user.setSchool(decideSchoolName.getText().toString());
                 user.setSchool_class(Class.getText().toString());
                 user.setSchool_grade(Grade.getText().toString());
                 Class.setEnabled(false);
                 Grade.setEnabled(false);
+                }else{
+                    Toast.makeText(getActivity(),"학년/반을 입력 해 주세요",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -144,10 +157,9 @@ public class SearchSchoolFragment extends Fragment {
                     public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                         Log.d("Retrofit", response.toString());
 
-                        if (response.body().getData() != null) {
                             decideSchoolName.setText(response.body().getData().getSchoolInfo().get(position).getSchool_name());
                             step2.setVisibility(View.VISIBLE);
-                        }
+
                     }
                     @Override
                     public void onFailure(Call<Response<Data>> call, Throwable t) {
