@@ -133,7 +133,7 @@ public class SearchSchoolFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (Class.getText() != null || Grade.getText() != null) {
+                if (Class.getText().toString().length() != 0 && Grade.getText().toString().length() != 0) {
                 user.setSchool(decideSchoolName.getText().toString());
                 user.setSchool_class(Class.getText().toString());
                 user.setSchool_grade(Grade.getText().toString());
