@@ -139,6 +139,7 @@ public class SearchSchoolFragment extends Fragment {
                 user.setSchool_grade(Grade.getText().toString());
                 Class.setEnabled(false);
                 Grade.setEnabled(false);
+                Step2Finish.setEnabled(false);
                 }else{
                     Toast.makeText(getActivity(),"학년/반을 입력 해 주세요",Toast.LENGTH_SHORT).show();
                 }
