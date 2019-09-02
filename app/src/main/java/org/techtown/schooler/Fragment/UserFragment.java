@@ -41,10 +41,6 @@ public class UserFragment extends Fragment {
     String isPublicChecked = "0";
     String isPushNotifyChecked = "0";
 
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

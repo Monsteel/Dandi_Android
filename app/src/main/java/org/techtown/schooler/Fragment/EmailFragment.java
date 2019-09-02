@@ -98,8 +98,6 @@ public class EmailFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-
-
                 String inputAuthCodeSaver = inputAuthCode.getText().toString()+"";
                 if(AuthCode.equals(inputAuthCodeSaver)){
 

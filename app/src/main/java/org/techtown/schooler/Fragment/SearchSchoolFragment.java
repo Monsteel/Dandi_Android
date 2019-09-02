@@ -150,7 +150,7 @@ public class SearchSchoolFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick (AdapterView< ? > parent, View view, final int position, long id){
+            public void onItemClick (AdapterView< ? > parent, View view, final int position, long id) {
                 String SearchSchool = (SearchSchoolName.getText().toString());
                 final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().SearchSchoolGet(SearchSchool);
                 res.enqueue(new Callback<Response<Data>>() {
@@ -158,16 +158,19 @@ public class SearchSchoolFragment extends Fragment {
                     public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                         Log.d("Retrofit", response.toString());
 
-                            decideSchoolName.setText(response.body().getData().getSchoolInfo().get(position).getSchool_name());
-                            step2.setVisibility(View.VISIBLE);
+                        decideSchoolName.setText(response.body().getData().getSchoolInfo().get(position).getSchool_name());
+                        step2.setVisibility(View.VISIBLE);
 
                     }
+
                     @Override
                     public void onFailure(Call<Response<Data>> call, Throwable t) {
                         Log.e("Err", "네트워크 연결오류");
                     }
                 });
+
             }
+
         });
 
     }
