@@ -15,12 +15,21 @@ public class Data {
 
     private String authCode;
 
+    private Integer classCount;
+
     // IsOverlapped (true, false 를 확인하는 것이다.)
     // true 면 중복 false 면 중복 X
     private Boolean isOverlapped;
 
     private List<SchoolInformations> schoolInfo;
 
+    public Integer getClassCount() {
+        return classCount;
+    }
+
+    public void setClassCount(Integer classCount) {
+        this.classCount = classCount;
+    }
 
     public List<SchoolInformations> getSchoolInfo() {
         return schoolInfo;

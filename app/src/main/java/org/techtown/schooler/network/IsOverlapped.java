@@ -4,7 +4,6 @@ public class IsOverlapped {
 
     private String user_id;
 
-
     public IsOverlapped(String user_id) {
         this.user_id = user_id;
     }

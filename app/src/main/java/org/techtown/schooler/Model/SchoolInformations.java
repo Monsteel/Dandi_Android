@@ -6,14 +6,14 @@ public class SchoolInformations {
     private String school_locate;
     private String office_code;
     private String school_code;
-    private String school_kind;
+    private String school_type;
 
-    public SchoolInformations(String school_name, String school_locate, String office_code,String school_code,String school_kind) {
+    public SchoolInformations(String school_name, String school_locate, String office_code,String school_code,String school_type) {
         this.school_name = school_name;
         this.school_locate = school_locate;
         this.office_code = office_code;
         this.school_code = school_code;
-        this.school_kind = school_kind;
+        this.school_type = school_type;
     }
 
     public String getOffice_code() {
@@ -24,8 +24,8 @@ public class SchoolInformations {
         return school_code;
     }
 
-    public String getSchool_kind() {
-        return school_kind;
+    public String getSchool_type() {
+        return school_type;
     }
 
     public String getSchool_name() {
@@ -52,7 +52,7 @@ public class SchoolInformations {
         this.school_name = school_name;
     }
 
-    public void setSchool_kind(String school_kind) {
-        this.school_kind = school_kind;
+    public void setSchool_type(String school_type) {
+        this.school_type = school_type;
     }
 }

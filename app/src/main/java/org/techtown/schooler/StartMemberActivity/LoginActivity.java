@@ -23,8 +23,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.techtown.schooler.R;
-//import org.techtown.schooler.SignUpViewPager.Activity.SignupActivity;
-import org.techtown.schooler.SigninUser.SignupActivity;
+import org.techtown.schooler.Signup.SignupOneActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
@@ -121,7 +120,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View view) {
 
                 // Intent 클래스를 참조해서 화면을 전환하고있습니다.
-                Intent StartSignup = new Intent(LoginActivity.this, SignupActivity.class);
+                Intent StartSignup = new Intent(LoginActivity.this, SignupOneActivity.class);
                 startActivity(StartSignup);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -226,7 +225,6 @@ public class LoginActivity extends AppCompatActivity{
     // onBackPresses() 매서드를 사용하여 뒤로가기 버튼을 방지합니다.
     @Override
     public void onBackPressed(){
-
         // 뒤로가기 버튼을 클릭 시 앱이 종료된다.
         ActivityCompat.finishAffinity(this);
     }
@@ -234,7 +232,6 @@ public class LoginActivity extends AppCompatActivity{
 
     // 레이아웃 선택 시 키패드가 종료되도록 설정하는 매서드입니다.
    public void touchLayout(){
-
        imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
 
        imm.hideSoftInputFromWindow(Pw_EditText.getWindowToken(), 0);

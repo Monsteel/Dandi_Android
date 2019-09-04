@@ -9,7 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FinishSignUp"></activity>
+        <activity android:name=".Signup.FinishSignup"></activity>
+        <activity android:name=".Signup.PhoneNumberActivity" />
+        <activity android:name=".Signup.NotifyActivity" />
+        <activity android:name=".Signup.PasswordActivity" />
+        <activity android:name=".Signup.ClassActivity" />
+        <activity android:name=".Signup.SchoolActivity" />
+        <activity android:name=".Signup.IdActivity" />
+        <activity android:name=".Signup.EmailActivity" />
+        <activity
+            android:name=".Signup.SignupOneActivity"
+            android:parentActivityName=".StartMemberActivity.LoginActivity" />
         <activity android:name=".SplashActivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,11 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SigninUser.SignupActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".StartMemberActivity.LoginActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
