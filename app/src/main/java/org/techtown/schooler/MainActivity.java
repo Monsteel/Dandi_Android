@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.techtown.schooler.NavigationFragment.AccountFragment;
 import org.techtown.schooler.NavigationFragment.ChannelFragment;
+import org.techtown.schooler.NavigationFragment.LogoutFragment;
 import org.techtown.schooler.NavigationFragment.Ready2Fragment;
 import org.techtown.schooler.NavigationFragment.ReadyFragment;
 import org.techtown.schooler.NavigationFragment.SettingFragment;
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment account; // 계정 Fragment
         Fragment setting; // 설정 Fragment
         Fragment ready2; // 준비중2 Fragment
+        Fragment logout;
 
 
         button.setVisibility(View.GONE);
@@ -226,6 +228,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.logout:
 
+                logout = new LogoutFragment();
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.layout, logout).commit();
                 LogoutMessage();
         }
 
