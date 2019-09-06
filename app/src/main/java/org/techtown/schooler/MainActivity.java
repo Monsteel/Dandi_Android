@@ -205,10 +205,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             // 준비중 채널
             case R.id.main:
-                
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
 
+                    MainActivity.this.finish();
                     overridePendingTransition(R.anim.loadfadein2, R.anim.loadfadeout);
 
                 break;
