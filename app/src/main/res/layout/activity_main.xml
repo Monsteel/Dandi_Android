@@ -11,9 +11,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff">
+        android:background="#fff"
+        android:id="@+id/layout">
 
-        <include layout="@layout/main_content" />
+        <include
+            layout="@layout/main_content"/>
 
 
     </RelativeLayout>

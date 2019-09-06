@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="TEST1">
+    <item android:title="Channel">
     <menu>
         <item
-                android:id="@+id/account"
-                android:icon="@drawable/ic_account_circle_black_24dp"
-                android:title="계정"
+                android:id="@+id/channel"
+                android:icon="@drawable/ic_date_range_black_24dp"
+                android:title="채널"
         />
         <item
-                android:id="@+id/star"
-                android:icon="@drawable/ic_star_black_24dp"
-                android:title="즐겨찾기"
+                android:id="@+id/main"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="메인화면"
         />
         <item
-                android:id="@+id/cart"
-                android:icon="@drawable/ic_shopping_cart_black_24dp"
-                android:title="장바구니"
+                android:id="@+id/ready2"
+                android:icon="@drawable/ic_warning_black_24dp"
+                android:title="준비중"
         />
     </menu>
 
     </item>
 
-    <item android:title="TEST2">
+    <item android:title="User">
 
     <menu>
         <item
-                android:id="@+id/bug_report"
-                android:icon="@drawable/ic_bug_report_black_24dp"
-                android:title="버그 리포트"
-        />
+            android:id="@+id/account"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="계정"
+            />
         <item
                 android:id="@+id/setting"
                 android:icon="@drawable/ic_settings_black_24dp"
@@ -37,7 +37,7 @@
         />
         <item
                 android:id="@+id/logout"
-                android:icon="@drawable/ic_exit_to_app_white_24dp"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="로그아웃"
         />
 
