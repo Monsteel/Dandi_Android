@@ -7,6 +7,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,11 +17,13 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,7 @@ import org.techtown.schooler.NavigationFragment.LogoutFragment;
 import org.techtown.schooler.NavigationFragment.Ready2Fragment;
 import org.techtown.schooler.NavigationFragment.ReadyFragment;
 import org.techtown.schooler.NavigationFragment.SettingFragment;
+import org.techtown.schooler.SplashActivity.SplashActivity;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 
 import java.text.SimpleDateFormat;
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // CountDownTimer 클래스 _timer 변수
     private CountDownTimer _timer;
 
+    public static int check = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -189,49 +195,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             // channel 채널
             case R.id.channel:
+
                 channel = new ChannelFragment();
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout, channel).commit();
+
+                check = 1;
                 break;
 
             // 준비중 채널
             case R.id.main:
+                
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
 
+                    overridePendingTransition(R.anim.loadfadein2, R.anim.loadfadeout);
 
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
                 break;
 
             // 준비중2 채널
             case R.id.ready2:
                 ready2 = new Ready2Fragment();
-
+                check = 1;
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout, ready2).commit();
+
                 break;
 
             // account 계정
             case R.id.account:
                 account = new AccountFragment();
-
+                check = 1;
                 // MainActivity 의 layout 에 account 프레그먼트를 띄워줍니다.
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout, account).commit();
+
                 break;
 
             // setting 설정
             case R.id.setting:
 
                 setting = new SettingFragment();
-
+                check = 1;
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout, setting).commit();
+
                 break;
 
             case R.id.logout:
 
                 logout = new LogoutFragment();
-
+                check = 1;
                 getSupportFragmentManager().beginTransaction().replace(R.id.layout, logout).commit();
+
                 LogoutMessage();
+
+
         }
 
         // NavigationView 중 아이템을 선택 시 drawerLayout 이 종료됩니다.
