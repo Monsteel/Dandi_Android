@@ -15,5 +15,12 @@
     </style>
 
 
+    <style name="ActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+
 
 </resources>

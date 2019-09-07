@@ -8,14 +8,20 @@
     tools:openDrawer="start"
     android:id="@+id/drawerLayout">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/layout">
 
-        <include
-            layout="@layout/main_content"/>
-
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            android:background="@android:color/transparent"
+            android:elevation="4dp"
+            android:theme="@style/ActionBarTheme"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     </RelativeLayout>
 
@@ -24,9 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#F2F2F2"
+        android:visibility="visible"
         app:headerLayout="@layout/main_nav_header"
-        app:menu="@menu/main_navigation_menu"
-        android:background="#F2F2F2"/>
+        app:menu="@menu/main_navigation_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 
