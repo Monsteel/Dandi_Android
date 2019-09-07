@@ -42,6 +42,9 @@ public class PasswordActivity extends AppCompatActivity {
         GotoEmail.setEnabled(false);
         GotoEmail.setTextColor(Color.parseColor("#FF5C5C5C"));
 
+        NoticePassword.setText("");
+        NoticeCheckPassword.setText("");
+
         InputPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -118,8 +121,6 @@ public class PasswordActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean hasFocus) {
                 if(hasFocus){
                     InputCheckPassword.setText("");
-                    NoticePassword.setText("");
-                    NoticeCheckPassword.setText("");
                 }else{
 
                 }
@@ -131,9 +132,9 @@ public class PasswordActivity extends AppCompatActivity {
             public void onFocusChange(View view, boolean hasFocus) {
                 if(hasFocus){
                     InputPassword.setText("");
+                    InputCheckPassword.setText("");
                     NoticePassword.setText("");
                     NoticeCheckPassword.setText("");
-                    InputCheckPassword.setText("");
                 }else {
                 }
             }

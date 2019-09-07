@@ -15,15 +15,15 @@ import retrofit2.http.Query;
 public interface SignUp {
 
     // User 사용자 정보를 전달
-    @POST("auth/signup")
+    @POST("/auth/sign-up")
     Call<Response<Data>> signupPost(@Body User user);
 
     // Id 중복 체크를 확인
-    @POST("auth/signup/isoverlapped")
+    @POST("/auth/sign-up/is-overlapped")
     Call<Response<Data>> isoverlapped(@Body IsOverlapped id);
 
 
-    @POST("auth/signup/sendemail")
+    @POST("/auth/sign-up/email")
     Call<Response<Data>> eamilPost(@Body Email email);
 
     @GET("school/searchschool")
