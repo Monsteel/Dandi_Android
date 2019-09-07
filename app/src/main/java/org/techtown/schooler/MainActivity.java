@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // toolbar 를 사용할 수 있도록 설정합니다.
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         // 제목을 보이지 않도록 합니다.
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -250,10 +252,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()){
 
-            case R.id.more:
-
+            case android.R.id.home:
                 drawerLayout.openDrawer(navigationView);
                 return true;
+
+
         }
 
         return super.onOptionsItemSelected(item);
