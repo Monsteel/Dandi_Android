@@ -31,7 +31,7 @@ import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.Signup.SignupOneActivity;
 import org.techtown.schooler.network.Data;
-import org.techtown.schooler.network.LoginPostRequest;
+import org.techtown.schooler.Model.LoginPostRequest;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 

@@ -1,24 +1,13 @@
 package org.techtown.schooler.NavigationFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import org.techtown.schooler.MainActivity;
-import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
-import org.techtown.schooler.network.Api.Data;
-import org.techtown.schooler.network.Api.NetRetrofit;
-import org.techtown.schooler.network.response.Response;
-import org.techtown.schooler.network.retrofit.interfaces.Channel;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class ChannelFragment extends Fragment {
 

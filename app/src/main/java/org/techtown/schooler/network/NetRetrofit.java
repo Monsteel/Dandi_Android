@@ -1,4 +1,4 @@
-package org.techtown.schooler.network.Api;
+package org.techtown.schooler.network;
 
 import org.techtown.schooler.network.retrofit.interfaces.Login;
 import org.techtown.schooler.network.retrofit.interfaces.SignUp;

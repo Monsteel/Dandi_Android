@@ -15,9 +15,9 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.schooler.R;
-import org.techtown.schooler.network.Api.Data;
+import org.techtown.schooler.network.Data;
 import org.techtown.schooler.Model.IsOverlapped;
-import org.techtown.schooler.network.Api.NetRetrofit;
+import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 import java.io.IOException;

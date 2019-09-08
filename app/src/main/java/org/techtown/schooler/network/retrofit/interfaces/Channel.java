@@ -1,6 +1,6 @@
 package org.techtown.schooler.network.retrofit.interfaces;
 
-import org.techtown.schooler.network.Api.Data;
+import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.response.Response;
 
 import retrofit2.Call;

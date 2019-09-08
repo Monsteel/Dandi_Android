@@ -1,4 +1,4 @@
-package org.techtown.schooler.network.Api;
+package org.techtown.schooler.network;
 
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.JoinedChannelInfo;

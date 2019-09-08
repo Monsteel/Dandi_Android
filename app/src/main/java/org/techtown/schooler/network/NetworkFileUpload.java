@@ -1,4 +1,4 @@
-package org.techtown.schooler.network.Api;
+package org.techtown.schooler.network;
 
 import android.os.AsyncTask;
 import android.util.Log;
