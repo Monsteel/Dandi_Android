@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.w3c.dom.Text;
@@ -85,7 +86,17 @@ public class SignupOneActivity extends AppCompatActivity {
     }
 
     public void toGoBack(View view){
-        onBackPressed();
+
+        Intent intent = new Intent(SignupOneActivity.this, LoginActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(SignupOneActivity.this, LoginActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

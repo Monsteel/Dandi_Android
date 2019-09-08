@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +21,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import org.json.JSONObject;
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.Signup.SignupOneActivity;
 import org.techtown.schooler.network.Data;
@@ -48,6 +54,10 @@ public class LoginActivity extends AppCompatActivity{
 
     CheckBox checkBox; // Id 저장 체크박스
 
+    VideoView videoView; // VideoView
+
+    public static int number = 0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -55,12 +65,6 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 사용자가 화면을 세로로 할 시 activity_login 화면이 출력이 되고 반면에 가로로 할 시 activity_login_land 화면이 출력됩니다.
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            setContentView(R.layout.activity_login);
-        } else {
-            setContentView(R.layout.activity_login_land);
-        }
 
         // 각각의 뷰들을 설정하고있습니다.
         Id_EditText = findViewById(R.id.Id_EditText); // ID
@@ -69,6 +73,20 @@ public class LoginActivity extends AppCompatActivity{
         textView = findViewById(R.id.join_TextView); // 회원가입 텍스트
         layout = findViewById(R.id.layout); // 레이아웃
         checkBox = findViewById(R.id.check_Id); // Id 저장 체크박스
+        videoView = findViewById(R.id.videoView); // VideoView
+
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.test);
+
+        videoView.setVideoURI(uri);
+        videoView.start();
+
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
 
 
 
@@ -96,7 +114,7 @@ public class LoginActivity extends AppCompatActivity{
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         // 레이아웃을 클릭 시 가상 키패드를 내린다.
-        layout.setOnClickListener(new View.OnClickListener() {
+       layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -187,7 +205,6 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-
                 if(Id_EditText.getText().toString().length() == 0 || Pw_EditText.getText().toString().length() == 0){
                     Toast.makeText(LoginActivity.this, "아이디 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
                     Log.d("[Login]","아이디 비밀번호를 입력해주세요");
@@ -195,6 +212,18 @@ public class LoginActivity extends AppCompatActivity{
                     Integer Status = response.body().getStatus();
                     String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("LoginCheck", MODE_PRIVATE);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    editor.putBoolean("check", true);
+
+                    editor.commit();
+
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                     Log.d("[Login] Status", Status + ":" + Message);
                 }else{
                     try {

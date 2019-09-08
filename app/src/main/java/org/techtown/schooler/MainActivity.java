@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,6 +48,8 @@ import org.techtown.schooler.StartMemberActivity.LoginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static org.techtown.schooler.StartMemberActivity.LoginActivity.number;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -86,19 +90,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        SharedPreferences LoginCheck = getSharedPreferences("Check", MODE_PRIVATE);
+        SharedPreferences LoginCheck = getSharedPreferences("LoginCheck", MODE_PRIVATE);
 
-        final boolean first = LoginCheck.getBoolean("Check", false); //첫 실행임
+        final boolean first = LoginCheck.getBoolean("check", false); //첫 실행임
 
-//        if(first==false){
-//            // Intent 클래스를 사용해서 LoginActivity 화면으로 전환을 합니다.
-//            Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
-//            startActivity(StatLogin);
-//            Log.d("[LoginCheck]", "로그인 X");
-//
-//        }else{
-//            Log.d("[LoginCheck] ", "로그인 O");
-//        }
+        if(first==false){
+            // Intent 클래스를 사용해서 LoginActivity 화면으로 전환을 합니다.
+            Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(StatLogin);
+            Log.d("[LoginCheck]", "로그인 X");
+
+        }else{
+            Log.d("[LoginCheck] ", "로그인 O");
+        }
 
 
         // profile 즉 프로필 사진을 둥글게 만들어줍니다.
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // 그냥 뒤로 닫으면 앱을 종료한다.
         else {
-            super.onBackPressed();
+            ActivityCompat.finishAffinity(this);
         }
 
     }

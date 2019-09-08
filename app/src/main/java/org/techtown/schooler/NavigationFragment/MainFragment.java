@@ -55,7 +55,6 @@ public class MainFragment extends Fragment  {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_main, container, false);
 
-        button = rootView.findViewById(R.id.btn);
         textView = rootView.findViewById(R.id.textView);
         textView2 = rootView.findViewById(R.id.textView2);
 
