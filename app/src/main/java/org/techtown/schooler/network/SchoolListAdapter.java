@@ -1,5 +1,6 @@
 package org.techtown.schooler.network;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,21 @@ public class SchoolListAdapter extends BaseAdapter {
     // ListView에 보여질 Item 수
     @Override
     public int getCount() {
+        Log.e("getCount",listCustom.size()+"");
         return listCustom.size();
     }
 
     // 하나의 Item(ImageView 1, TextView 2)
     @Override
     public Object getItem(int position) {
+        Log.e("getItem",position+".");
         return listCustom.get(position);
     }
 
     // Item의 id : Item을 구별하기 위한 것으로 position 사용
     @Override
     public long getItemId(int position) {
+        Log.e("getItemId",position+".");
         return position;
     }
 
@@ -38,6 +42,7 @@ public class SchoolListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CustomViewHolder holder;
+        Log.e("getView",".");
         if (convertView == null) {
 
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_costom, null, false);
@@ -64,9 +69,11 @@ public class SchoolListAdapter extends BaseAdapter {
     }
     public void addItem(SchoolList dto) {
         listCustom.add(dto);
+        Log.e("addItem",".");
         notifyDataSetChanged();
     }
     public void clear() {
+        Log.e("clear",".");
         listCustom.clear();
     }
 }

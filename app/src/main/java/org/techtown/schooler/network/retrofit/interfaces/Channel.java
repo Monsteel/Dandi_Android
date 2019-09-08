@@ -9,14 +9,15 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Channel {
     @GET("/channel")
     Call<Response<Data>> getChannel(@Header("Token")String token);
 
     @GET("/channel/search")
-    Call<Response<Data>> SearchShannel(@Header("Token")String token,
-                                       @Body String channel_name);
+    Call<Response<Data>> SearchChannel(@Header("Token")String token,
+                                       @Query("channel_name") String channel_name);
 
     @POST("channel/add")
     Call<Response<Data>> AddChannel(@Header("Token")String token,

@@ -28,8 +28,6 @@ public class Data {
 
     private List<ChannelInfo> channels;//채널인포
 
-    private List<ChannelInfo> channelInfo;
-
     private List<JoinedChannelInfo> joinedChannel;
 
     public List<ChannelInfo> getChannels() {
@@ -46,14 +44,6 @@ public class Data {
 
     public void setChannels(List<ChannelInfo> channels) {
         this.channels = channels;
-    }
-
-    public List<ChannelInfo> getChannelInfo() {
-        return channels;
-    }
-
-    public void setChannelInfo(List<ChannelInfo> channelInfo) {
-        this.channels = channelInfo;
     }
 
     public Integer getClassCount() {

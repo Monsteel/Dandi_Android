@@ -61,8 +61,6 @@ public class SchoolActivity extends AppCompatActivity {
 
     private void onSearch() {
         String SearchSchool = (SearchSchoolName.getText().toString());
-        SearchSchool = SearchSchool.replaceAll(" ", "");
-
         final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().SearchSchoolGet(SearchSchool);
         res.enqueue(new Callback<Response<Data>>() {
             @Override
@@ -87,7 +85,6 @@ public class SchoolActivity extends AppCompatActivity {
 
                             dto.setTitle(titles[A]);
                             dto.setContent(contents[A]);
-
                             adapter.addItem(dto);
                         }
                     }
