@@ -1,4 +1,4 @@
-package org.techtown.schooler.network;
+package org.techtown.schooler.Model;
 
 public class IsOverlapped {
 

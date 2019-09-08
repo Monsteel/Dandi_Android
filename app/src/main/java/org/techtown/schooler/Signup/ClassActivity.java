@@ -8,12 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.techtown.schooler.DTO;
 import org.techtown.schooler.R;
-import org.techtown.schooler.network.Data;
-import org.techtown.schooler.network.NetRetrofit;
+import org.techtown.schooler.network.Api.Data;
+import org.techtown.schooler.network.Api.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 import retrofit2.Call;

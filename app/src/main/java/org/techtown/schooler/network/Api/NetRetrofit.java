@@ -1,7 +1,8 @@
-package org.techtown.schooler.network;
+package org.techtown.schooler.network.Api;
 
 import org.techtown.schooler.network.retrofit.interfaces.Login;
 import org.techtown.schooler.network.retrofit.interfaces.SignUp;
+import org.techtown.schooler.network.retrofit.interfaces.Channel;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -36,6 +37,9 @@ public class NetRetrofit {
         return Signup;
     }
     //로그인 인터페이스 등록
+
+    Channel Channel = retrofit.create(Channel.class);
+    public Channel getChannel() {return Channel;}
 
 }
 

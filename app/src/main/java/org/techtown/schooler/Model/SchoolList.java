@@ -1,6 +1,6 @@
-package org.techtown.schooler;
+package org.techtown.schooler.Model;
 
-public class DTO {
+public class SchoolList {
     private String title;
     private String content;
 

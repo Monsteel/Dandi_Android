@@ -1,7 +1,10 @@
-package org.techtown.schooler.network;
+package org.techtown.schooler.network.Api;
 
+import org.techtown.schooler.Model.ChannelInfo;
+import org.techtown.schooler.Model.JoinedChannelInfo;
 import org.techtown.schooler.Model.SchoolInformations;
 import org.techtown.schooler.Model.User;
+import org.techtown.schooler.network.retrofit.interfaces.Channel;
 
 import java.util.List;
 
@@ -22,6 +25,36 @@ public class Data {
     private Boolean isOverlapped;
 
     private List<SchoolInformations> schoolInfo;
+
+    private List<ChannelInfo> channels;//채널인포
+
+    private List<ChannelInfo> channelInfo;
+
+    private List<JoinedChannelInfo> joinedChannel;
+
+    public List<ChannelInfo> getChannels() {
+        return channels;
+    }
+
+    public List<JoinedChannelInfo> getJoinedChannel() {
+        return joinedChannel;
+    }
+
+    public void setJoinedChannel(List<JoinedChannelInfo> joinedChannel) {
+        this.joinedChannel = joinedChannel;
+    }
+
+    public void setChannels(List<ChannelInfo> channels) {
+        this.channels = channels;
+    }
+
+    public List<ChannelInfo> getChannelInfo() {
+        return channels;
+    }
+
+    public void setChannelInfo(List<ChannelInfo> channelInfo) {
+        this.channels = channelInfo;
+    }
 
     public Integer getClassCount() {
         return classCount;

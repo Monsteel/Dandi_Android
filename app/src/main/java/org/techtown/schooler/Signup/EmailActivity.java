@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -15,17 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.techtown.schooler.R;
-import org.techtown.schooler.network.Data;
-import org.techtown.schooler.network.Email;
-import org.techtown.schooler.network.NetRetrofit;
+import org.techtown.schooler.network.Api.Data;
+import org.techtown.schooler.Model.Email;
+import org.techtown.schooler.network.Api.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
-import org.w3c.dom.Text;
-
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;

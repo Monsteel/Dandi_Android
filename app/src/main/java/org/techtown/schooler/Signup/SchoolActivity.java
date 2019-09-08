@@ -11,22 +11,20 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.techtown.schooler.Adapter;
-import org.techtown.schooler.DTO;
+import org.techtown.schooler.network.SchoolListAdapter;
+import org.techtown.schooler.Model.SchoolList;
 import org.techtown.schooler.R;
-import org.techtown.schooler.network.Data;
-import org.techtown.schooler.network.NetRetrofit;
+import org.techtown.schooler.network.Api.Data;
+import org.techtown.schooler.network.Api.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class SchoolActivity extends AppCompatActivity {
 
-    private Adapter adapter;
+    private SchoolListAdapter adapter;
     TextView Search;
     EditText SearchSchoolName;
     private ListView listView;
@@ -40,7 +38,7 @@ public class SchoolActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new Adapter();
+        adapter = new SchoolListAdapter();
         setContentView(R.layout.activity_school);
         Search = (TextView)findViewById(R.id.Search);
         listView = (ListView) findViewById(R.id.School_ListView);
@@ -80,7 +78,7 @@ public class SchoolActivity extends AppCompatActivity {
                     if (response.body().getData() != null) {
                         adapter.clear();
                         for (int A = 0; A < response.body().getData().getSchoolInfo().size(); A++) {
-                            DTO dto = new DTO();
+                            SchoolList dto = new SchoolList();
                             SchoolName = response.body().getData().getSchoolInfo().get(A).getSchool_name();
                             SchoolLocal = response.body().getData().getSchoolInfo().get(A).getSchool_locate();
 

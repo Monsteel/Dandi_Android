@@ -1,4 +1,4 @@
-package org.techtown.schooler;
+package org.techtown.schooler.network;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +7,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.techtown.schooler.R;
+import org.techtown.schooler.Model.SchoolList;
+
 import java.util.ArrayList;
 
-@SuppressWarnings({"ALL", "SyntaxError"})
-public class Adapter extends BaseAdapter {
+public class SchoolListAdapter extends BaseAdapter {
 
-    private ArrayList<DTO> listCustom = new ArrayList<>();
+    private ArrayList<SchoolList> listCustom = new ArrayList<>();
 
     // ListView에 보여질 Item 수
     @Override
@@ -48,7 +50,7 @@ public class Adapter extends BaseAdapter {
             holder = (CustomViewHolder) convertView.getTag();
         }
 
-        DTO dto = listCustom.get(position);
+        SchoolList dto = listCustom.get(position);
 
         holder.textTitle.setText(dto.getTitle());
         holder.textContent.setText(dto.getContent());
@@ -60,7 +62,7 @@ public class Adapter extends BaseAdapter {
         TextView textTitle;
         TextView textContent;
     }
-    public void addItem(DTO dto) {
+    public void addItem(SchoolList dto) {
         listCustom.add(dto);
         notifyDataSetChanged();
     }
