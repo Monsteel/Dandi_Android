@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".NavigationFragment.AccountFragment">
 
-    <ListView
-        android:id="@+id/Channel_ListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ChannelRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_channel"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -1,10 +1,8 @@
 package org.techtown.schooler.network;
 
-import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.JoinedChannelInfo;
 import org.techtown.schooler.Model.SchoolInformations;
 import org.techtown.schooler.Model.User;
-import org.techtown.schooler.network.retrofit.interfaces.Channel;
 
 import java.util.List;
 

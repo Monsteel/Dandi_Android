@@ -4,7 +4,16 @@ import android.widget.Switch;
 
 public class ChannelInfo {
     private String name;
+    private String explain;
     private String create_user;
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public void setExplain(String explain) {
+        this.explain = explain;
+    }
 
     public String get_Name() {
         return name;
