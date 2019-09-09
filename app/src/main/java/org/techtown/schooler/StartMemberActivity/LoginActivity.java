@@ -224,12 +224,16 @@ public class LoginActivity extends AppCompatActivity{
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+
+                    overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
                     Log.d("[Login] Status", Status + ":" + Message);
                 }else{
                     try {
                         JSONObject errorBody = new JSONObject(response.errorBody().string());
                         Integer Error =errorBody.getInt("status");//error status value
-                        System.out.println("s");
+
+                        Toast.makeText(LoginActivity.this, "아이디 비번이 틀립니다.", Toast.LENGTH_SHORT).show();
+
 
                         if (Error == 401 || Error == 403) {
                             Response response1 = new Response();
@@ -266,5 +270,13 @@ public class LoginActivity extends AppCompatActivity{
        imm.hideSoftInputFromWindow(Pw_EditText.getWindowToken(), 0);
    }
 
+
+   // 화면이 종료되고 다시 시작이 되어도 영상이 시작되게합니다.
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        videoView.start();
+    }
 }
 
