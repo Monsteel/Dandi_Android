@@ -1,5 +1,7 @@
 package org.techtown.schooler.network;
 
+import org.techtown.schooler.Model.ChannelEvents;
+import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.JoinedChannelInfo;
 import org.techtown.schooler.Model.SchoolInformations;
 import org.techtown.schooler.Model.User;
@@ -27,6 +29,16 @@ public class Data {
     private List<ChannelInfo> channels;//채널인포
 
     private List<JoinedChannelInfo> joinedChannel;
+
+    private List<ChannelEvents> events;
+
+    public List<ChannelEvents> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<ChannelEvents> events) {
+        this.events = events;
+    }
 
     public List<ChannelInfo> getChannels() {
         return channels;

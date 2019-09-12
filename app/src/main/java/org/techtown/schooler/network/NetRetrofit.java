@@ -1,6 +1,9 @@
 package org.techtown.schooler.network;
 
+import org.techtown.schooler.Model.SchoolList;
+import org.techtown.schooler.network.retrofit.interfaces.ChannelEvent;
 import org.techtown.schooler.network.retrofit.interfaces.Login;
+import org.techtown.schooler.network.retrofit.interfaces.SchoolEvent;
 import org.techtown.schooler.network.retrofit.interfaces.SignUp;
 import org.techtown.schooler.network.retrofit.interfaces.Channel;
 
@@ -19,7 +22,7 @@ public class NetRetrofit {
 
     Retrofit retrofit = new Retrofit.Builder()
 //            .baseUrl("http://10.80.162.124:5000")//BIND Server
-            .baseUrl("http://10.80.162.191:5000")//BIND Server
+            .baseUrl("http://bind4th.kro.kr:3000")
 //            .baseUrl("http://162.168.1.13:5000")
 //            .baseUrl("http://bind4th.kro.kr:3000")//TeamViewer Server
             .addConverterFactory(GsonConverterFactory.create()) // 파싱등록
@@ -43,5 +46,16 @@ public class NetRetrofit {
     Channel Channel = retrofit.create(Channel.class);
     public Channel getChannel() {return Channel;}
 
+    ChannelEvent channelEvent = retrofit.create(ChannelEvent.class);
+
+    public ChannelEvent getChannelEvent() {
+        return channelEvent;
+    }
+
+    SchoolEvent schoolEvent = retrofit.create(SchoolEvent.class);
+
+    public SchoolEvent getSchoolEvent() {
+        return schoolEvent;
+    }
 }
 
