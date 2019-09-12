@@ -3,7 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:addroid="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".NavigationFragment.AccountFragment">
+
+    <TextView
+        android:id="@+id/view27"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center"
+        android:text="채널"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ChannelRecyclerView"

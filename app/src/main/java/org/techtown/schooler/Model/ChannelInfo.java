@@ -1,34 +1,58 @@
 package org.techtown.schooler.Model;
 
-import android.widget.Switch;
-
 public class ChannelInfo {
     private String name;
     private String explain;
     private String create_user;
+    private String thumbnail;
+    private String isPublic;
 
-    public String getExplain() {
-        return explain;
+
+    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic) {
+        this.name = name;
+        this.explain = explain;
+        this.create_user = create_user;
+        this.thumbnail = thumbnail;
+        this.isPublic = isPublic;
+    }
+
+    public String getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(String isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setExplain(String explain) {
         this.explain = explain;
     }
 
-    public String get_Name() {
+    public void setCreate_user(String create_user) {
+        this.create_user = create_user;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getName() {
         return name;
+    }
+
+    public String getExplain() {
+        return explain;
     }
 
     public String getCreate_user() {
         return create_user;
     }
 
-    public void set_Name(String name) {
-        this.name = name;
+    public String getThumbnail() {
+        return thumbnail;
     }
-
-    public void setCreate_user(String create_user) {
-        this.create_user = create_user;
-    }
-
 }
