@@ -213,15 +213,10 @@ public class LoginActivity extends AppCompatActivity{
                     String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("LoginCheck", MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    editor.putBoolean("check", true);
-
-                    editor.commit();
-
-
+                    sharedPreferences.getBoolean("check", true);
+                    sharedPreferences.getString("token",response.body().getData().getToken());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
 

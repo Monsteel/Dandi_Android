@@ -90,9 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        SharedPreferences LoginCheck = getSharedPreferences("LoginCheck", MODE_PRIVATE);
-
-        final boolean first = LoginCheck.getBoolean("check", false); //첫 실행임
+        SharedPreferences Login = getSharedPreferences("Login", MODE_PRIVATE);
+        boolean first = Login.getBoolean("check", false); //첫 실행임
 
         if(first==false){
             // Intent 클래스를 사용해서 LoginActivity 화면으로 전환을 합니다.
@@ -101,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.d("[LoginCheck]", "로그인 X");
 
         }else{
+            Login.getBoolean("check", true);
             Log.d("[LoginCheck] ", "로그인 O");
         }
 
@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else {
             ActivityCompat.finishAffinity(this);
         }
-
     }
 
     // NavigationItem 선택 시 발생하는 이벤트
