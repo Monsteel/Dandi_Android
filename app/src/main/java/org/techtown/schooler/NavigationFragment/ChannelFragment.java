@@ -60,7 +60,11 @@ public class ChannelFragment extends Fragment {
                         Log.e("","채널이 없어요");
                     }
                 }else if(response.code() == 400){//만약 Status값이 400이면 check에 false를 주고, 로그인 엑티비티로 이동
-                    Login.getBoolean("check",false);
+
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",null);
+                    editor.commit();
+
                     startActivity(new Intent(getActivity(),LoginActivity.class));
                     Log.e("","토큰 만료");
                 }else{

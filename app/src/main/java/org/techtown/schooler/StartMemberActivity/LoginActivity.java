@@ -58,6 +58,8 @@ public class LoginActivity extends AppCompatActivity{
 
     public static int number = 0;
 
+    SharedPreferences Login;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -213,10 +215,11 @@ public class LoginActivity extends AppCompatActivity{
                     String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
+                    Login = getSharedPreferences("Login", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",response.body().getData().getToken());
+                    editor.commit();
 
-                    sharedPreferences.getBoolean("check", true);
-                    sharedPreferences.getString("token",response.body().getData().getToken());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
 

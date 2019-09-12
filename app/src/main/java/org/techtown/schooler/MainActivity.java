@@ -45,11 +45,14 @@ import org.techtown.schooler.NavigationFragment.ReadyFragment;
 import org.techtown.schooler.NavigationFragment.SettingFragment;
 import org.techtown.schooler.SplashActivity.SplashActivity;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
+import org.techtown.schooler.network.retrofit.interfaces.Login;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.techtown.schooler.StartMemberActivity.LoginActivity.number;
+
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View main_nav_header; // 헤더 부분
     ImageView profile; // 헤더 부분 이미지
     MainFragment main = new MainFragment(); // 메인 프레그먼트
-
+    SharedPreferences Login;
     Toolbar toolbar; // Toolbar
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -90,18 +93,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        SharedPreferences Login = getSharedPreferences("Login", MODE_PRIVATE);
-        boolean first = Login.getBoolean("check", false); //첫 실행임
+        Login = getSharedPreferences("Login", MODE_PRIVATE);
 
-        if(first==false){
+        if(Login.getString("token",null) == null){
             // Intent 클래스를 사용해서 LoginActivity 화면으로 전환을 합니다.
+
             Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(StatLogin);
-            Log.d("[LoginCheck]", "로그인 X");
+
+            Log.e("[LoginCheck]", "로그인 X");
 
         }else{
-            Login.getBoolean("check", true);
-            Log.d("[LoginCheck] ", "로그인 O");
+            Log.e("[LoginCheck] ", "로그인 O");
         }
 
 
@@ -214,6 +217,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+
+                SharedPreferences.Editor editor = Login.edit();
+
+                editor.putString("token",null);
+
+                editor.commit();
+
                 startActivity(intent);
                 overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
                 Toast.makeText(MainActivity.this, "로그아웃을 정상적으로 수행하였습니다.", Toast.LENGTH_SHORT).show();
@@ -231,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "로그아웃을 취소하였습니다.", Toast.LENGTH_SHORT).show();
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-
             }
         });
 
