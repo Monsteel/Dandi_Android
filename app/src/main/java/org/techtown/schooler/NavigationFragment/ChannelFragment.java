@@ -3,6 +3,7 @@ package org.techtown.schooler.NavigationFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
@@ -29,22 +31,47 @@ import retrofit2.Callback;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class ChannelFragment extends Fragment {
+public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView;
     List<ChannelInfo> DataList= new ArrayList<>();
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    SharedPreferences Login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_channel, container, false);
+
         recyclerView = rootView.findViewById(R.id.ChannelRecyclerView);
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(LinearLayoutManager);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_layout);
 
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        SharedPreferences Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
+        Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
+        onRefresh();
+
+        return rootView;
+    }
+
+    @Override
+    public void onRefresh() {
+        onSearch();
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);// 0.6초 정도 딜레이를 준 후 시작
+
+    }
+
+    public void onSearch(){
         final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().SearchChannel(Login.getString("token",""),"");//token불러오기
         res.enqueue(new Callback<Response<Data>>() {
             @Override
@@ -53,7 +80,6 @@ public class ChannelFragment extends Fragment {
                 if(response.code() == 200){//만약 스테터스 값이 200이면
                     if (response.body().getData().getChannels().size() != 0) {
                         DataList = response.body().getData().getChannels();
-                        System.out.print(response.body().getStatus());
                         ChannelListAdapter adapter = new ChannelListAdapter(DataList);
                         recyclerView.setAdapter(adapter);
                     }else{
@@ -71,14 +97,10 @@ public class ChannelFragment extends Fragment {
                     Log.e("","오류가 발생했어요");
                 }
             }
-
-
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("Err", "네트워크 연결오류");
             }
         });
-        ///
-        return rootView;
     }
 }

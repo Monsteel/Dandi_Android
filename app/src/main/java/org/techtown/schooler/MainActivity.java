@@ -188,10 +188,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.logout:
-
-                logout = new LogoutFragment();
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.layout, logout).commit();
+//
+//                logout = new LogoutFragment();
+//
+//                getSupportFragmentManager().beginTransaction().replace(R.id.layout, logout).commit();
 
                 LogoutMessage();
 

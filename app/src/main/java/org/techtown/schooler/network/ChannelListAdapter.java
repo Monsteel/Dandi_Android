@@ -1,12 +1,11 @@
 package org.techtown.schooler.network;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,22 +19,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.Model.ChannelInfo;
-import org.techtown.schooler.MoreChannelInfoActivity;
-import org.techtown.schooler.NavigationFragment.ChannelFragment;
 import org.techtown.schooler.R;
-import org.techtown.schooler.StartMemberActivity.LoginActivity;
+import org.techtown.schooler.network.response.Response;
 
 import java.io.InputStream;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.ViewHolder>{
 
     private final List<ChannelInfo> mDataList;
+    SharedPreferences Login;
 
     public ChannelListAdapter(List<ChannelInfo> dataList){
         mDataList = dataList;
@@ -55,23 +56,22 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         holder.content.setText(item.getExplain());
         holder.create_User.setText("| Master : " + item.getCreate_user());
 
+        Login = holder.joinButton.getContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
+
+        if(item.getColor() !=null){
+            holder.colorBar.setBackgroundColor(Color.parseColor(item.getColor()));
+        }else{
+            holder.colorBar.setVisibility(View.GONE);
+        }
+
         new DownloadImageFromInternet(holder.BackGroundImage)
-                .execute("http://10.80.162.124:5000/static/image/thumbnail_basic.jpg");
+                .execute(item.getThumbnail());
 
         if(item.getIsPublic().equals("0")) {
             holder.isPublicImage.setImageResource(R.drawable.locked);
         }else{
             holder.isPublicImage.setImageResource(R.drawable.un_locked);
         }
-
-        holder.channelCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("리스트뷰","클릭됐어요");
-                Intent intent = new Intent(holder.joinButton.getContext(), MoreChannelInfoActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        });
         holder.joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +85,33 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
+
+
+                        final Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(Login.getString("token",""),item.getId());//token불러오기
+                        res1.enqueue(new Callback<Response<Data>>() {
+                            @Override
+                            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                                if(response.isSuccessful()){
+                                    if(item.getIsPublic() == "0" || item.getIsPublic() == "true"){
+                                        Toast.makeText(holder.joinButton.getContext(),"채널가입 신청이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(holder.joinButton.getContext(), "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }else if(response.code() == 400){
+                                    Toast.makeText(holder.joinButton.getContext(),"이미 가입된 채널이거나, 가입승인 대기중에 있습니다.",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                                Log.e("Err", "네트워크 연결오류");
+                            }
+                        });
+
+
+
+
                         Log.e("예 버튼","클릭됐어요");
                     }
                 });
@@ -115,6 +142,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         TextView create_User;
         CardView channelCardView;
         Button joinButton;
+        View colorBar;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -129,6 +157,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
             isPublicImage = itemView.findViewById(R.id.isPublic_ImageView);
             channelCardView = itemView.findViewById(R.id.ChannelCardView);
             joinButton = itemView.findViewById(R.id.JoinChannel_Button);
+            colorBar = itemView.findViewById(R.id.colorBar);
         }
     }
 

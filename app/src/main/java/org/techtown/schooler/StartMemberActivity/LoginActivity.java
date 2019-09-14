@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,8 +14,11 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -77,11 +81,10 @@ public class LoginActivity extends AppCompatActivity{
         checkBox = findViewById(R.id.check_Id); // Id 저장 체크박스
         videoView = findViewById(R.id.videoView); // VideoView
 
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.test);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.background);
 
         videoView.setVideoURI(uri);
         videoView.start();
-
 
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -119,7 +122,6 @@ public class LoginActivity extends AppCompatActivity{
        layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
             }
         });
@@ -225,24 +227,10 @@ public class LoginActivity extends AppCompatActivity{
 
                     overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
                     Log.d("[Login] Status", Status + ":" + Message);
+                }else if(response.code()==401){
+                    Toast.makeText(LoginActivity.this, "승인 대기중인 유저입니다.", Toast.LENGTH_SHORT).show();
                 }else{
-                    try {
-                        JSONObject errorBody = new JSONObject(response.errorBody().string());
-                        Integer Error =errorBody.getInt("status");//error status value
-
-                        Toast.makeText(LoginActivity.this, "아이디 비번이 틀립니다.", Toast.LENGTH_SHORT).show();
-
-
-                        if (Error == 401 || Error == 403) {
-                            Response response1 = new Response();
-                            response1.setStatus(errorBody.getInt("status"));
-                            response1.setMessage(errorBody.getString("message"));
-                            Log.e("[Login] Status", errorBody.getInt("status")+":"+errorBody.getString("message"));
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Toast.makeText(LoginActivity.this, "일치하는 회원정보가 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -264,7 +252,6 @@ public class LoginActivity extends AppCompatActivity{
     // 레이아웃 선택 시 키패드가 종료되도록 설정하는 매서드입니다.
    public void touchLayout(){
        imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
-
        imm.hideSoftInputFromWindow(Pw_EditText.getWindowToken(), 0);
    }
 
@@ -273,7 +260,6 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onStop() {
         super.onStop();
-
         videoView.start();
     }
 }

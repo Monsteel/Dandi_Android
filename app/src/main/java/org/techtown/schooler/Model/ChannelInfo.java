@@ -6,14 +6,34 @@ public class ChannelInfo {
     private String create_user;
     private String thumbnail;
     private String isPublic;
+    private String id;
+    private String color;
 
 
-    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic) {
+    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic,String id,String color) {
         this.name = name;
         this.explain = explain;
         this.create_user = create_user;
         this.thumbnail = thumbnail;
         this.isPublic = isPublic;
+        this.id = id;
+        this.color = color;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIsPublic() {

@@ -28,9 +28,19 @@ public class Data {
 
     private List<ChannelInfo> channels;//채널인포
 
+    private ChannelInfo channelInfo;
+
     private List<JoinedChannelInfo> joinedChannel;
 
     private List<ChannelEvents> events;
+
+    public ChannelInfo getChannelInfo() {
+        return channelInfo;
+    }
+
+    public void setChannelInfo(ChannelInfo channelInfo) {
+        this.channelInfo = channelInfo;
+    }
 
     public List<ChannelEvents> getEvents() {
         return events;

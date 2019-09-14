@@ -6,7 +6,7 @@
 
     <include
         layout="@layout/my_video_background"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
 
 

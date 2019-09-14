@@ -29,9 +29,13 @@ public interface Channel {
 
     @GET("/channel/join")
     Call<Response<Data>> JoinChannel(@Header("Token")String token,
-                                     @Body String channel_id);
+                                     @Query("channel_id")String channel_id);
 
     @GET("/channel/leave")
     Call<Response<Data>> LeaveChannel(@Header("Token")String token,
                                      @Body String channel_id);
+
+    @GET("/channel/info")
+    Call<Response<Data>> ChannelInfo(@Header("Token")String token,
+                                     @Query("channel_id") String channel_id);
 }

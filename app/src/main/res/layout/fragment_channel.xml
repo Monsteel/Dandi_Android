@@ -17,10 +17,29 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ChannelRecyclerView"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_channel"></androidx.recyclerview.widget.RecyclerView>
+        android:id="@+id/swipe_layout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ChannelRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_channel">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/ChannelRecyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:listitem="@layout/item_channel">-->
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
+
 
 </LinearLayout>
