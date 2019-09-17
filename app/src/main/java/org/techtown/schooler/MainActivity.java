@@ -132,6 +132,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // NavigationItem 선택 시 발생하는 이벤트
     public boolean onNavigationItemSelected(MenuItem item){
 
+
+
+
+
+        
+
         Fragment channel; // 채널 Fragment
         Fragment account; // 계정 Fragment
         Fragment setting; // 설정 Fragment
