@@ -39,7 +39,6 @@ dependencies {
     implementation 'com.android.support:design:29.+'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
-    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
 
 
     //recycler view

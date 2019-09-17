@@ -1,17 +1,17 @@
 package org.techtown.schooler.Model;
 
+import java.util.List;
+
 public class ChannelEvents {
 
-    String  profile_pic;
-    String  id;
-    String  channel_id;
-    String  title;
-    String  start_date;
-    String  end_date;
+    String id;
+    String channel_id;
+    String title;
+    String start_date;
+    String end_date;
+    String user_id;
+    String user_name;
 
-    public String getProfile_pic() {
-        return profile_pic;
-    }
 
     public String getId() {
         return id;
@@ -33,10 +33,6 @@ public class ChannelEvents {
         return end_date;
     }
 
-    public void setProfile_pic(String profile_pic) {
-        this.profile_pic = profile_pic;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -55,6 +51,14 @@ public class ChannelEvents {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public String getUser_id() {
+        return user_id;
     }
 }
 

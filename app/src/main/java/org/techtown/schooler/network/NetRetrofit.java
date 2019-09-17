@@ -21,10 +21,8 @@ public class NetRetrofit {
     }
 
     Retrofit retrofit = new Retrofit.Builder()
-//            .baseUrl("http://10.80.162.124:5000")//BIND Server
-            .baseUrl("http://bind4th.kro.kr:3000")
-//            .baseUrl("http://162.168.1.13:5000")
-//            .baseUrl("http://bind4th.kro.kr:3000")//TeamViewer Server
+
+            .baseUrl("http://10.80.161.223:5000")
             .addConverterFactory(GsonConverterFactory.create()) // 파싱등록
             .build();
 
