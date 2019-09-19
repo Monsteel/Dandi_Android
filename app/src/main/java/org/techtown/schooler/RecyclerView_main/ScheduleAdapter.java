@@ -1,15 +1,16 @@
 package org.techtown.schooler.RecyclerView_main;
 
-import android.app.Activity;
-import android.media.Image;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.schooler.Model.ChannelEvents;
@@ -22,33 +23,39 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView channel_name;
-        TextView name;
-        TextView id;
+        TextView user_name;
+        TextView user_id;
         TextView schedule_title;
-        //TextView content;
         TextView start_date;
         TextView end_date;
+        ImageView channel_image;
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
             super(view);
 
            channel_name = view.findViewById(R.id.channel_name);
-           name = view.findViewById(R.id.name);
-           id = view.findViewById(R.id.id);
+           user_name = view.findViewById(R.id.user_name);
+           user_id = view.findViewById(R.id.user_id);
            schedule_title = view.findViewById(R.id.schedule_title);
-           //content = view.findViewById(R.id.content);
-            start_date = view.findViewById(R.id.start_date);
-            end_date = view.findViewById(R.id.end_date);
+           start_date = view.findViewById(R.id.start_date);
+           end_date = view.findViewById(R.id.end_date);
+           channel_image = view.findViewById(R.id.channel_image);
+
+           // channel_image 둥글게 만들어줍니다.
+            channel_image.setBackground(new ShapeDrawable(new OvalShape()));
+            channel_image.setClipToOutline(true);
         }
     }
 
-    private ArrayList<ChannelEvents> scheduleInfoArrayList;
+    private ArrayList<ChannelEvents> channelEventsArrayList;
 
-    public ScheduleAdapter(ArrayList<ChannelEvents> scheduleInfoArrayList){
+    public ScheduleAdapter(ArrayList<ChannelEvents> channelEventsArrayList){
 
-        this.scheduleInfoArrayList = scheduleInfoArrayList;
+        this.channelEventsArrayList = channelEventsArrayList;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -63,18 +70,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         MyViewHolder myViewHolder = (MyViewHolder) holder;
 
-//        myViewHolder.channel_name.setText(scheduleInfoArrayList.get(position).channel_name);
-//        myViewHolder.name.setText(scheduleInfoArrayList.get(position).name);
-//        myViewHolder.id.setText("(" + scheduleInfoArrayList.get(position).id + ")");
-//        myViewHolder.schedule_title.setText(scheduleInfoArrayList.get(position).schedule_title);
-//        //myViewHolder.content.setText(scheduleInfoArrayList.get(position).content);
-//        myViewHolder.start_date.setText(scheduleInfoArrayList.get(position).start_date);
-//        myViewHolder.end_date.setText(scheduleInfoArrayList.get(position).end_date);
+        //myViewHolder.channel_name.setText(channelEventsArrayList.get(position).get);
+        myViewHolder.user_name.setText(channelEventsArrayList.get(position).getUser_name());
+        myViewHolder.user_id.setText("(" + channelEventsArrayList.get(position).getUser_id() + ")");
+        myViewHolder.schedule_title.setText(channelEventsArrayList.get(position).getTitle());
+        myViewHolder.start_date.setText(channelEventsArrayList.get(position).getStart_date());
+        myViewHolder.end_date.setText(channelEventsArrayList.get(position).getEnd_date());
+
     }
 
     @Override
     public int getItemCount() {
 
-        return scheduleInfoArrayList.size();
+        return channelEventsArrayList.size();
     }
 }

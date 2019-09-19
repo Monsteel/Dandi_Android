@@ -13,29 +13,29 @@ import retrofit2.http.Query;
 
 public interface Channel {
     @GET("/channel")
-    Call<Response<Data>> getChannel(@Header("Token")String token);
+    Call<Response<Data>> getChannel(@Header("x-access-token")String token);
 
     @GET("/channel/search")
-    Call<Response<Data>> SearchChannel(@Header("Token")String token,
+    Call<Response<Data>> SearchChannel(@Header("x-access-token")String token,
                                        @Query("channel_name") String channel_name);
 
     @POST("channel/add")
-    Call<Response<Data>> AddChannel(@Header("Token")String token,
+    Call<Response<Data>> AddChannel(@Header("x-access-token")String token,
                                     @Body String A);
 
     @DELETE("/channel/delete")
-    Call<Response<Data>> DeleteChannel(@Header("Token")String token,
+    Call<Response<Data>> DeleteChannel(@Header("x-access-token")String token,
                                        @Body String channel_id);
 
     @GET("/channel/join")
-    Call<Response<Data>> JoinChannel(@Header("Token")String token,
+    Call<Response<Data>> JoinChannel(@Header("x-access-token")String token,
                                      @Query("channel_id")String channel_id);
 
     @GET("/channel/leave")
-    Call<Response<Data>> LeaveChannel(@Header("Token")String token,
+    Call<Response<Data>> LeaveChannel(@Header("x-access-token")String token,
                                      @Body String channel_id);
 
     @GET("/channel/info")
-    Call<Response<Data>> ChannelInfo(@Header("Token")String token,
+    Call<Response<Data>> ChannelInfo(@Header("x-access-token")String token,
                                      @Query("channel_id") String channel_id);
 }

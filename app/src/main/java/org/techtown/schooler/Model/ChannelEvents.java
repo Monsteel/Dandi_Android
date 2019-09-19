@@ -4,22 +4,20 @@ import java.util.List;
 
 public class ChannelEvents {
 
-    String id;
-    String channel_id;
+    String user_id;
+    String user_name;
     String title;
     String start_date;
     String end_date;
-    String user_id;
-    String user_name;
 
+    public ChannelEvents(String user_id, String user_name, String title, String start_date, String end_date){
 
-    public String getId() {
-        return id;
-    }
-
-    public String getChannel_id() {
-        return channel_id;
-    }
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.title = title;
+        this.start_date = start_date;
+        this.end_date = end_date;
+}
 
     public String getTitle() {
         return title;
@@ -31,14 +29,6 @@ public class ChannelEvents {
 
     public String getEnd_date() {
         return end_date;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setChannel_id(String channel_id) {
-        this.channel_id = channel_id;
     }
 
     public void setTitle(String title) {

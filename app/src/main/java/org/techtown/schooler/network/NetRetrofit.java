@@ -22,7 +22,7 @@ public class NetRetrofit {
 
     Retrofit retrofit = new Retrofit.Builder()
 
-            .baseUrl("http://10.80.161.223:5000")
+            .baseUrl("http://10.80.163.154:5000")
             .addConverterFactory(GsonConverterFactory.create()) // 파싱등록
             .build();
 
