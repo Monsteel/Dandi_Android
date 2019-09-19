@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.techtown.schooler">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +13,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".setChannelImage"></activity>
+        <activity android:name=".CreateChannel" />
         <activity android:name=".Signup.FinishSignup" />
         <activity android:name=".Signup.PhoneNumberActivity" />
         <activity android:name=".Signup.NotifyActivity" />
@@ -36,7 +40,5 @@
             android:screenOrientation="portrait" />
         <activity android:name=".MainActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

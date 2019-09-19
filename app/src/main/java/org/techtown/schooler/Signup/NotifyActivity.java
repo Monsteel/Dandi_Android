@@ -48,7 +48,6 @@ public class NotifyActivity extends AppCompatActivity {
 
     public static User user = new User();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +74,6 @@ public class NotifyActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         user.setIsPublic("false");
         isNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

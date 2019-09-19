@@ -1,21 +1,37 @@
 package org.techtown.schooler.NavigationFragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.techtown.schooler.CreateChannel;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
+import org.techtown.schooler.Signup.PhoneNumberActivity;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.ChannelListAdapter;
 import org.techtown.schooler.network.Data;
@@ -29,7 +45,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
-
+import static android.content.Context.SHORTCUT_SERVICE;
+import static android.content.Context.MODE_PRIVATE;
 
 public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -37,6 +54,18 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
     List<ChannelInfo> DataList= new ArrayList<>();
     SwipeRefreshLayout mSwipeRefreshLayout;
     SharedPreferences Login;
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        startActivity(new Intent(getActivity(), CreateChannel.class));
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +82,9 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
         onRefresh();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ChannelBar)));
+
+        setHasOptionsMenu(true);
 
         return rootView;
     }
@@ -67,9 +99,10 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
             {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
-        }, 1000);// 0.6초 정도 딜레이를 준 후 시작
+        }, 1000);// 딜레이를 준 후 시작
 
     }
+
 
     public void onSearch(){
         final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().SearchChannel(Login.getString("token",""),"");//token불러오기
@@ -82,6 +115,17 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         DataList = response.body().getData().getChannels();
                         ChannelListAdapter adapter = new ChannelListAdapter(DataList);
                         recyclerView.setAdapter(adapter);
+
+
+
+
+
+
+
+
+
+
+
                     }else{
                         Log.e("","채널이 없어요");
                     }

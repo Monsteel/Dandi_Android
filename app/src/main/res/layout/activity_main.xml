@@ -15,13 +15,13 @@
         android:id="@+id/layout">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
             android:background="@android:color/transparent"
             android:elevation="4dp"
             android:theme="@style/ActionBarTheme"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </RelativeLayout>
 

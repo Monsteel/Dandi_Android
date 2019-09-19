@@ -42,10 +42,17 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         mDataList = dataList;
     }
 
+    ////
+    public void setFilter(List<ChannelInfo> items) {
+        mDataList.clear();
+        mDataList.addAll(items);
+        notifyDataSetChanged();
+    }
+    ////
+
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_channel,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_channel,parent,false);
         return new ViewHolder(view);
     }
 
@@ -58,7 +65,8 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
 
         Login = holder.joinButton.getContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
-        if(item.getColor() !=null){
+        if(item.getColor() != null){
+            holder.colorBar.setVisibility(View.VISIBLE);
             holder.colorBar.setBackgroundColor(Color.parseColor(item.getColor()));
         }else{
             holder.colorBar.setVisibility(View.GONE);
@@ -86,8 +94,6 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-
-
                         final Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(Login.getString("token",""),item.getId());//token불러오기
                         res1.enqueue(new Callback<Response<Data>>() {
                             @Override
@@ -108,10 +114,6 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
                                 Log.e("Err", "네트워크 연결오류");
                             }
                         });
-
-
-
-
                         Log.e("예 버튼","클릭됐어요");
                     }
                 });
