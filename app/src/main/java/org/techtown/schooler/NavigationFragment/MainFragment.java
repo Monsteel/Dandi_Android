@@ -58,7 +58,7 @@ public class MainFragment extends Fragment  {
     // ArrayList 배열인 scheduleInfoArrayList 배열
     ArrayList<ChannelEvents> channelEventsArrayList = new ArrayList<>();
 
-    SharedPreferences Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
+    SharedPreferences Login;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -69,6 +69,7 @@ public class MainFragment extends Fragment  {
 
         materialCalendarView = rootView.findViewById(R.id.materialCalendarView); // 캘린더
         recyclerView = rootView.findViewById(R.id.recyclerView); // 리사이클러뷰
+        Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
 
         // 캘린더 클릭 시 발생하는 이벤트를 수행합니다.
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
