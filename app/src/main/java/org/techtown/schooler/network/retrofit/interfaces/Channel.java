@@ -1,5 +1,6 @@
 package org.techtown.schooler.network.retrofit.interfaces;
 
+import org.techtown.schooler.Model.CreateChannelRequest;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.response.Response;
 
@@ -21,7 +22,7 @@ public interface Channel {
 
     @POST("channel/add")
     Call<Response<Data>> AddChannel(@Header("x-access-token")String token,
-                                    @Body String A);
+                                    @Body CreateChannelRequest createChannelRequest);
 
     @DELETE("/channel/delete")
     Call<Response<Data>> DeleteChannel(@Header("x-access-token")String token,
