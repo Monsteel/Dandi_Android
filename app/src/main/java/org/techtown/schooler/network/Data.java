@@ -1,5 +1,7 @@
 package org.techtown.schooler.network;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.techtown.schooler.Model.ChannelEvents;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.JoinedChannelInfo;
@@ -14,6 +16,7 @@ public class Data {
     private User user;
 
     // token
+    @SerializedName("x-access-token")
     private String token;
 
     private String authCode;
