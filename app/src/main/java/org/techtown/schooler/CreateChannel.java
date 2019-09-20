@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -23,6 +27,7 @@ import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
@@ -35,6 +40,12 @@ public class CreateChannel extends AppCompatActivity {
     EditText explain;
     Switch isPublic;
     SharedPreferences Login;
+    TextView Next;
+    InputMethodManager imm;
+
+    boolean next1 = false;
+    boolean next2 = false;
+
 
     public static CreateChannelRequest createChannelRequest = new CreateChannelRequest("","","","");
 
@@ -46,11 +57,16 @@ public class CreateChannel extends AppCompatActivity {
         name =(EditText)findViewById(R.id.InputChannelName);
         explain = (EditText)findViewById(R.id.InputChannelExplain);
         isPublic = (Switch)findViewById(R.id.isPublicForChannel);
+        Next = (TextView)findViewById(R.id.Finish);
 
         createChannelRequest.setIsPublic("true");
         createChannelRequest.setExplain("");
         createChannelRequest.setName("");
         createChannelRequest.setColor(null);
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        Next.setEnabled(false);
+        Next.setTextColor(Color.parseColor("#FF5C5C5C"));
 
         Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
@@ -65,6 +81,68 @@ public class CreateChannel extends AppCompatActivity {
                 }
             }
         });
+
+
+        //               Next.setEnabled(true);
+        //               Next.setTextColor(Color.parseColor("#2349E6"));
+
+
+
+
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(name.getText().toString().equals("")){
+                    next1 = false;
+                }else{
+                    next1 = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (next1 && next2) {
+                    Next.setEnabled(true);
+                    Next.setTextColor(Color.parseColor("#2349E6"));
+                }else{
+                    Next.setEnabled(false);
+                    Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                }
+            }
+        });
+
+        explain.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(explain.getText().toString().equals("")){
+                    next2 = false;
+                }else{
+                    next2 = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (next1 && next2) {
+                    Next.setEnabled(true);
+                    Next.setTextColor(Color.parseColor("#2349E6"));
+                }else{
+                    Next.setEnabled(false);
+                    Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                }
+            }
+        });
+
     }
 
     public void openColorPicker() {
@@ -139,14 +217,16 @@ public class CreateChannel extends AppCompatActivity {
                 public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
                     // Status == 200
-                    if(response.isSuccessful()){
+                    if(response.code() == 200){
                         startActivity(new Intent(CreateChannel.this, setChannelImage.class));
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }else if(response.code() == 400){
+                        Toast.makeText(CreateChannel.this,"동일한 이름의 채널이 이미 존재합니다.",Toast.LENGTH_LONG).show();
+                        imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
                     }
-
                     // Status != 200
                     else{
-                        Toast.makeText(CreateChannel.this,"서버 오류발생",Toast.LENGTH_LONG);
+                        Toast.makeText(CreateChannel.this,"서버 오류발생",Toast.LENGTH_LONG).show();
                     }
                 }
 

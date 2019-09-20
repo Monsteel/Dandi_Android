@@ -92,15 +92,19 @@ public class IdActivity extends AppCompatActivity {
                     GotoPassword.setEnabled(false);
                     GotoPassword.setTextColor(Color.parseColor("#FF5C5C5C"));
                 }
+
+
+
+
                 // 중복이 아닐 경우
-                else if (response.isSuccessful()) {
+                else if (response.code() == 200) {
 
                     // 사용자가 입력한 id 를 저장합니다.
                     ID = InputId.getText().toString();
 
                     Integer Status = response.body().getStatus(); // Status 값
                     String Message = response.body().getMessage(); // Message 값
-                    Boolean data = response.body().getData().getOverlapped(); // true or false 값
+//                    Boolean data = response.body().getData().getOverlapped(); // true or false 값
                     Log.d("[isOverlapped] Status", Status + ":" + Message);
 
                     noticeIdError.setText("사용 가능한 아이디 입니다.");
@@ -111,25 +115,26 @@ public class IdActivity extends AppCompatActivity {
 
                 }
 
+
                 // 중복일 경우
                 else {
-
-                    try {
-                        JSONObject errorBody = new JSONObject(response.errorBody().string());
-                        Integer Error = errorBody.getInt("status");//error status value
-
-                        if (Error == 400 || Error == 500){
-                            Response response1 = new Response();
-                            response1.setStatus(errorBody.getInt("status"));
-                            response1.setMessage(errorBody.getString("message"));
-                            Log.e("[Login] Status", errorBody.getString("message"));
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        JSONObject errorBody = new JSONObject(response.errorBody().string());
+//                        Integer Error = errorBody.getInt("status");//error status value
+//
+//                        if (Error == 400 || Error == 500){
+//                            Response response1 = new Response();
+//                            response1.setStatus(errorBody.getInt("status"));
+//                            response1.setMessage(errorBody.getString("message"));
+//                            Log.e("[Login] Status", errorBody.getString("message"));
+//                        }
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+                    //에러바디를 읽는 코드
 
                     noticeIdError.setText("중복한 아이디가 존재합니다.");
                     noticeIdError.setTextColor(Color.parseColor("#bc0000"));
@@ -137,6 +142,9 @@ public class IdActivity extends AppCompatActivity {
                     GotoPassword.setTextColor(Color.parseColor("#FF5C5C5C"));
                 }
             }
+
+
+
 
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
