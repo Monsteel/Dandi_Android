@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class PasswordActivity extends AppCompatActivity {
     String password;
     TextView NoticePassword;
     TextView NoticeCheckPassword;
-    TextView GotoEmail;
+    ImageView GotoEmail;
     boolean Password;
     boolean CheckPassword;
 
@@ -37,10 +38,10 @@ public class PasswordActivity extends AppCompatActivity {
         InputCheckPassword = (EditText)findViewById(R.id.InputCheckPassword);
         NoticePassword = (TextView)findViewById(R.id.NoticePassword);
         NoticeCheckPassword =(TextView)findViewById(R.id.NoticeCheckPassword);
-        GotoEmail = (TextView)findViewById(R.id.GotoEmail);
+        GotoEmail = (ImageView)findViewById(R.id.next_email);
 
         GotoEmail.setEnabled(false);
-        GotoEmail.setTextColor(Color.parseColor("#FF5C5C5C"));
+        GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
         NoticePassword.setText("");
         NoticeCheckPassword.setText("");
@@ -58,13 +59,13 @@ public class PasswordActivity extends AppCompatActivity {
                     NoticePassword.setTextColor(Color.parseColor("#bc0000"));
                     Password= false;
                     GotoEmail.setEnabled(false);
-                    GotoEmail.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }else{
                     NoticePassword.setText("사용할 수 있는 비밀번호 입니다.");
                     NoticePassword.setTextColor(Color.parseColor("#0ec600"));
                     Password = true;
                     GotoEmail.setEnabled(false);
-                    GotoEmail.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }
             }
 
@@ -86,7 +87,7 @@ public class PasswordActivity extends AppCompatActivity {
                     NoticeCheckPassword.setText("비밀번호를 8자리 이상으로 구성해주세요");
                     NoticeCheckPassword.setTextColor(Color.parseColor("#bc0000"));
                     GotoEmail.setEnabled(false);
-                    GotoEmail.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }else {
                     if (InputCheckPassword.getText().toString().equals(InputPassword.getText().toString())) {
                         NoticeCheckPassword.setTextColor(Color.parseColor("#0ec600"));
@@ -97,7 +98,7 @@ public class PasswordActivity extends AppCompatActivity {
                         NoticeCheckPassword.setText("비밀번호가 일치하지 않습니다.");
                         CheckPassword = false;
                         GotoEmail.setEnabled(false);
-                        GotoEmail.setTextColor(Color.parseColor("#FF5C5C5C"));
+                        GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                         password = InputPassword.getText().toString();
 
 
@@ -111,7 +112,7 @@ public class PasswordActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (CheckPassword && Password) {
                     GotoEmail.setEnabled(true);
-                    GotoEmail.setTextColor(Color.parseColor("#2349E6"));
+                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
                 }
             }
         });
@@ -153,7 +154,7 @@ public class PasswordActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void toGoEmail(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), EmailActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));

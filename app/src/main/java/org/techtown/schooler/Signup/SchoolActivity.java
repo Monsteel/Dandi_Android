@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ public class SchoolActivity extends AppCompatActivity {
     EditText SearchSchoolName;
     private ListView listView;
     TextView DecideSchoolName;
-    TextView GotoClass;
+    ImageView GotoClass;
     String School;
     String SchoolId;
     String OfficeId;
@@ -46,10 +47,10 @@ public class SchoolActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         DecideSchoolName = (TextView)findViewById(R.id.decideSchoolName);
         DecideSchoolName.setVisibility(View.INVISIBLE);
-        GotoClass = (TextView)findViewById(R.id.GotoClass);
+        GotoClass = (ImageView)findViewById(R.id.next_class);
 
         GotoClass.setEnabled(false);
-        GotoClass.setTextColor(Color.parseColor("#FF5C5C5C"));
+        GotoClass.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +119,7 @@ public class SchoolActivity extends AppCompatActivity {
                         DecideSchoolName.setVisibility(View.VISIBLE);
 
                         GotoClass.setEnabled(true);
-                        GotoClass.setTextColor(Color.parseColor("#2349E6"));
+                        GotoClass.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
                     }
 
                     @Override
@@ -138,7 +139,7 @@ public class SchoolActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void toGoClass(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), ClassActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));

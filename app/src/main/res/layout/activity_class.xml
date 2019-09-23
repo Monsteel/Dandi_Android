@@ -8,93 +8,68 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/Bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F9F9F9"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:onClick="toGoBack"
-            android:text="뒤로"
-            android:textColor="#2349E6"
-            android:textSize="18sp" />
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_chevron_left_yellow_24dp" />
 
-        <TextView
-            android:id="@+id/GotoLast"
+        <ImageView
+            android:id="@+id/next_password"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:gravity="right"
-            android:onClick="toGoLast"
-            android:text="다음"
-            android:textColor="#2349E6"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:background="@android:color/transparent"
+            android:onClick="toGoNext"
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_chevron_right_yellow_24dp" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_title5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="14.5pt"
         android:layout_marginTop="30dp"
-        android:gravity="center"
         android:text="학년, 반 설정"
-        android:textColor="#020202"
-        android:textSize="36sp"
+        android:textColor="#707070"
+        android:textSize="20pt"
         android:textStyle="bold" />
 
-    <View
-        android:id="@+id/view9"
+    <TextView
+        android:id="@+id/SchoolName"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="25dp"
-        android:background="#BBBBBB" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14.5pt"
+        android:layout_marginTop="5pt"
+        android:layout_marginBottom="8pt"
+        android:text="대구소프트웨어고등학교"
+        android:textColor="#f2b705"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25pt"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/SchoolName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#0000C7"
-            android:textSize="30sp"
-            tools:text="대구소프트웨어고등학교" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view11"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="#BBBBBB" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:background="@drawable/input_text_box"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -102,33 +77,31 @@
             android:id="@+id/Grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="20dp"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="1학년" />
 
+        <View
+            android:id="@+id/view5"
+            android:layout_width="1pt"
+            android:layout_height="11.5pt"
+            android:layout_gravity="center"
+            android:background="#f2b705" />
+
         <TextView
             android:id="@+id/Class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="2반" />
     </LinearLayout>
-
-    <View
-        android:id="@+id/view18"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#BBBBBB" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,30 +115,18 @@
             android:layout_marginRight="30dp"
             android:orientation="vertical">
 
-            <View
-                android:id="@+id/view20"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerInParent="true"
-                android:background="#BBBBBB" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="15pt"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/input_text_box"
                 android:gravity="center"
                 android:text="학년"
                 android:textColor="#040404"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <View
-                android:id="@+id/view23"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerInParent="true"
-                android:background="#BBBBBB" />
 
             <NumberPicker
                 android:id="@+id/GradePicker"
@@ -179,13 +140,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <View
-                android:id="@+id/view15"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerInParent="true"
-                android:background="#BBBBBB" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -194,30 +148,17 @@
             android:layout_marginLeft="30dp"
             android:orientation="vertical">
 
-            <View
-                android:id="@+id/view19"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerInParent="true"
-                android:background="#BBBBBB" />
-
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="15pt"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/input_text_box"
                 android:gravity="center"
                 android:text="학반"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <View
-                android:id="@+id/view22"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerInParent="true"
-                android:background="#BBBBBB" />
 
             <NumberPicker
                 android:id="@+id/ClassPicker"
@@ -230,13 +171,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <View
-                android:id="@+id/view21"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_centerInParent="true"
-                android:background="#BBBBBB" />
 
         </LinearLayout>
     </LinearLayout>

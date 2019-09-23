@@ -34,7 +34,7 @@ public class EmailActivity extends AppCompatActivity {
     LinearLayout EmailAuthCheck;
     String AuthCode;
     ImageView CheckAuth;
-    TextView NextButton;
+    ImageView NextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class EmailActivity extends AppCompatActivity {
         SendAuthCode.setTextColor(Color.parseColor("#FF5C5C5C"));
         ErrorEmail = (TextView)findViewById(R.id.ErrorEmail);
         EmailAuthCheck = (LinearLayout) findViewById(R.id.EmailAuthCheck);
-        NextButton = (TextView)findViewById(R.id.GotoPhoneNumber);
+        NextButton = (ImageView)findViewById(R.id.next_phone);
 
         ErrorEmail.setVisibility(View.INVISIBLE);
         EmailAuthCheck.setVisibility(View.INVISIBLE);
@@ -61,7 +61,7 @@ public class EmailActivity extends AppCompatActivity {
         CheckAuth.setVisibility(View.INVISIBLE);
 
         NextButton.setEnabled(false);
-        NextButton.setTextColor(Color.parseColor("#FF5C5C5C"));
+        NextButton.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
 
         InputEmail.addTextChangedListener(new TextWatcher() {
@@ -76,7 +76,7 @@ public class EmailActivity extends AppCompatActivity {
                    SendAuthCode.setTextColor(Color.parseColor("#FF5C5C5C"));
                 }else{
                     SendAuthCode.setEnabled(true);
-                    SendAuthCode.setTextColor(Color.parseColor("#2349E6"));
+                    SendAuthCode.setTextColor(Color.parseColor("#f2b705"));
                 }
             }
             @Override
@@ -96,12 +96,12 @@ public class EmailActivity extends AppCompatActivity {
                     CheckAuth.setVisibility(View.VISIBLE);
                     CheckAuth.setImageResource(R.drawable.okay);
                     NextButton.setEnabled(true);
-                    NextButton.setTextColor(Color.parseColor("#2349E6"));
+                    NextButton.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
                 }else{
                     CheckAuth.setVisibility(View.VISIBLE);
                     CheckAuth.setImageResource(R.drawable.no);
                     NextButton.setEnabled(false);
-                    NextButton.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    NextButton.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }
             }
             @Override
@@ -188,7 +188,7 @@ public class EmailActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void toGoPhoneNumber(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), PhoneNumberActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));

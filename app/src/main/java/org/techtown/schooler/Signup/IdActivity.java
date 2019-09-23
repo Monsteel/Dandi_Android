@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -33,7 +34,7 @@ public class IdActivity extends AppCompatActivity {
     String ID;
     EditText InputId;
     TextView CheckID;
-    TextView GotoPassword;
+    ImageView GotoPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,10 @@ public class IdActivity extends AppCompatActivity {
         noticeIdError = (TextView) findViewById(R.id.noticeIdError);
         InputId = (EditText) findViewById(R.id.InputId);
         CheckID =(TextView) findViewById(R.id.CheckID);
-        GotoPassword = (TextView)findViewById(R.id.GotoPassword);
+        GotoPassword = (ImageView)findViewById(R.id.next_password);
 
         GotoPassword.setEnabled(false);
-        GotoPassword.setTextColor(Color.parseColor("#FF5C5C5C"));
+        GotoPassword.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
 
         CheckID.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +67,7 @@ public class IdActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(!InputId.equals(ID)){
                     GotoPassword.setEnabled(false);
-                    GotoPassword.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    GotoPassword.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                     noticeIdError.setText("");
                 }
             }
@@ -90,7 +91,7 @@ public class IdActivity extends AppCompatActivity {
                     noticeIdError.setText("아이디를 입력해주세요.");
                     noticeIdError.setTextColor(Color.parseColor("#bc0000"));
                     GotoPassword.setEnabled(false);
-                    GotoPassword.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    GotoPassword.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }
 
 
@@ -110,7 +111,7 @@ public class IdActivity extends AppCompatActivity {
                     noticeIdError.setText("사용 가능한 아이디 입니다.");
                     noticeIdError.setTextColor(Color.parseColor("#0ec600"));
 
-                    GotoPassword.setTextColor(Color.parseColor("#2349E6"));
+                    GotoPassword.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
                     GotoPassword.setEnabled(true);
 
                 }
@@ -139,7 +140,7 @@ public class IdActivity extends AppCompatActivity {
                     noticeIdError.setText("중복한 아이디가 존재합니다.");
                     noticeIdError.setTextColor(Color.parseColor("#bc0000"));
                     GotoPassword.setEnabled(false);
-                    GotoPassword.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    GotoPassword.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }
             }
 
@@ -155,7 +156,7 @@ public class IdActivity extends AppCompatActivity {
 
     }
 
-    public void toGoSchool(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",ID);

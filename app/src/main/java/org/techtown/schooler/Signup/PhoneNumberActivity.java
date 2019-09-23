@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.techtown.schooler.R;
@@ -23,7 +24,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
     String PhoneNumber;
     EditText InputPhoneNumber;
     TextView noticePhoneNumberError;
-    TextView GotoSchool;
+    ImageView GotoSchool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +32,11 @@ public class PhoneNumberActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_number);
         InputPhoneNumber = (EditText)findViewById(R.id.InputPhoneNumber);
         noticePhoneNumberError = (TextView)findViewById(R.id.noticePhoneNumberError);
-        GotoSchool = (TextView)findViewById(R.id.GotoSchool);
+        GotoSchool = (ImageView)findViewById(R.id.next_school);
         noticePhoneNumberError.setText("");
 
         GotoSchool.setEnabled(false);
-        GotoSchool.setTextColor(Color.parseColor("#FF5C5C5C"));
+        GotoSchool.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
         InputPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
@@ -50,13 +51,13 @@ public class PhoneNumberActivity extends AppCompatActivity {
                 //입력중
                 if(!android.util.Patterns.PHONE.matcher(InputPhoneNumber.getText().toString()).matches()){
                         GotoSchool.setEnabled(false);
-                        GotoSchool.setTextColor(Color.parseColor( "#FF5C5C5C"));
+                    GotoSchool.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
                         noticePhoneNumberError.setTextColor(Color.parseColor("#F80000"));
                         noticePhoneNumberError.setText("올바른 형식의 전화번호를 입력하세요");
                 }else{
                     GotoSchool.setEnabled(true);
-                    GotoSchool.setTextColor(Color.parseColor("#2349E6"));
+                    GotoSchool.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
 
                     noticePhoneNumberError.setTextColor(Color.parseColor("#0078F8"));
                     noticePhoneNumberError.setText("올바른 형식의 전화번호가 입력되었습니다");
@@ -72,7 +73,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
         });
     }
 
-    public void toGoSchool(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), SchoolActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));

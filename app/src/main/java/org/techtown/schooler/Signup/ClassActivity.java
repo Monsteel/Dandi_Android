@@ -136,7 +136,7 @@ public class ClassActivity extends AppCompatActivity {
     }
 
 
-    public void toGoLast(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), NotifyActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));

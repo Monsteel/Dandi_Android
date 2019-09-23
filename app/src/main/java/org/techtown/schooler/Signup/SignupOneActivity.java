@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class SignupOneActivity extends AppCompatActivity {
 
     EditText InputName;
     TextView NoticeName;
-    TextView NextButton;
+    ImageView NextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,13 @@ public class SignupOneActivity extends AppCompatActivity {
 
         InputName = (EditText)findViewById(R.id.InputName);
         NoticeName = (TextView)findViewById(R.id.NoticeNameError);
-        NextButton = (TextView)findViewById(R.id.next);
+        NextButton = (ImageView)findViewById(R.id.next_id);
 
 
         NoticeName.setVisibility(View.INVISIBLE);
 
         NextButton.setEnabled(false);
-        NextButton.setTextColor(Color.parseColor("#FF5C5C5C"));
+        NextButton.setImageResource(R.drawable.ic_chevron_right_black_24dp);
 
         InputName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -58,13 +59,13 @@ public class SignupOneActivity extends AppCompatActivity {
                     NoticeName.setTextColor(Color.parseColor("#F80000"));
                     NoticeName.setVisibility(View.VISIBLE);//해당 뷰를 보여줌
                     NextButton.setEnabled(false);
-                    NextButton.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    NextButton.setImageResource(R.drawable.ic_chevron_right_black_24dp);
                 }else{
                     NoticeName.setText("올바른 형식의 이름이 입력되었습니다.");
                     NoticeName.setTextColor(Color.parseColor("#0078F8"));
                     NoticeName.setVisibility(View.VISIBLE);
                     NextButton.setEnabled(true);
-                    NextButton.setTextColor(Color.parseColor("#2349E6"));
+                    NextButton.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
                 }
                 //입력하는 중
             }
@@ -78,7 +79,7 @@ public class SignupOneActivity extends AppCompatActivity {
 
     }
 
-    public void toGoEmail(View view){
+    public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), IdActivity.class);
         intent.putExtra("Name",InputName.getText().toString());
         startActivity(intent);
