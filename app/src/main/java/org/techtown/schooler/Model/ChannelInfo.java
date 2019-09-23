@@ -10,7 +10,7 @@ public class ChannelInfo {
     private String color;
 
 
-    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic,String id,String color) {
+    public ChannelInfo(String name) {
         this.name = name;
         this.explain = explain;
         this.create_user = create_user;

@@ -55,5 +55,6 @@ public class NetRetrofit {
     public SchoolEvent getSchoolEvent() {
         return schoolEvent;
     }
+
 }
 

@@ -50,4 +50,6 @@ dependencies {
 
     //color Picker
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
+
+
 }
