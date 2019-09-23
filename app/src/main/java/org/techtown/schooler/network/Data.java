@@ -2,7 +2,7 @@ package org.techtown.schooler.network;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.techtown.schooler.Model.ChannelEvents;
+import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.JoinedChannelInfo;
 import org.techtown.schooler.Model.SchoolInformations;
@@ -35,7 +35,7 @@ public class Data {
 
     private List<JoinedChannelInfo> joinedChannel;
 
-    private List<ChannelEvents> events;
+    private List<Events> events;
 
     public ChannelInfo getChannelInfo() {
         return channelInfo;
@@ -45,11 +45,11 @@ public class Data {
         this.channelInfo = channelInfo;
     }
 
-    public List<ChannelEvents> getEvents() {
+    public List<Events> getEvents() {
         return events;
     }
 
-    public void setEvents(List<ChannelEvents> events) {
+    public void setEvents(List<Events> events) {
         this.events = events;
     }
 

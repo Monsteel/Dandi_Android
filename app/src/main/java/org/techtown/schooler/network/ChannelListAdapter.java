@@ -58,6 +58,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         ChannelInfo item = mDataList.get(position);
         holder.title.setText(item.getName());
         holder.content.setText(item.getExplain());

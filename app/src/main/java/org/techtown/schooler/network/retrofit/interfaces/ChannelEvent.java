@@ -16,7 +16,7 @@ public interface ChannelEvent {
 
     @GET("/channel-event")
     Call<org.techtown.schooler.network.response.Response<Data>> GetChannelEvent(@Header("x-access-token")String token,
-                                         @Query("channel_id")String channel_id);
+                                                                                @Query("channel_id")String channel_id);
 
     @POST("/channel-event/add")
     Call<Response<Data>> AddChannelEvent(@Header("x-access-token")String token,
