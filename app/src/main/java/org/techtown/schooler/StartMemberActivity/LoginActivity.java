@@ -83,15 +83,15 @@ public class LoginActivity extends AppCompatActivity{
 
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.background);
 
-        videoView.setVideoURI(uri);
-        videoView.start();
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
-            }
-        });
+//        videoView.setVideoURI(uri);
+//        videoView.start();
+//
+//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mp) {
+//                mp.setLooping(true);
+//            }
+//        });
 
 
 
@@ -260,7 +260,7 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onStop() {
         super.onStop();
-        videoView.start();
+        ActivityCompat.finishAffinity(this);
     }
 }
 

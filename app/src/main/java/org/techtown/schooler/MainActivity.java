@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp2);
         // 제목을 보이지 않도록 합니다.
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -252,10 +252,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater menuInflater = getMenuInflater();
-
-        menuInflater.inflate(R.menu.toolbar, menu);
-
         return true;
 
     }
@@ -268,8 +264,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case android.R.id.home:
                 drawerLayout.openDrawer(navigationView);
                 return true;
-
-
         }
 
         return super.onOptionsItemSelected(item);

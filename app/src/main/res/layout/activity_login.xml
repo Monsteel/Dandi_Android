@@ -1,170 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        layout="@layout/my_video_background"
-        android:visibility="visible" />
 
 
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/layout"
-        android:background="#B3000000">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            app:srcCompat="@drawable/bind" />
-
-        <View
-            android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
+            android:layout_height="match_parent"
+            android:src="@drawable/login_background"
+            android:scaleType="centerCrop"/>
 
 
         <LinearLayout
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:orientation="horizontal">
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8C000000"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/NoticeFirstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="ID"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="110pt"
+                android:layout_height="90pt"
+                android:layout_gravity="center"
+                android:layout_marginTop="30pt"
+                android:layout_marginBottom="10pt"
+                app:srcCompat="@drawable/logo" />
+
+            <LinearLayout
+                android:layout_width="143pt"
+                android:layout_height="25pt"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10pt"
+                android:background="@drawable/login_id_pw"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/NoticeFirstName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="ID"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/Id_EditText"
+                    android:layout_width="250dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:inputType="textPersonName|text|textEmailAddress"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="143pt"
+                android:layout_height="25pt"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15pt"
+                android:background="@drawable/login_id_pw"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/NoticeFirstName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="PW"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/Pw_EditText"
+                    android:layout_width="241dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:inputType="textPassword"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/Login_Button"
+                android:layout_width="143pt"
+                android:layout_height="25pt"
+                android:layout_gravity="center"
+                android:background="@drawable/login_signini"
+                android:text="Login"
+                android:textColor="#F2B705"
+                android:textSize="20pt"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/Id_EditText"
-                android:layout_width="300dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="left"
-                android:inputType="textPersonName|text|textEmailAddress"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/join_TextView"
+                android:layout_width="143pt"
+                android:layout_height="25pt"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/login_signini"
+                android:text="SIGN IN"
+                android:textColor="#F2B705"
+                android:textSize="20pt"
+                android:textStyle="bold" />
+
+
+            <CheckBox
+                android:id="@+id/check_Id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:buttonTint="#FFFFFF"
+                android:text="아이디를 저장하시겠습니까?"
+                android:textColor="#FFFFFF"
+                android:visibility="visible" />
+
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
-
-
-        <LinearLayout
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/NoticeFirstName2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="PW"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-            <EditText
-                android:id="@+id/Pw_EditText"
-                android:layout_width="300dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:gravity="left"
-                android:inputType="textPassword"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"/>
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
-
-
-        <CheckBox
-            android:id="@+id/check_Id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:buttonTint="#FFFFFF"
-            android:text="아이디 저장"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/Login_Button"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_design"
-            android:text="Login"
-            android:textColor="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/join_TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/login_button2"
-            android:text="회원가입"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,9 @@
 package org.techtown.schooler.NavigationFragment;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +26,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import org.techtown.schooler.CreateChannel;
 import org.techtown.schooler.Model.Author;
 import org.techtown.schooler.Model.Channel;
 import org.techtown.schooler.Model.Events;
@@ -41,7 +46,7 @@ import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class MainFragment extends Fragment  {
+public class MainFragment extends Fragment {
 
     // 캘린더
     MaterialCalendarView materialCalendarView;
@@ -66,19 +71,48 @@ public class MainFragment extends Fragment  {
 
     String month;
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate(R.menu.schedule, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.add:
+                Toast.makeText(getActivity(), "add", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.delete:
+                Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
+                break;
+
+
+            default:
+                break;
+
+        }
+
+        return false;
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_main, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
 
         materialCalendarView = rootView.findViewById(R.id.materialCalendarView); // 캘린더
         recyclerView = rootView.findViewById(R.id.recyclerView); // 리사이클러뷰
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
 
-
-
+        // 메인 프레그먼트의 툴바 색상을 설정하는 것입니다.
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         // 캘린더 클릭 시 발생하는 이벤트를 수행합니다.
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -107,13 +141,15 @@ public class MainFragment extends Fragment  {
             }
         });
 
+        setHasOptionsMenu(true);
+
         return rootView;
     }
 
 
-    public void onChannelEvent(){
+    public void onChannelEvent() {
 
-        Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().GetChannelEvent(Login.getString("token",""),"");
+        Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().GetChannelEvent(Login.getString("token", ""), "");
         res.enqueue(new Callback<Response<Data>>() {
 
             @Override
@@ -128,17 +164,17 @@ public class MainFragment extends Fragment  {
                 boolean isEmpty = true;
 
                 // channelEventsData 의 size 만큼 반복문을 동작시킵니다.
-                for (int i = 0; i < channelEventsData.size(); i++){
+                for (int i = 0; i < channelEventsData.size(); i++) {
 
                     // start_date 변수에 channelEventsData 배열에 존재하는 i 번째 start_date 값을 저장합니다.
                     String start_date = channelEventsData.get(i).getStart_date();
 
-                    String channelYear = start_date.substring(0,4); // Year
-                    String channelMonth = start_date.substring(5,7); // Month
-                    String channelDay = start_date.substring(8,10); // Day
+                    String channelYear = start_date.substring(0, 4); // Year
+                    String channelMonth = start_date.substring(5, 7); // Month
+                    String channelDay = start_date.substring(8, 10); // Day
 
                     // 만약 사용자가 캘린더에서 선택한 날짜와 start_date 값이 일치하다면 조건을 실행합니다.
-                    if(Integer.parseInt(selectedYear) == Integer.parseInt(channelYear) && selectedMonth == Integer.parseInt(channelMonth) && Integer.parseInt(selectedDay) == Integer.parseInt(channelDay)){
+                    if (Integer.parseInt(selectedYear) == Integer.parseInt(channelYear) && selectedMonth == Integer.parseInt(channelMonth) && Integer.parseInt(selectedDay) == Integer.parseInt(channelDay)) {
 
                         isEmpty = false;
 
@@ -155,6 +191,7 @@ public class MainFragment extends Fragment  {
 
                     Log.e("[채널 일정 X]", "채널 일정이 존재하지 않습니다.");
                     Toast.makeText(getActivity(), "채널 일정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+
 
                 } else {
 
@@ -188,22 +225,22 @@ public class MainFragment extends Fragment  {
                 boolean isEmpty = true;
 
                 // channelEventsData 의 size 만큼 반복문을 동작시킵니다.
-                for (int i = 0; i < schoolEventsData.size(); i++){
+                for (int i = 0; i < schoolEventsData.size(); i++) {
 
                     // start_date 변수에 channelEventsData 배열에 존재하는 i 번째 start_date 값을 저장합니다.
                     String start_date = schoolEventsData.get(i).getStart_date();
 
-                    String channelYear = start_date.substring(0,4); // Year
-                    String channelMonth = start_date.substring(5,7); // Month
-                    String channelDay = start_date.substring(8,10); // Day
+                    String channelYear = start_date.substring(0, 4); // Year
+                    String channelMonth = start_date.substring(5, 7); // Month
+                    String channelDay = start_date.substring(8, 10); // Day
 
                     // 만약 사용자가 캘린더에서 선택한 날짜와 start_date 값이 일치하다면 조건을 실행합니다.
-                    if(Integer.parseInt(selectedYear) == Integer.parseInt(channelYear) && selectedMonth == Integer.parseInt(channelMonth) && Integer.parseInt(selectedDay) == Integer.parseInt(channelDay)){
+                    if (Integer.parseInt(selectedYear) == Integer.parseInt(channelYear) && selectedMonth == Integer.parseInt(channelMonth) && Integer.parseInt(selectedDay) == Integer.parseInt(channelDay)) {
 
                         isEmpty = false;
 
-                        schoolEventsData.get(i).setAuthor(new Author(null,null));
-                        schoolEventsData.get(i).setChannel(new Channel("학사 일정",""));
+                        schoolEventsData.get(i).setAuthor(new Author(null, null));
+                        schoolEventsData.get(i).setChannel(new Channel("학사 일정", ""));
 
                         schoolEventsArrayList.add(schoolEventsData.get(i));
 
@@ -233,22 +270,13 @@ public class MainFragment extends Fragment  {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @NonNull
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        inflater.inflate(R.menu.schedule, menu);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule, parent, false);
+
+        return new ScheduleAdapter.MyViewHolder(view);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-
-        switch (item.getItemId()){
-
-            case R.id.add
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
