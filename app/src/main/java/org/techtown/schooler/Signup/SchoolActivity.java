@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ public class SchoolActivity extends AppCompatActivity {
     String SchoolId;
     String OfficeId;
     String SchoolKind;
+    FrameLayout list_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +52,30 @@ public class SchoolActivity extends AppCompatActivity {
         DecideSchoolName = (TextView)findViewById(R.id.decideSchoolName);
         DecideSchoolName.setVisibility(View.INVISIBLE);
         GotoClass = (ImageView)findViewById(R.id.next_class);
+        list_layout = (FrameLayout)findViewById(R.id.list_layout);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         GotoClass.setEnabled(false);
         GotoClass.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+
+        list_layout.setVisibility(View.INVISIBLE);
+
+
+
+
+        SearchSchoolName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list_layout.setVisibility(View.INVISIBLE);
+            }
+        });
 
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSearch();
+                list_layout.setVisibility(View.VISIBLE);
+                imm.hideSoftInputFromWindow(list_layout.getWindowToken(), 0);
             }
         });
     }

@@ -8,68 +8,51 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/Bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F9F9F9"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:onClick="toGoBack"
-            android:text="뒤로"
-            android:textColor="#2349E6"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:textColor="#2349E6"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_chevron_left_yellow_24dp" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/text_title6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
+        android:layout_marginLeft="14.5pt"
+        android:layout_marginTop="10dp"
         android:text="가입 확인"
-        android:textColor="#020202"
-        android:textSize="36sp"
+        android:textColor="#707070"
+        android:textSize="20pt"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/EmailAuthCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/check_signin"
+        android:gravity="center"
         android:orientation="vertical">
-
-        <View
-            android:id="@+id/view35"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
@@ -77,24 +60,24 @@
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="이름"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="이영은" />
 
         </LinearLayout>
@@ -104,6 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="#BBBBBB" />
@@ -111,6 +95,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
@@ -118,24 +103,24 @@
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="ID"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="eun36739" />
 
         </LinearLayout>
@@ -145,40 +130,40 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_weight="1"
             android:background="#BBBBBB" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="E-Mail"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="eun36739@gmail.com" />
 
         </LinearLayout>
@@ -188,14 +173,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_weight="1"
             android:background="#BBBBBB" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
@@ -203,24 +189,24 @@
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="전화번호"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearPhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="010-4199-1212" />
 
         </LinearLayout>
@@ -230,6 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="#BBBBBB" />
@@ -237,6 +224,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
@@ -244,24 +232,24 @@
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="학교"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearSchool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="대구소프트웨어고등학교" />
 
         </LinearLayout>
@@ -271,6 +259,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="#BBBBBB" />
@@ -278,6 +267,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
@@ -285,24 +275,24 @@
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="학년"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearGrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="1학년" />
 
         </LinearLayout>
@@ -312,6 +302,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="#BBBBBB" />
@@ -319,6 +310,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
@@ -326,114 +318,82 @@
             <TextView
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="반"
                 android:textColor="#000000"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ClearClass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="10"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 tools:text="2반" />
 
         </LinearLayout>
-
-        <View
-            android:id="@+id/view32"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="1dp "
+        android:layout_marginRight="10dp"
+        android:background="@drawable/input_text_box"
+        android:gravity="center"
         android:orientation="vertical">
-
-        <View
-            android:id="@+id/view10"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
 
         <Switch
             android:id="@+id/isPublic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:text="프로필 공개 여부"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <View
-            android:id="@+id/view39"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
+    </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="공개 시, 이메일/전화번호/학교/학년/반 정보를 다른 사용자가 조회할 수 있습니다."
-            android:textColor="#D10000"
-            android:textSize="10sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="공개 시, 이메일/전화번호/학교/학년/반 정보를 다른 사용자가 조회할 수 있습니다."
+        android:textColor="#D10000"
+        android:textSize="10sp" />
 
-        <View
-            android:id="@+id/view36"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/input_text_box"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <Switch
             android:id="@+id/isNotify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="5dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="5dp"
             android:text="푸시알림 수신 여부"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <View
-            android:id="@+id/view38"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
 
     </LinearLayout>
 
@@ -447,10 +407,13 @@
             android:id="@+id/Finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp "
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/button"
             android:gravity="center"
-            android:text="완료"
-            android:textColor="#2349E6"
+            android:text="Sign in"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
     </LinearLayout>
 

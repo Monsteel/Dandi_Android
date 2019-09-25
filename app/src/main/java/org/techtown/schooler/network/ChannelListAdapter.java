@@ -4,17 +4,17 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +26,9 @@ import org.techtown.schooler.R;
 import org.techtown.schooler.network.response.Response;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,19 +38,31 @@ import static android.content.Context.MODE_PRIVATE;
 public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.ViewHolder>{
 
     private final List<ChannelInfo> mDataList;
+    private final List<ChannelInfo> arrayList;
     SharedPreferences Login;
 
     public ChannelListAdapter(List<ChannelInfo> dataList){
         mDataList = dataList;
+        arrayList = new ArrayList<ChannelInfo>();
+        arrayList.addAll(mDataList);
+        filter("test");
     }
 
-    ////
-    public void setFilter(List<ChannelInfo> items) {
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
         mDataList.clear();
-        mDataList.addAll(items);
+        if (charText.length() == 0) {
+            mDataList.addAll(arrayList);
+        } else {
+            for (ChannelInfo channelInfo : arrayList) {
+                String name = channelInfo.getName();
+                if (name.toLowerCase().contains(charText)) {
+                    mDataList.add(channelInfo);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
-    ////
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -66,13 +80,6 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
 
         Login = holder.joinButton.getContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
-        if(item.getColor() != null){
-            holder.colorBar.setVisibility(View.VISIBLE);
-            holder.colorBar.setBackgroundColor(Color.parseColor(item.getColor()));
-        }else{
-            holder.colorBar.setVisibility(View.GONE);
-        }
-
         new DownloadImageFromInternet(holder.BackGroundImage)
                 .execute(item.getThumbnail());
 
@@ -81,6 +88,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         }else{
             holder.isPublicImage.setImageResource(R.drawable.un_locked);
         }
+
         holder.joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,8 +152,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         ImageView isPublicImage;
         TextView create_User;
         CardView channelCardView;
-        Button joinButton;
-        View colorBar;
+        TextView joinButton;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -160,7 +167,6 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
             isPublicImage = itemView.findViewById(R.id.isPublic_ImageView);
             channelCardView = itemView.findViewById(R.id.ChannelCardView);
             joinButton = itemView.findViewById(R.id.JoinChannel_Button);
-            colorBar = itemView.findViewById(R.id.colorBar);
         }
     }
 

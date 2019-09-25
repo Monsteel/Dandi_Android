@@ -65,10 +65,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="25pt"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="23.5pt"
+        android:layout_marginTop="10pt"
         android:layout_marginRight="30dp"
         android:background="@drawable/input_text_box"
         android:orientation="horizontal">
@@ -77,9 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="4.2pt"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:scaleType="fitEnd"
@@ -90,6 +89,7 @@
             android:layout_width="1pt"
             android:layout_height="11.5pt"
             android:layout_gravity="center"
+            android:layout_marginBottom="3dp"
             android:background="#f2b705" />
 
         <EditText
@@ -98,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="3.8pt"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:background="@null"
             android:ems="10"
@@ -108,24 +109,41 @@
             android:id="@+id/Search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:gravity="right"
             android:text="검색"
             android:textColor="#f2b705"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-    <ListView
-        android:layout_marginTop="10dp"
-        android:id="@+id/School_ListView"
+    <FrameLayout
+        android:id="@+id/list_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
+        android:layout_height="wrap_content"
+        android:windowSoftInputMode="stateVisible|adjustPan">
+
+        <View
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/school_list"/>
+
+        <ListView
+            android:id="@+id/School_ListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="50dp"/>
+    </FrameLayout>
 
 </LinearLayout>
