@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="filed">
+        <item >전체</item>
+        <item >가입한 채널</item>
+        <item >내가 만든 채널</item>
+        <item >가입하지 않은 채널</item>
+        <item >승인대기중인 채널</item>
+    </array>
+</resources>

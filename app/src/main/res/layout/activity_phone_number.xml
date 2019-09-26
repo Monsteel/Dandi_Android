@@ -69,7 +69,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="8pt"
             android:layout_marginRight="6dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:text="전화번호"
             android:textColor="#707070"
@@ -81,7 +80,6 @@
             android:layout_width="1pt"
             android:layout_height="11.5pt"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
             android:background="#f2b705" />
 
         <EditText
@@ -90,7 +88,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="3.8pt"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:background="@null"
             android:ems="10"
@@ -104,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="30dp"
         android:text="자신의 전화번호를 입력 해 주세요"
         android:textColor="#5C5C5C" />

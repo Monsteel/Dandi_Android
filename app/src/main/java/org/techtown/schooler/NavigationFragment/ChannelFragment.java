@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,9 +17,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,6 +60,9 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
     List<ChannelInfo> DataList= new ArrayList<>();
     SwipeRefreshLayout mSwipeRefreshLayout;
     SharedPreferences Login;
+    EditText search;
+    Spinner field;
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -73,10 +82,14 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_channel, container, false);
 
+
+
         recyclerView = rootView.findViewById(R.id.ChannelRecyclerView);
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(LinearLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_layout);
+        search = (EditText)rootView.findViewById(R.id.searchChannel);
+        field = (Spinner)rootView.findViewById(R.id.channelField);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -105,6 +118,9 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
 
+    String keyword ="";
+    Integer pick = null;
+
     public void onSearch(){
         final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().SearchChannel(Login.getString("token",""),"");//token불러오기
         res.enqueue(new Callback<Response<Data>>() {
@@ -116,6 +132,50 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         DataList = response.body().getData().getChannels();
                         ChannelListAdapter adapter = new ChannelListAdapter(DataList);
                         recyclerView.setAdapter(adapter);
+
+                        adapter.filter(keyword,pick);
+
+                        search.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                //에딧텍스트 만들고, 그 값을 필터에 매개변수로 넣는 작업.
+                                keyword = charSequence.toString();
+                                adapter.filter(keyword,pick);
+                            }
+                            @Override
+                            public void afterTextChanged(Editable editable) {
+                                //입력후
+                            }
+                        });
+
+                        field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view,
+                                                       int position, long id) {
+
+                                if(position == 0){
+                                    pick = null;//전체
+                                }else if(position == 1){
+                                    pick = 2;//가입한채널
+                                }else if(position == 2){
+                                    pick = 3;//내가만든채널
+                                }else if(position == 3){
+                                    pick = 0;//가입안된 채널
+                                }else if(position == 4){
+                                    pick = 1;//승인대기중인 채널
+                                }
+
+                                adapter.filter(keyword,pick);
+                            }
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
 
 
                     }else{

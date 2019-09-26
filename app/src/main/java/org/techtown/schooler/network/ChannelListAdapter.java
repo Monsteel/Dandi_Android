@@ -45,22 +45,47 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         mDataList = dataList;
         arrayList = new ArrayList<ChannelInfo>();
         arrayList.addAll(mDataList);
-        filter("test");
     }
 
-    public void filter(String charText) {
+    public void filter(String charText,Integer pickUserStatus) {
         charText = charText.toLowerCase(Locale.getDefault());
+
+
         mDataList.clear();
-        if (charText.length() == 0) {
-            mDataList.addAll(arrayList);
-        } else {
+
             for (ChannelInfo channelInfo : arrayList) {
                 String name = channelInfo.getName();
-                if (name.toLowerCase().contains(charText)) {
-                    mDataList.add(channelInfo);
+                String master = channelInfo.getCreate_user();
+
+
+
+                if(pickUserStatus == null){
+
+                    if(name.toLowerCase().contains(charText)||master.toLowerCase().contains(charText)){
+                        mDataList.add(channelInfo);
+                    }
+
+                }else{
+                    if(charText.length() == 0){
+                        if(channelInfo.getUserStatus() == pickUserStatus){
+                            mDataList.add(channelInfo);
+                        }
+
+                    }else if(pickUserStatus == 3) {
+
+//                        if(channelInfo.getCreate_user() == 사용자이름){
+//                         mDataList.add(channelInfo);
+//                        }
+
+
+                    }else if((channelInfo.getUserStatus() == pickUserStatus)&&(name.toLowerCase().contains(charText)||master.toLowerCase().contains(charText))){
+                        mDataList.add(channelInfo);
+                    }
                 }
-            }
-        }
+
+                //리펙토링 필요.
+
+                }
         notifyDataSetChanged();
     }
 
@@ -94,48 +119,57 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
             public void onClick(View v) {
                 Log.e("가입버튼","클릭됐어요");
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.joinButton.getContext());
-                builder.setTitle("채널가입");
-                builder.setMessage("채널에 가입하시겠습니까?\n\n채널이름 : "+item.getName()+"\n개설자 : "+item.getCreate_user());
-                builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
+                if(item.getUserStatus() == 1){
+                    Toast.makeText(holder.joinButton.getContext(),"가입승인 대기중인 채널입니다.",Toast.LENGTH_SHORT).show();
+                }else if(item.getUserStatus() == 2){
+                    Toast.makeText(holder.joinButton.getContext(),"이미 가입된 채널입니다.",Toast.LENGTH_SHORT).show();
+                }else {
 
-                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(holder.joinButton.getContext());
+                    builder.setTitle("채널가입");
+                    builder.setMessage("채널에 가입하시겠습니까?\n\n채널이름 : " + item.getName() + "\n개설자 : " + item.getCreate_user());
+                    builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
 
-                        final Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(Login.getString("token",""),item.getId());//token불러오기
-                        res1.enqueue(new Callback<Response<Data>>() {
-                            @Override
-                            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                                if(response.isSuccessful()){
-                                    if(item.getIsPublic() == "0" || item.getIsPublic() == "true"){
-                                        Toast.makeText(holder.joinButton.getContext(),"채널가입 신청이 완료되었습니다.",Toast.LENGTH_SHORT).show();
-                                    }else {
-                                        Toast.makeText(holder.joinButton.getContext(), "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            final Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(Login.getString("token", ""), item.getId());//token불러오기
+                            res1.enqueue(new Callback<Response<Data>>() {
+                                @Override
+                                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                                    if (response.isSuccessful()) {
+                                        if (item.getIsPublic() == "0" || item.getIsPublic() == "true") {
+                                            Toast.makeText(holder.joinButton.getContext(), "채널가입 신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                            item.setUserStatus(1);
+                                        } else {
+                                            Toast.makeText(holder.joinButton.getContext(), "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                            item.setUserStatus(2);
+                                        }
+
                                     }
-
-                                }else if(response.code() == 400){
-                                    Toast.makeText(holder.joinButton.getContext(),"이미 가입된 채널이거나, 가입승인 대기중에 있습니다.",Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                            @Override
-                            public void onFailure(Call<Response<Data>> call, Throwable t) {
-                                Log.e("Err", "네트워크 연결오류");
-                            }
-                        });
-                        Log.e("예 버튼","클릭됐어요");
-                    }
-                });
 
-                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.e("아니오 버튼","클릭됐어요");
-                    }
-                });
+                                @Override
+                                public void onFailure(Call<Response<Data>> call, Throwable t) {
+                                    Log.e("Err", "네트워크 연결오류");
+                                }
+                            });
 
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                            Log.e("예 버튼", "클릭됐어요");
+                        }
+                    });
+
+                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.e("아니오 버튼", "클릭됐어요");
+                        }
+                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
             }
         });
     }

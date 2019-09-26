@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -39,4 +40,8 @@ public interface Channel {
     @GET("/channel/info")
     Call<Response<Data>> ChannelInfo(@Header("x-access-token")String token,
                                      @Query("channel_id") String channel_id);
+
+//    @Multipart
+//    @POST("changeCompanyLogo")
+//    Call<ChangeLogoResponse> changeCompanyLogo(@Part MultipartBody.Part image, @Part("JSON") RequestBody name);
 }

@@ -8,9 +8,10 @@ public class ChannelInfo {
     private String isPublic;
     private String id;
     private String color;
+    private int userStatus;
 
 
-    public ChannelInfo(String name) {
+    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic, String id, String color, int userStatus) {
         this.name = name;
         this.explain = explain;
         this.create_user = create_user;
@@ -18,30 +19,7 @@ public class ChannelInfo {
         this.isPublic = isPublic;
         this.id = id;
         this.color = color;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getIsPublic() {
-        return isPublic;
-    }
-
-    public void setIsPublic(String isPublic) {
-        this.isPublic = isPublic;
+        this.userStatus = userStatus;
     }
 
     public void setName(String name) {
@@ -60,6 +38,22 @@ public class ChannelInfo {
         this.thumbnail = thumbnail;
     }
 
+    public void setIsPublic(String isPublic) {
+        this.isPublic = isPublic;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
+    }
+
     public String getName() {
         return name;
     }
@@ -74,5 +68,21 @@ public class ChannelInfo {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public String getIsPublic() {
+        return isPublic;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getUserStatus() {
+        return userStatus;
     }
 }

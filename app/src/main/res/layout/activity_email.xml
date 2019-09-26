@@ -64,12 +64,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="103dp"
+            android:layout_width="108dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="8pt"
             android:layout_marginRight="6dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:text="E-mail"
             android:textColor="#707070"
@@ -81,7 +80,6 @@
             android:layout_width="1pt"
             android:layout_height="11.5pt"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
             android:background="#f2b705" />
 
         <EditText
@@ -90,7 +88,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="3.8pt"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:background="@null"
             android:ems="10"
@@ -103,7 +100,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:gravity="right"
             android:onClick="toClickSendAuth"
@@ -146,12 +142,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="59dp"
+            android:layout_width="63dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="8pt"
             android:layout_marginRight="6dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:text="인증번호"
             android:textColor="#707070"
@@ -163,7 +158,6 @@
             android:layout_width="1pt"
             android:layout_height="11.5pt"
             android:layout_gravity="center"
-            android:layout_marginBottom="3dp"
             android:background="#f2b705" />
 
         <EditText
@@ -172,7 +166,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="3.8pt"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:background="@null"
             android:ems="10"
@@ -185,7 +178,6 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/okay" />
 

@@ -44,8 +44,10 @@
         android:id="@+id/EmailAuthCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/check_signin"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/input_text_box"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -85,12 +87,10 @@
         <View
             android:id="@+id/view12"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#BBBBBB" />
+            android:background="#c5c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,12 +128,10 @@
         <View
             android:id="@+id/view29"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#BBBBBB" />
+            android:background="#c5c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -171,12 +169,10 @@
         <View
             android:id="@+id/view33"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#BBBBBB" />
+            android:background="#c5c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -214,12 +210,10 @@
         <View
             android:id="@+id/view30"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#BBBBBB" />
+            android:background="#c5c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -257,12 +251,10 @@
         <View
             android:id="@+id/view31"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#BBBBBB" />
+            android:background="#c5c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -300,12 +292,10 @@
         <View
             android:id="@+id/view34"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="#BBBBBB" />
+            android:background="#c5c4c4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -344,10 +334,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="1dp "
-        android:layout_marginRight="10dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/input_text_box"
         android:gravity="center"
         android:orientation="vertical">
@@ -358,7 +348,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
             android:text="프로필 공개 여부"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -376,10 +365,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="1dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/input_text_box"
         android:gravity="center"
         android:orientation="vertical">
@@ -390,7 +379,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="5dp"
             android:text="푸시알림 수신 여부"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -400,15 +388,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/Finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp "
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:background="@drawable/button"
             android:gravity="center"
