@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SharedPreferences Login;
     Toolbar toolbar; // Toolbar
 
+    TextView userName; // 이름
+    TextView school; // 학교
+    TextView grade; // 학반
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +77,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout); // DrawerLayout
         navigationView = (NavigationView) findViewById(R.id.navigationView); // NavigationView
         main_nav_header = navigationView.getHeaderView(0); // main_nav_header
-        profile = main_nav_header.findViewById(R.id.profile); // 헤더부분 이미지 즉 프로필
         toolbar = (Toolbar) findViewById(R.id.toolbar); // Toolbar
-
-        // 메인 프레그먼트를 먼저 설정해둡니다.
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, main).commit();
-
-        // toolbar 를 사용할 수 있도록 설정합니다.
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp2);
-        // 제목을 보이지 않도록 합니다.
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-        // setNavigationItemSelectedListener 매서드를 사용하여 navigationView 객체에서 이벤트를 받으려면 리스너 설정을 해야한다.
-        navigationView.setNavigationItemSelectedListener(MainActivity.this);
-
-
+        profile = main_nav_header.findViewById(R.id.profile); // 헤더부분 이미지 즉 프로필
+        userName = main_nav_header.findViewById(R.id.userName); // 이름
+        school = main_nav_header.findViewById(R.id.school); // 학교
+        grade = main_nav_header.findViewById(R.id.grade); // 학반
 
         Login = getSharedPreferences("Login", MODE_PRIVATE);
 
@@ -106,6 +96,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else{
             Log.e("[LoginCheck] ", "로그인 O");
         }
+
+        // 메인 프레그먼트를 먼저 설정해둡니다.
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, main).commit();
+
+        // toolbar 를 사용할 수 있도록 설정합니다.
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp2);
+        // 제목을 보이지 않도록 합니다.
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // setNavigationItemSelectedListener 매서드를 사용하여 navigationView 객체에서 이벤트를 받으려면 리스너 설정을 해야한다.
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
 
         // profile 즉 프로필 사진을 둥글게 만들어줍니다.
@@ -268,4 +272,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onOptionsItemSelected(item);
     }
+
 }

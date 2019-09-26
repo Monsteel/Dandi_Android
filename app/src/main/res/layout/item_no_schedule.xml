@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/noSchedule_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="등록된 일정이 없습니다."
+                    android:textSize="10pt"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="81pt"
+                    android:layout_height="19pt"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="14.5pt"
+                    android:background="@drawable/add_schedule"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="10pt"
+                            android:layout_height="10pt"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="10pt"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/addSchedule_textView"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.375"
+                            app:srcCompat="@drawable/schedule_add_button"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/addSchedule_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="78dp"
+                            android:layout_marginLeft="78dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="133dp"
+                            android:layout_marginRight="133dp"
+                            android:layout_marginBottom="17dp"
+                            android:text="일정 등록하기"
+                            android:textColor="#707070"
+                            android:textSize="7.5pt"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.398"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.125" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

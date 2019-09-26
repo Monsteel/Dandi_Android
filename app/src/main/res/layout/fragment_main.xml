@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F2F2F2">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,15 +28,25 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#FFFFFF"
-                android:backgroundTint="#FFFFFF"/>
+                android:background="#FFC107"
+                android:backgroundTint="#FFFFFF" />
 
-            <View
-                android:id="@+id/view43"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="49dp"
-                android:background="#FFC107" />
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view43"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="#FFC107"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.073" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/materialCalendarView"
@@ -43,17 +54,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:background="@android:color/transparent"
-                app:mcv_showOtherDates="defaults"
                 app:mcv_arrowColor="#FFFFFF"
-                app:mcv_selectionColor="#FFC107">
-
-            </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+                app:mcv_selectionColor="#FFC107"
+                app:mcv_showOtherDates="defaults"
+                app:mcv_tileSize="60dp"
+                app:mcv_tileHeight="70dp"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroolSchedule"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
@@ -65,11 +77,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:visibility="visible" >
+            android:visibility="visible">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-
     </androidx.core.widget.NestedScrollView>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

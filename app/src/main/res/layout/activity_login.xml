@@ -35,100 +35,100 @@
                 app:srcCompat="@drawable/logo" />
 
             <LinearLayout
-                android:layout_width="143pt"
-                android:layout_height="25pt"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10pt"
-                android:background="@drawable/login_id_pw"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/NoticeFirstName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="ID"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12.5pt"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="143pt"
+                    android:layout_height="25pt"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/Id_EditText"
-                    android:layout_width="250dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@android:color/transparent"
-                    android:ems="10"
-                    android:gravity="left"
-                    android:inputType="textPersonName|text|textEmailAddress"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/NoticeFirstName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="ID"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12.5pt"
+                        android:textStyle="normal" />
 
+                    <EditText
+                        android:id="@+id/Id_EditText"
+                        android:layout_width="250dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:ems="10"
+                        android:gravity="left"
+                        android:inputType="textPersonName|text|textEmailAddress"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="350dp"
+                    android:layout_height="3dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-15dp"
+                    android:background="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="143pt"
-                android:layout_height="25pt"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15pt"
-                android:background="@drawable/login_id_pw"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/NoticeFirstName2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="PW"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12.5pt"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="143pt"
+                    android:layout_height="25pt"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/Pw_EditText"
-                    android:layout_width="241dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@android:color/transparent"
-                    android:ems="10"
-                    android:gravity="left"
-                    android:inputType="textPassword"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/NoticeFirstName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="PW"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12.5pt"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:id="@+id/Pw_EditText"
+                        android:layout_width="241dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:ems="10"
+                        android:gravity="left"
+                        android:inputType="textPassword"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp" />
 
 
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="350dp"
+                    android:layout_height="3dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-15dp"
+                    android:background="#FFFFFF" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/Login_Button"
-                android:layout_width="143pt"
-                android:layout_height="25pt"
-                android:layout_gravity="center"
-                android:background="@drawable/login_signini"
-                android:text="Login"
-                android:textColor="#F2B705"
-                android:textSize="20pt"
-                android:textStyle="bold" />
-
-
-            <Button
-                android:id="@+id/join_TextView"
-                android:layout_width="143pt"
-                android:layout_height="25pt"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/login_signini"
-                android:text="SIGN IN"
-                android:textColor="#F2B705"
-                android:textSize="20pt"
-                android:textStyle="bold" />
-
 
             <CheckBox
                 android:id="@+id/check_Id"
@@ -140,6 +140,45 @@
                 android:text="아이디를 저장하시겠습니까?"
                 android:textColor="#FFFFFF"
                 android:visibility="visible" />
+
+            <Button
+                android:id="@+id/Login_Button"
+                android:layout_width="143pt"
+                android:layout_height="25pt"
+                android:layout_gravity="center"
+                android:layout_marginTop="29pt"
+                android:background="@drawable/final_login"
+                android:text="Login"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10pt"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아직 계정이 없으신가요?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="7.5pt" />
+
+                <TextView
+                    android:id="@+id/join_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="회원가입"
+                    android:textColor="#F2B705"
+                    android:textSize="7.5pt"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
 
         </LinearLayout>

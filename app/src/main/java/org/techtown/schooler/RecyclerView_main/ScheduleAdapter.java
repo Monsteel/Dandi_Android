@@ -72,14 +72,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.channelEventsArrayList = channelEventsArrayList;
     }
 
+    public ScheduleAdapter(){
+
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule, parent, false);
-
-        return new MyViewHolder(view);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule, parent, false);
+            return new MyViewHolder(view);
     }
 
     @Override
