@@ -4,6 +4,9 @@ import org.techtown.schooler.Model.CreateChannelRequest;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.response.Response;
 
+import okhttp3.MultipartBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -11,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Channel {
@@ -41,7 +45,10 @@ public interface Channel {
     Call<Response<Data>> ChannelInfo(@Header("x-access-token")String token,
                                      @Query("channel_id") String channel_id);
 
-//    @Multipart
-//    @POST("changeCompanyLogo")
-//    Call<ChangeLogoResponse> changeCompanyLogo(@Part MultipartBody.Part image, @Part("JSON") RequestBody name);
+    @Multipart
+    @POST("changeCompanyLogo")
+    Call<Response> uploadThumbnail(@Header("x-access-token")String token,
+                                         @Part MultipartBody.Part thumbnail,
+                                         @Part ("name") RequestBody name,
+                                         @Query("channel_id") String channel_id);
 }

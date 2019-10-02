@@ -40,8 +40,18 @@ public class Data {
 
     private UserInfo userInfo;
 
+    private String channel_id;
+
     public ChannelInfo getChannelInfo() {
         return channelInfo;
+    }
+
+    public String getChannel_id() {
+        return channel_id;
+    }
+
+    public void setChannel_id(String channel_id) {
+        this.channel_id = channel_id;
     }
 
     public void setChannelInfo(ChannelInfo channelInfo) {
