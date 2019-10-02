@@ -14,14 +14,15 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="6pt">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/top_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/schedule_corners"
@@ -118,7 +119,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/start_date"
+                                android:id="@+id/textView16"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="2019.09.18"
@@ -173,17 +174,17 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="5dp"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.045"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.484"
-                app:srcCompat="@drawable/channel_image" />
+                app:layout_constraintVertical_bias="0.484" />
 
-            <ImageView
-                android:id="@+id/imageView4"
+            <ImageButton
+                android:id="@+id/contentButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="12dp"
@@ -196,7 +197,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/frameLayout"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow3" />
+                app:srcCompat="@drawable/arrow3"
+                android:scaleType="centerCrop"
+                android:backgroundTint="@android:color/transparent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

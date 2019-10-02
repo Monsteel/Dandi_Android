@@ -4,9 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.Model.ChannelInfo;
-import org.techtown.schooler.Model.JoinedChannelInfo;
+import org.techtown.schooler.Model.JoinedChannel;
 import org.techtown.schooler.Model.SchoolInformations;
 import org.techtown.schooler.Model.User;
+import org.techtown.schooler.Model.UserInfo;
 
 import java.util.List;
 
@@ -33,9 +34,11 @@ public class Data {
 
     private ChannelInfo channelInfo;
 
-    private List<JoinedChannelInfo> joinedChannel;
+    private List<JoinedChannel> joinedChannel;
 
     private List<Events> events;
+
+    private UserInfo userInfo;
 
     public ChannelInfo getChannelInfo() {
         return channelInfo;
@@ -57,11 +60,11 @@ public class Data {
         return channels;
     }
 
-    public List<JoinedChannelInfo> getJoinedChannel() {
+    public List<JoinedChannel> getJoinedChannel() {
         return joinedChannel;
     }
 
-    public void setJoinedChannel(List<JoinedChannelInfo> joinedChannel) {
+    public void setJoinedChannel(List<JoinedChannel> joinedChannel) {
         this.joinedChannel = joinedChannel;
     }
 
@@ -117,8 +120,11 @@ public class Data {
         isOverlapped = overlapped;
     }
 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
 
-
-
-
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 }

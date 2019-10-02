@@ -3,6 +3,7 @@ package org.techtown.schooler.network;
 import org.techtown.schooler.Model.SchoolList;
 import org.techtown.schooler.network.retrofit.interfaces.ChannelEvent;
 import org.techtown.schooler.network.retrofit.interfaces.Login;
+import org.techtown.schooler.network.retrofit.interfaces.Profile;
 import org.techtown.schooler.network.retrofit.interfaces.SchoolEvent;
 import org.techtown.schooler.network.retrofit.interfaces.SignUp;
 import org.techtown.schooler.network.retrofit.interfaces.Channel;
@@ -22,7 +23,7 @@ public class NetRetrofit {
 
     Retrofit retrofit = new Retrofit.Builder()
 
-            .baseUrl("http://10.80.163.154:5000")
+            .baseUrl("http://bind4th.kro.kr:3000")
             .addConverterFactory(GsonConverterFactory.create()) // 파싱등록
             .build();
 
@@ -56,5 +57,10 @@ public class NetRetrofit {
         return schoolEvent;
     }
 
+    Profile profile = retrofit.create(Profile.class);
+
+    public Profile getProfile() {
+        return profile;
+    }
 }
 

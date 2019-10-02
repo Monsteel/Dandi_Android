@@ -35,7 +35,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="14.5pt"
                     android:background="@drawable/add_schedule"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/layout">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

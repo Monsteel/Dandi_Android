@@ -9,14 +9,16 @@ public class Events {
     String title;
     String start_date;
     String end_date;
+    String content;
 
-    public Events(Author author, Channel channel, String title, String start_date, String end_date) {
+    public Events(Author author, Channel channel, String title, String start_date, String end_date, String content) {
 
         this.author = author;
         this.channel = channel;
         this.title = title;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.content = content;
     }
 
     public Events() {
@@ -63,5 +65,11 @@ public class Events {
         this.channel = channel;
     }
 
+    public String getContent() {
+        return content;
+    }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

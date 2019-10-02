@@ -11,7 +11,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateChannelEvents"></activity>
+        <activity android:name=".ChannelContent"></activity>
+        <activity
+            android:name=".CreateChannelEvents"
+            android:theme="@style/AppTheme2" />
         <activity android:name=".setChannelImage" />
         <activity android:name=".CreateChannel" />
         <activity android:name=".Signup.FinishSignup" />

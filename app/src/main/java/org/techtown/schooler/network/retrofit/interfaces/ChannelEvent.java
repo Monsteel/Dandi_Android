@@ -1,5 +1,6 @@
 package org.techtown.schooler.network.retrofit.interfaces;
 
+import org.techtown.schooler.Model.AddChannelEvents;
 import org.techtown.schooler.network.Data;
 
 import retrofit2.Call;
@@ -19,11 +20,9 @@ public interface ChannelEvent {
                                                                                 @Query("channel_id")String channel_id);
 
     @POST("/channel-event/add")
-    Call<Response<Data>> AddChannelEvent(@Header("x-access-token")String token,
-                                         @Query("channel_id")String channel_id,
-                                         @Body String title,
-                                         @Body String start_date,
-                                         @Body String end_date);
+    Call<org.techtown.schooler.network.response.Response<Data>> AddChannelEvent(@Header("x-access-token")String token,
+                                                                                @Query("channel_id")String channel_id,
+                                                                                @Body AddChannelEvents addChannelEvents);
 
     @DELETE("/channel-event/delete")
     Call<Response<Data>> DeleteChannelEvent(@Header("x-access-token")String token,

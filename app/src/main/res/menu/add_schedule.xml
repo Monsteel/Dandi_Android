@@ -6,6 +6,7 @@
         android:icon="@drawable/ic_keyboard_backspace_black_24dp"
         android:iconTint="#000000"
         android:title="뒤로가기"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:id="@+id/back"/>
 
 </menu>

@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 
 public interface Channel {
     @GET("/channel")
-    Call<Response<Data>> getChannel(@Header("x-access-token")String token);
+    Call<Response<Data>> GetChannel(@Header("x-access-token")String token);
 
     @GET("/channel/search")
     Call<Response<Data>> SearchChannel(@Header("x-access-token")String token,

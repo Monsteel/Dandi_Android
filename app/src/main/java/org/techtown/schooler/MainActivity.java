@@ -10,49 +10,41 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.navigation.NavigationView;
 
 import org.techtown.schooler.NavigationFragment.AccountFragment;
 import org.techtown.schooler.NavigationFragment.ChannelFragment;
-import org.techtown.schooler.NavigationFragment.LogoutFragment;
 import org.techtown.schooler.NavigationFragment.MainFragment;
 import org.techtown.schooler.NavigationFragment.Ready2Fragment;
-import org.techtown.schooler.NavigationFragment.ReadyFragment;
 import org.techtown.schooler.NavigationFragment.SettingFragment;
-import org.techtown.schooler.SplashActivity.SplashActivity;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
-import org.techtown.schooler.network.retrofit.interfaces.Login;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.techtown.schooler.network.Data;
+import org.techtown.schooler.network.NetRetrofit;
+import org.techtown.schooler.network.response.Response;
 
-import static org.techtown.schooler.StartMemberActivity.LoginActivity.number;
+import java.io.InputStream;
 
 
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -103,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // toolbar 를 사용할 수 있도록 설정합니다.
         setSupportActionBar(toolbar);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp2);
         // 제목을 보이지 않도록 합니다.
@@ -115,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // profile 즉 프로필 사진을 둥글게 만들어줍니다.
         profile.setBackground(new ShapeDrawable(new OvalShape()));
         profile.setClipToOutline(true);
+
+        // 바로가기 메뉴 정보를 불러오기 위한 userInformation() 매서드 호출
+        userInformation();
 
     }
 
@@ -147,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
 
             // channel 채널
-            case R.id.channel:
+            case R.id.textView:
 
                 channel = new ChannelFragment();
 
@@ -273,4 +269,81 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    public void userInformation(){
+
+        Call<Response<Data>> res = NetRetrofit.getInstance().getProfile().GetProfile(Login.getString("token",""),"");
+        res.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+
+                if(response.code() == 200)
+                {
+                    String name = response.body().getData().getUserInfo().getUser_name();
+                    String schoolName = response.body().getData().getUserInfo().getSchool().getSchool_name();
+                    String school_grade = response.body().getData().getUserInfo().getSchool_grade();
+                    String school_class = response.body().getData().getUserInfo().getSchool_class();
+                    String user_profile = response.body().getData().getUserInfo().getProfile_pic();
+
+                    userName.setText(name);
+                    school.setText(schoolName);
+                    grade.setText(school_grade + "학년 " + school_class + "반");
+
+                    new DownloadImageFromInternet(profile)
+                            .execute(user_profile);
+
+                } else if(response.code() == 410){
+
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",null);
+                    editor.commit();
+
+                    Log.e("[status 410]","토큰 만료");
+                    Toast.makeText(MainActivity.this, "토큰 만료, 로그인 화면으로 이동합니다.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                } else if(response.code() == 500){
+
+                    Log.e("[status 500]", response.body().getMessage());
+                    Toast.makeText(MainActivity.this, "프로필 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, "oh no", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageFromInternet(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String imageURL = urls[0];
+            Bitmap bimage = null;
+            try {
+                InputStream in = new java.net.URL(imageURL).openStream();
+                bimage = BitmapFactory.decodeStream(in);
+
+            } catch (Exception e) {
+                Log.e("[ImageDownLoad][Error]", e.getMessage());
+                e.printStackTrace();
+            }
+            return bimage;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
+    }
+
 }
+

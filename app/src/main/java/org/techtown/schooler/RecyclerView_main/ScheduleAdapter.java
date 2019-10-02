@@ -1,7 +1,9 @@
 package org.techtown.schooler.RecyclerView_main;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.AsyncTask;
@@ -11,29 +13,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.techtown.schooler.Model.Channel;
-import org.techtown.schooler.Model.ChannelInfo;
+import org.techtown.schooler.ChannelContent;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.R;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
+
         TextView channel_name;
         TextView user_name;
         TextView user_id;
@@ -41,6 +41,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView start_date;
         TextView end_date;
         ImageView channel_image;
+        LinearLayout top_layout;
+        ImageButton contentButton;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
@@ -50,9 +52,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
            user_name = view.findViewById(R.id.user_name);
            user_id = view.findViewById(R.id.user_id);
            schedule_title = view.findViewById(R.id.schedule_title);
-           start_date = view.findViewById(R.id.start_date);
+           start_date = view.findViewById(R.id.textView16);
            end_date = view.findViewById(R.id.end_date);
            channel_image = view.findViewById(R.id.channel_image);
+           top_layout = view.findViewById(R.id.top_layout);
+           contentButton = view.findViewById(R.id.contentButton);
 
            // channel_image 둥글게 만들어줍니다.
             channel_image.setBackground(new ShapeDrawable(new OvalShape()));
@@ -62,6 +66,19 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             schedule_title.setSingleLine(true);
             schedule_title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
             schedule_title.setSelected(true);
+
+            contentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(view.getContext(), ChannelContent.class);
+                    view.getContext().startActivity(intent);
+
+
+
+                }
+            });
+
         }
     }
 
@@ -70,11 +87,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public ScheduleAdapter(ArrayList<Events> channelEventsArrayList){
 
         this.channelEventsArrayList = channelEventsArrayList;
-    }
-
-    public ScheduleAdapter(){
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -88,6 +100,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        Events item = channelEventsArrayList.get(position);
 
         MyViewHolder myViewHolder = (MyViewHolder) holder;
 
@@ -105,7 +119,44 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         myViewHolder.start_date.setText(channelEventsArrayList.get(position).getStart_date());
         myViewHolder.end_date.setText(channelEventsArrayList.get(position).getEnd_date());
 
-        //loadBitmap(channelEventsArrayList.get(position).getChannel().getThumbnail());
+         if(channelEventsArrayList.get(position).getChannel().getColor() == null) {
+
+             myViewHolder.top_layout.setBackgroundColor(Color.parseColor("#F1B71C"));
+             myViewHolder.schedule_title.setTextColor(Color.parseColor("#F1B71C"));
+         } else{
+
+             myViewHolder.top_layout.setBackgroundColor(Color.parseColor(channelEventsArrayList.get(position).getChannel().getColor()));
+             myViewHolder.schedule_title.setTextColor(Color.parseColor(channelEventsArrayList.get(position).getChannel().getColor()));
+         }
+
+         if(item.getChannel().getThumbnail() != null){
+
+             new DownloadImageFromInternet(((MyViewHolder) holder).channel_image)
+                     .execute(item.getChannel().getThumbnail());
+         } else{
+
+             myViewHolder.channel_image.setImageResource(R.drawable.dgsw);
+         }
+
+         myViewHolder.contentButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(v.getContext(), ChannelContent.class);
+
+                 intent.putExtra("start_date",channelEventsArrayList.get(position).getStart_date());
+                 intent.putExtra("end_date", channelEventsArrayList.get(position).getEnd_date());
+                 intent.putExtra("user_name", channelEventsArrayList.get(position).getAuthor().getUser_name());
+                 intent.putExtra("user_id", channelEventsArrayList.get(position).getAuthor().getUser_id());
+                 intent.putExtra("channel_name", channelEventsArrayList.get(position).getChannel().getName());
+                 intent.putExtra("channel_color", channelEventsArrayList.get(position).getChannel().getColor());
+                 intent.putExtra("title", channelEventsArrayList.get(position).getTitle());
+                 intent.putExtra("channel_image", channelEventsArrayList.get(position).getChannel().getThumbnail());
+                 intent.putExtra("content",channelEventsArrayList.get(position).getContent());
+
+                 v.getContext().startActivity(intent);
+             }
+         });
+
 
     }
 
@@ -115,6 +166,30 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return channelEventsArrayList.size();
     }
 
-//
+    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageFromInternet(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String imageURL = urls[0];
+            Bitmap bimage = null;
+            try {
+                InputStream in = new java.net.URL(imageURL).openStream();
+                bimage = BitmapFactory.decodeStream(in);
+
+            } catch (Exception e) {
+                Log.e("[ImageDownLoad][Error]", e.getMessage());
+                e.printStackTrace();
+            }
+            return bimage;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
+    }
 
 }

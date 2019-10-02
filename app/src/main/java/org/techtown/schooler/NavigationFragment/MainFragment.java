@@ -2,7 +2,10 @@ package org.techtown.schooler.NavigationFragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +29,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import org.techtown.schooler.ChannelContent;
 import org.techtown.schooler.CreateChannelEvents;
 import org.techtown.schooler.Model.Author;
 import org.techtown.schooler.Model.Channel;
@@ -38,6 +43,7 @@ import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -89,15 +95,9 @@ public class MainFragment extends Fragment {
 
                 Intent addEvents = new Intent(getActivity(), CreateChannelEvents.class);
                 startActivity(addEvents);
-
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
-
-            case R.id.delete:
-                Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
-                break;
-
 
             default:
                 break;
@@ -154,8 +154,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-
-
         setHasOptionsMenu(true);
 
         return rootView;
@@ -196,7 +194,6 @@ public class MainFragment extends Fragment {
 
                             // channelEventsArrayList 배열에 channelEventsArrayList2 배열의 i 번째 데이터를 전달합니다.
                             EventsArrayList.add(channelEventsData.get(i));
-
                         }
                     }
 
@@ -281,8 +278,8 @@ public class MainFragment extends Fragment {
 
                             isEmpty = false;
 
-                            schoolEventsData.get(i).setAuthor(new Author(null, null));
-                            schoolEventsData.get(i).setChannel(new Channel("학사 일정", ""));
+                            schoolEventsData.get(i).setAuthor(new Author("school", "관리자"));
+                            schoolEventsData.get(i).setChannel(new Channel("학사 일정", null,"#72BF44",null));
 
                             // schoolEventsArrayList.add(schoolEventsData.get(i));
 
