@@ -119,6 +119,8 @@ public class MainFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView); // 리사이클러뷰
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar();
+
 
         // 메인 프레그먼트의 툴바 색상을 설정하는 것입니다.
         ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
