@@ -11,11 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.techtown.schooler.R;
-
-import java.util.regex.Pattern;
+import org.techtown.schooler.network.SHA512;
 
 public class PasswordActivity extends AppCompatActivity {
 
@@ -158,7 +156,7 @@ public class PasswordActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), EmailActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));
-        intent.putExtra("Password", password);
+        intent.putExtra("Password", SHA512.getSHA512(password));
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

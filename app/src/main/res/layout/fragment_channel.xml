@@ -8,27 +8,35 @@
     tools:context=".NavigationFragment.AccountFragment">
 
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="25pt" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/search_channel_box"
         android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/channelField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="2"
-            android:entries="@array/filed"/>
+            android:entries="@array/filed" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="#FFBBBBBB" />
 
         <EditText
             android:id="@+id/searchChannel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName" />

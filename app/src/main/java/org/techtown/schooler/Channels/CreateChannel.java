@@ -1,34 +1,51 @@
-package org.techtown.schooler;
+package org.techtown.schooler.Channels;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
+import android.webkit.MimeTypeMap;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
 import org.techtown.schooler.Model.CreateChannelRequest;
-import org.techtown.schooler.Model.User;
+import org.techtown.schooler.R;
+import org.techtown.schooler.Signup.PhoneNumberActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
+import java.util.Objects;
+import java.util.Random;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,9 +60,10 @@ public class CreateChannel extends AppCompatActivity {
     TextView Next;
     InputMethodManager imm;
 
+    String channel_id = null;
+
     boolean next1 = false;
     boolean next2 = false;
-
 
     public static CreateChannelRequest createChannelRequest = new CreateChannelRequest("","","","");
 
@@ -145,6 +163,7 @@ public class CreateChannel extends AppCompatActivity {
 
     }
 
+    //컬러피커
     public void openColorPicker() {
         final ColorPicker colorPicker = new ColorPicker(this);  // ColorPicker 객체 생성
         ArrayList<String> colors = new ArrayList<>();  // Color 넣어줄 list
@@ -189,19 +208,20 @@ public class CreateChannel extends AppCompatActivity {
                 }).show();  // dialog 생성
     }
 
+    //컬러피커
     public void PickColor(View view){
         openColorPicker();
         colorView.setBackgroundColor(0);
     }
 
+    //스크린 뒤로가기 버튼 이벤트
     public void toGoBack (View view) {
         onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void Create (View view) {
-
-
+    //채널만들기
+    public void CreateChannel(View view){
         if(name.getText().equals("")||explain.getText().equals("")){
             //비워져있으면
         }else{
@@ -210,7 +230,6 @@ public class CreateChannel extends AppCompatActivity {
 
             //서버통신 시작
 
-
             final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().AddChannel(Login.getString("token",""),createChannelRequest);
             res.enqueue(new Callback<Response<Data>>() {
                 @Override
@@ -218,8 +237,12 @@ public class CreateChannel extends AppCompatActivity {
 
                     // Status == 200
                     if(response.code() == 200){
-                        startActivity(new Intent(CreateChannel.this, setChannelImage.class));
+                        Intent intent = new Intent(CreateChannel.this, FinishCreateChannels.class);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        channel_id = response.body().getData().getChannel_id();
+                        intent.putExtra("channel_id",channel_id);
+                        startActivity(intent);
+
                     }else if(response.code() == 400){
                         Toast.makeText(CreateChannel.this,"동일한 이름의 채널이 이미 존재합니다.",Toast.LENGTH_LONG).show();
                         imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
@@ -242,6 +265,7 @@ public class CreateChannel extends AppCompatActivity {
         //아니면 채널 가입 요청 보내고, 다음 엑티비티로 넘어가기
     }
 
+    //물리적 뒤로가기 버튼 이벤트
     @Override
     public void onBackPressed () {
         super.onBackPressed();

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
@@ -101,7 +102,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         ChannelInfo item = mDataList.get(position);
         holder.title.setText(item.getName());
         holder.content.setText(item.getExplain());
-        holder.create_User.setText("| Master : " + item.getCreate_user());
+        holder.create_User.setText("Master : " + item.getCreate_user());
 
         Login = holder.joinButton.getContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
@@ -114,64 +115,75 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
             holder.isPublicImage.setImageResource(R.drawable.un_locked);
         }
 
-        holder.joinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("가입버튼","클릭됐어요");
 
-                if(item.getUserStatus() == 1){
-                    Toast.makeText(holder.joinButton.getContext(),"가입승인 대기중인 채널입니다.",Toast.LENGTH_SHORT).show();
-                }else if(item.getUserStatus() == 2){
-                    Toast.makeText(holder.joinButton.getContext(),"이미 가입된 채널입니다.",Toast.LENGTH_SHORT).show();
-                }else {
+        if(item.getUserStatus() == 1){
+            holder.joinButton.setText("Wait");
+            holder.joinButton.setTextColor(Color.parseColor("#FFFF5722"));
+        }else if(item.getUserStatus() == 2){
+            holder.joinButton.setText("JOINED");
+            holder.joinButton.setTextColor(Color.parseColor("#FF2196F3"));
+        }else if(item.getUserStatus() == 0){
+            holder.joinButton.setText("JOIN");
+            holder.joinButton.setTextColor(Color.parseColor("#FDFFFFFF"));
+            holder.joinButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("가입버튼","클릭됐어요");
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(holder.joinButton.getContext());
-                    builder.setTitle("채널가입");
-                    builder.setMessage("채널에 가입하시겠습니까?\n\n채널이름 : " + item.getName() + "\n개설자 : " + item.getCreate_user());
-                    builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
+                    if(item.getUserStatus() == 1){
+                        Toast.makeText(holder.joinButton.getContext(),"가입승인 대기중인 채널입니다.",Toast.LENGTH_SHORT).show();
+                    }else if(item.getUserStatus() == 2){
+                        Toast.makeText(holder.joinButton.getContext(),"이미 가입된 채널입니다.",Toast.LENGTH_SHORT).show();
+                    }else {
 
-                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(holder.joinButton.getContext());
+                        builder.setTitle("채널가입");
+                        builder.setMessage("채널에 가입하시겠습니까?\n\n채널이름 : " + item.getName() + "\n개설자 : " + item.getCreate_user());
+                        builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
 
-                            final Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(Login.getString("token", ""), item.getId());//token불러오기
-                            res1.enqueue(new Callback<Response<Data>>() {
-                                @Override
-                                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                                    if (response.isSuccessful()) {
-                                        if (item.getIsPublic() == "0" || item.getIsPublic() == "true") {
-                                            Toast.makeText(holder.joinButton.getContext(), "채널가입 신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                                            item.setUserStatus(1);
-                                        } else {
-                                            Toast.makeText(holder.joinButton.getContext(), "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                                            item.setUserStatus(2);
+                        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                final Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(Login.getString("token", ""), item.getId());//token불러오기
+                                res1.enqueue(new Callback<Response<Data>>() {
+                                    @Override
+                                    public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                                        if (response.isSuccessful()) {
+                                            if (item.getIsPublic() == "0" || item.getIsPublic() == "true") {
+                                                Toast.makeText(holder.joinButton.getContext(), "채널가입 신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                                item.setUserStatus(1);
+                                            } else {
+                                                Toast.makeText(holder.joinButton.getContext(), "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                                item.setUserStatus(2);
+                                            }
+
                                         }
-
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<Response<Data>> call, Throwable t) {
-                                    Log.e("Err", "네트워크 연결오류");
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<Response<Data>> call, Throwable t) {
+                                        Log.e("Err", "네트워크 연결오류");
+                                    }
+                                });
 
-                            Log.e("예 버튼", "클릭됐어요");
-                        }
-                    });
+                                Log.e("예 버튼", "클릭됐어요");
+                            }
+                        });
 
-                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Log.e("아니오 버튼", "클릭됐어요");
-                        }
-                    });
+                        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.e("아니오 버튼", "클릭됐어요");
+                            }
+                        });
 
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override

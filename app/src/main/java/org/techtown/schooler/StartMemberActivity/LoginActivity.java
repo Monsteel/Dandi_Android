@@ -4,35 +4,26 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import org.json.JSONObject;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
+import org.techtown.schooler.network.SHA512;
 import org.techtown.schooler.Signup.SignupOneActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.Model.LoginPostRequest;
@@ -132,7 +123,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View view) {
 
                 // login() 매서드의 파라미터로 사용자가 입력한 Id, Pw 를 전달하고있습니다.
-                login(new LoginPostRequest(Id_EditText.getText().toString(), Pw_EditText.getText().toString()));
+                login(new LoginPostRequest(Id_EditText.getText().toString(), SHA512.getSHA512(Pw_EditText.getText().toString())));
             }
         });
 

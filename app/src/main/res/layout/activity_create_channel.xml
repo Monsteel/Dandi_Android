@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateChannel"
+    tools:context=".Channels.CreateChannel"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,11 +35,11 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:gravity="right"
+            android:onClick="CreateChannel"
             android:text="생성"
             android:textColor="#2349E6"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:onClick="Create"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

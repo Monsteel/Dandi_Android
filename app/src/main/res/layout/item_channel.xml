@@ -62,7 +62,7 @@
             android:layout_height="7pt"
             android:layout_gravity="right|top"
             android:layout_marginTop="5pt"
-            android:layout_marginRight="5pt "
+            android:layout_marginRight="5pt"
             app:srcCompat="@drawable/locked" />
 
         <TextView

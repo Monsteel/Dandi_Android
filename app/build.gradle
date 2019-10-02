@@ -52,4 +52,8 @@ dependencies {
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
 
 
+    //permission check
+    implementation 'gun0912.ted:tedpermission:2.2.0'
+
+
 }

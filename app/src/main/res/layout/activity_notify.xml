@@ -398,7 +398,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_weight="1"
-            android:background="@drawable/button"
+            android:background="@drawable/button_yellow"
             android:gravity="center"
             android:text="Sign in"
             android:textColor="#FFFFFF"
