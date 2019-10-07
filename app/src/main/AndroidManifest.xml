@@ -11,10 +11,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChannelContent"></activity>
-        <activity
-            android:name=".CreateChannelEvents"
-            android:theme="@style/AppTheme2" />
+
+        <activity android:name=".ChannelEvents.CreateChannelEvents"/>
+        <activity android:name=".ChannelEvents.ChannelContent"/>
+        <activity android:name=".ChannelEvents.UpdateEvents"/>
         <activity android:name=".Channels.UploadChannelsThumbnail"/>
         <activity android:name=".Channels.FinishCreateChannels"/>
         <activity android:name=".Channels.CreateChannel"/>

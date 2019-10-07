@@ -1,4 +1,4 @@
-package org.techtown.schooler;
+package org.techtown.schooler.ChannelEvents;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.techtown.schooler.MainActivity;
+import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
@@ -29,14 +31,14 @@ import org.techtown.schooler.network.response.Response;
 import java.io.InputStream;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ChannelContent extends AppCompatActivity {
 
-    ImageButton backButton; // 뒤로가기 버튼
+    // SharedPreferences 선언
+    SharedPreferences Login;
 
-    SharedPreferences Login; // SharedPreferences 선언
-
-    // 각각의 변수
+    // 부가 데이터
     String start_date;
     String end_date;
     String user_name;
@@ -46,10 +48,9 @@ public class ChannelContent extends AppCompatActivity {
     String channel_name;
     String channel_color;
     String channel_image;
+    String event_id;
 
-    LinearLayout layout; // Background
-    LinearLayout channel_layout;
-
+    // XML View
     TextView event_title;
     TextView name;
     TextView id;
@@ -57,7 +58,12 @@ public class ChannelContent extends AppCompatActivity {
     TextView end;
     TextView event_content;
     TextView event_channel_name;
-    ImageView profile; // Channel Profile
+    ImageView profile;
+    ImageButton delete;
+    ImageButton edit;
+    ImageButton backButton;
+    LinearLayout layout; // Layout Background
+    LinearLayout channel_layout; // Button Background
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -66,13 +72,12 @@ public class ChannelContent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_content);
 
-        profile = findViewById(R.id.profile);
-        backButton = findViewById(R.id.backButton);
         Login = this.getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
 
-        Intent intent = getIntent(); // Intent
+        // 부가 데이터 저장
+        Intent intent = getIntent();
 
-        // 각각의 변수에 부가 데이터로 부터 전달 받은 값들을 저장합니다.
+        // 각각의 변수에 부가 데이터를 저장합니다.
         start_date = intent.getExtras().getString("start_date");
         end_date = intent.getExtras().getString("end_date");
         user_name = intent.getExtras().getString("user_name");
@@ -82,7 +87,12 @@ public class ChannelContent extends AppCompatActivity {
         channel_name = intent.getExtras().getString("channel_name");
         channel_color = intent.getExtras().getString("channel_color");
         channel_image = intent.getExtras().getString("channel_image");
+        event_id = intent.getExtras().getString("event_id");
 
+
+        // XML View 를 초기화합니다.
+        profile = findViewById(R.id.profile);
+        backButton = findViewById(R.id.backButton);
         layout = findViewById(R.id.layout);
         channel_layout = findViewById(R.id.channel_layout);
         event_title = findViewById(R.id.event_title);
@@ -92,29 +102,18 @@ public class ChannelContent extends AppCompatActivity {
         end = findViewById(R.id.end_date);
         event_content = findViewById(R.id.event_content);
         event_channel_name = findViewById(R.id.channel_name);
-
+        delete = findViewById(R.id.delete);
+        edit = findViewById(R.id.edit);
 
         // profile 즉 프로필 사진을 둥글게 만들어줍니다.
         profile.setBackground(new ShapeDrawable(new OvalShape()));
         profile.setClipToOutline(true);
 
-        // 뒤로가기 버튼을 클릭 시 MainActivity 화면 전환
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(ChannelContent.this, MainActivity.class);
-                startActivity(intent);
-
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
-            }
-        });
-
         // 레이아웃 배경을 채널의 색상으로 설정합니다.
-        layout.setBackgroundColor(Color.parseColor(channel_color));
-        channel_layout.setBackgroundColor(Color.parseColor(channel_color));
+        layout.setBackgroundColor(Color.parseColor(channel_color)); // Layout Background
+        channel_layout.setBackgroundColor(Color.parseColor(channel_color)); // Button Background
 
+        // XML View 에 전달받은 부가 데이터를 저장합니다.
         event_title.setText(title);
         name.setText(user_name);
         id.setText(user_id);
@@ -122,17 +121,17 @@ public class ChannelContent extends AppCompatActivity {
         end.setText(end_date);
         event_content.setText(content);
         event_channel_name.setText(channel_name);
-
         new MainActivity.DownloadImageFromInternet(profile)
                 .execute(channel_image);
 
         // schedule_title 타이틀 내용이 만약 글자 수를 초과할 시 흐르게 보여줍니다.
         event_title.setSingleLine(true);
-        event_title.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        event_title.setEllipsize(TextUtils.TruncateAt.END);
         event_title.setSelected(true);
 
     }
 
+    // Upload Image
     public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;
 
@@ -159,5 +158,80 @@ public class ChannelContent extends AppCompatActivity {
         }
     }
 
+    // 일정 삭제 (Retrofit2)
+    public void eventsDelete(){
+
+        Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().DeleteChannelEvent(Login.getString("token",""),event_id);
+        res.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+
+                Toast.makeText(ChannelContent.this, "일정을 삭제하였습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(ChannelContent.this, MainActivity.class);
+                startActivity(intent);
+
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+
+                Toast.makeText(ChannelContent.this, "오류", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    // 일정 수정 (Retrofit2)
+    public void updateEvents(){
+
+        Intent intent = new Intent(this, UpdateEvents.class);
+
+        intent.putExtra("start_date",start_date);
+        intent.putExtra("end_date", end_date);
+        intent.putExtra("user_name", user_name);
+        intent.putExtra("user_id", user_id);
+        intent.putExtra("channel_name", user_name);
+        intent.putExtra("title", title);
+        intent.putExtra("content",content);
+        intent.putExtra("event_id", event_id);
+
+        startActivity(intent);
+    }
+
+    // backButton (Onclick)
+    public void back(View view){
+
+        Intent intent = new Intent(ChannelContent.this, MainActivity.class);
+        startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    // delete (Onclick)
+    public void delete(View view){
+
+        if(content == null){
+
+            Toast.makeText(ChannelContent.this, "학사 일정은 삭제할 수 없습니다.", Toast.LENGTH_SHORT).show();
+        } else{
+
+            eventsDelete();
+        }
+    }
+
+    // edit (Onclick)
+    public void edit(View view){
+
+        if(content == null){
+
+            Toast.makeText(ChannelContent.this, "학사 일정은 수정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+
+            updateEvents();
+        }
+
+    }
 
 }

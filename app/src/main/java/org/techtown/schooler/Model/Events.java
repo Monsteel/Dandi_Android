@@ -1,6 +1,7 @@
 package org.techtown.schooler.Model;
 
 import java.util.List;
+import java.util.Set;
 
 public class Events {
 
@@ -10,8 +11,9 @@ public class Events {
     String start_date;
     String end_date;
     String content;
+    String id;
 
-    public Events(Author author, Channel channel, String title, String start_date, String end_date, String content) {
+    public Events(Author author, Channel channel, String title, String start_date, String end_date, String content, String id) {
 
         this.author = author;
         this.channel = channel;
@@ -19,6 +21,7 @@ public class Events {
         this.start_date = start_date;
         this.end_date = end_date;
         this.content = content;
+        this.id = id;
     }
 
     public Events() {
@@ -71,5 +74,13 @@ public class Events {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

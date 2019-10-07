@@ -1,9 +1,9 @@
 package org.techtown.schooler.NavigationFragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,7 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +29,8 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import org.techtown.schooler.ChannelContent;
-import org.techtown.schooler.CreateChannelEvents;
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
+import org.techtown.schooler.ChannelEvents.EventDecorator;
 import org.techtown.schooler.Model.Author;
 import org.techtown.schooler.Model.Channel;
 import org.techtown.schooler.Model.Events;
@@ -43,15 +43,16 @@ import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment  {
 
     MaterialCalendarView materialCalendarView; // 캘린더
 
@@ -79,6 +80,12 @@ public class MainFragment extends Fragment {
 
     // ArrayList 배열인 EventsArrayList 배열 생성
     ArrayList<Events> EventsArrayList = new ArrayList<>();
+
+    Spinner spinner;
+
+    View view;
+
+    private DatePickerDialog.OnDateSetListener datePickerDialog;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -118,8 +125,10 @@ public class MainFragment extends Fragment {
         materialCalendarView = rootView.findViewById(R.id.materialCalendarView); // 캘린더
         recyclerView = rootView.findViewById(R.id.recyclerView); // 리사이클러뷰
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
+        spinner = rootView.findViewById(R.id.spinner);
+        view = rootView.findViewById(R.id.view);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         // 메인 프레그먼트의 툴바 색상을 설정하는 것입니다.
@@ -152,11 +161,21 @@ public class MainFragment extends Fragment {
                 onChannelEvent();
                 onSchoolEvent();
 
-
             }
         });
 
         setHasOptionsMenu(true);
+
+        materialCalendarView.setOnTitleClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                datePickerDialog();
+            }
+        });
+
+//        String result = "2019,10,6";
+//        new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
         return rootView;
     }
@@ -196,6 +215,7 @@ public class MainFragment extends Fragment {
 
                             // channelEventsArrayList 배열에 channelEventsArrayList2 배열의 i 번째 데이터를 전달합니다.
                             EventsArrayList.add(channelEventsData.get(i));
+
                         }
                     }
 
@@ -205,12 +225,16 @@ public class MainFragment extends Fragment {
 
                         check = true;
 
+                        spinner.setVisibility(View.INVISIBLE);
+
                     } else {
 
                         ScheduleAdapter myAdapter = new ScheduleAdapter(EventsArrayList);
                         recyclerView.setAdapter(myAdapter);
 
                         check = false;
+                        spinner.setVisibility(View.VISIBLE);
+
                     }
                 } else if(response.code() == 400){
 
@@ -218,7 +242,7 @@ public class MainFragment extends Fragment {
                     Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 } else if(response.code() == 403){
 
-                    Log.e("[statuc 403]", response.body().getMessage());
+                    Log.e("[status 403]", response.body().getMessage());
                     Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -283,8 +307,6 @@ public class MainFragment extends Fragment {
                             schoolEventsData.get(i).setAuthor(new Author("school", "관리자"));
                             schoolEventsData.get(i).setChannel(new Channel("학사 일정", null,"#72BF44",null));
 
-                            // schoolEventsArrayList.add(schoolEventsData.get(i));
-
                             EventsArrayList.add(schoolEventsData.get(i));
                         }
                     }
@@ -299,6 +321,7 @@ public class MainFragment extends Fragment {
 
                             NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
                             recyclerView.setAdapter(noScheduleAdapter);
+
                         }
 
                     } else {
@@ -311,9 +334,21 @@ public class MainFragment extends Fragment {
 
                     Log.e("[status 500]", "학사 일정 조회에 실패하였습니다.");
 
-                    NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
-                    recyclerView.setAdapter(noScheduleAdapter);
+                    Toast.makeText(getActivity(), "학사 일정 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show();
 
+                } else if(response.code() == 404){
+
+                    Log.e("[status 404]", "학사일정 API 가 존재하지않습니다.");
+
+                    if(check == true){
+
+                        schoolEventsArrayList.add(null);
+
+                        NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
+                        recyclerView.setAdapter(noScheduleAdapter);
+
+                        spinner.setVisibility(View.GONE);
+                    }
                 }
             }
 
@@ -322,8 +357,67 @@ public class MainFragment extends Fragment {
 
             }
         });
+    }
 
+    public void datePickerDialog(){
+
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog pickerDialog = new DatePickerDialog(getActivity(), 0, (view, year, month, dayOfMonth) -> {
+
+            materialCalendarView.setCurrentDate(CalendarDay.from(year, month, dayOfMonth), true);
+            materialCalendarView.setSelectedDate(CalendarDay.from(year,month,dayOfMonth));
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+        pickerDialog.show();
 
     }
 
+
+    public class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
+
+        String result;
+
+        public ApiSimulator(String result) {
+
+            this.result = result;
+        }
+
+        @Override
+        protected List<CalendarDay> doInBackground(Void... voids) {
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, -2);
+
+            ArrayList<CalendarDay> dates = new ArrayList<>();
+
+            for(int i = 0; i < 30; i++){
+
+                CalendarDay day = CalendarDay.from(calendar);
+                dates.add(day);
+                calendar.add(Calendar.DATE, 5);
+            }
+
+            return dates;
+        }
+
+
+        protected void onPostExecute(@NonNull List<CalendarDay> calendarDays) {
+            super.onPostExecute(calendarDays);
+
+            if (isCancelled()) {
+                return;
+            }
+
+            materialCalendarView.addDecorator(new EventDecorator(Color.RED,calendarDays, MainFragment.this));        }
+
+    }
 }
+
+

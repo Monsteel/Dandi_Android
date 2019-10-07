@@ -1,10 +1,11 @@
 package org.techtown.schooler.network.retrofit.interfaces;
 
 import org.techtown.schooler.Model.AddChannelEvents;
+import org.techtown.schooler.Model.UpdateChannelEvents;
 import org.techtown.schooler.network.Data;
+import org.techtown.schooler.network.response.Response;
 
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -25,15 +26,13 @@ public interface ChannelEvent {
                                                                                 @Body AddChannelEvents addChannelEvents);
 
     @DELETE("/channel-event/delete")
-    Call<Response<Data>> DeleteChannelEvent(@Header("x-access-token")String token,
-                                            @Query("event_id")String event_id);
+    Call<org.techtown.schooler.network.response.Response<Data>> DeleteChannelEvent(@Header("x-access-token")String token,
+                                                                                   @Query("event_id")String event_id);
 
     @PUT("/channel-event/update")
     Call<Response<Data>> UpdateChannelEvent(@Header("x-access-token")String token,
-                                            @Query("event_id")String event_id,
-                                            @Body String title,
-                                            @Body String start_date,
-                                            @Body String end_date);
+                                            @Query("event_id") String event_id,
+                                            @Body UpdateChannelEvents updateChannelEvents);
 
     @GET("/channel-event/search")
     Call<org.techtown.schooler.network.response.Response<Data>> SearchChannelEvent(@Header("x-access-token") String Token,

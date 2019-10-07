@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChannelContent">
+    tools:context=".ChannelEvents.ChannelContent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@android:color/transparent"
+                android:onClick="back"
                 android:scaleType="centerCrop"
                 android:tint="#FFFFFF"
                 app:srcCompat="@drawable/left_one_arrow"
@@ -58,8 +59,38 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="40dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <ImageButton
+                            android:id="@+id/delete"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@android:color/transparent"
+                            android:onClick="delete"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/deletebotton" />
+
+                        <ImageButton
+                            android:id="@+id/edit"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+
+                            android:background="@android:color/transparent"
+                            android:onClick="edit"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/editbotton" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="65dp"
+                        android:layout_marginTop="25dp"
                         android:orientation="vertical"
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="242dp">
@@ -152,18 +183,19 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/content_layout"
                         android:layout_width="151pt"
                         android:layout_height="60pt"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/content_design"
-                        android:orientation="vertical"
-                        android:backgroundTint="#FFE3E8">
+                        android:backgroundTint="#F2F2F2"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/event_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/content"
                             android:hint="일정의 구체적인 내용이 표시됩니다." />
                     </LinearLayout>
 
@@ -172,7 +204,7 @@
                         android:layout_width="151pt"
                         android:layout_height="25pt"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16pt"
+                        android:layout_marginTop="14pt"
                         android:background="@drawable/content_design"
                         android:orientation="vertical">
 

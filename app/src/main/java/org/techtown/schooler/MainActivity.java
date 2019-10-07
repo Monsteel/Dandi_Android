@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         // 제목을 보이지 않도록 합니다.
-        // getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f5f5f5")));
 
         // setNavigationItemSelectedListener 매서드를 사용하여 navigationView 객체에서 이벤트를 받으려면 리스너 설정을 해야한다.

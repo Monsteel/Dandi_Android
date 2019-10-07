@@ -1,4 +1,4 @@
-package org.techtown.schooler;
+package org.techtown.schooler.ChannelEvents;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,8 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.Model.AddChannelEvents;
-import org.techtown.schooler.NavigationFragment.MainFragment;
+import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
@@ -38,27 +39,32 @@ import retrofit2.Callback;
 
 public class CreateChannelEvents extends AppCompatActivity {
 
+    // DatePicker
     int selectedYear;
     int selectedMonth;
     int selectedDay;
 
-    SharedPreferences Login;
-    Spinner spinner;
-
-    Button start_button;
-    Button end_button;
-
+    // Today Date
     Date today = new Date();
     SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
-    LinearLayout add_button;
+    // SharedPreferences 선언
+    SharedPreferences Login;
 
-    String channelId;
+    // XML View
+    Button start_button;
+    Button end_button;
     EditText title_editText;
     EditText content_editText;
+    Spinner spinner;
+    LinearLayout add_button;
+
+    // 부가 데이터
+    String channelId;
     String start_date;
     String end_date;
 
+    // Retrofit2 AddChannelEvents
     public static AddChannelEvents addChannelEvents = new AddChannelEvents("","","","");
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -68,72 +74,44 @@ public class CreateChannelEvents extends AppCompatActivity {
         setContentView(R.layout.activity_create_channel_events);
 
         Login = this.getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
-        spinner = (Spinner)findViewById(R.id.spinner); // spinner
+
+        // XML View 를 초기화합니다.
+        spinner = (Spinner)findViewById(R.id.spinner);
         start_button = findViewById(R.id.start_button);
         end_button = findViewById(R.id.end_button);
         add_button = findViewById(R.id.layout);
         title_editText = findViewById(R.id.title_editText);
         content_editText = findViewById(R.id.content_editText);
 
-        // channel spinner 매서드이다.
+        // Channel Search
         searchChannel();
 
-        // 액션바에 대한 설정이다.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        // Actionbar
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
+        // getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
+        // start_date, end_date (text 변경)
         start_date = date.format(today);
         end_date = date.format(today);
 
-        addChannelEvents.setStart_date(start_date);
-        addChannelEvents.setEnd_date(end_date);
-
+        // start_button, end_button (text 변경)
         start_button.setText(date.format(today));
         end_button.setText(date.format(today));
 
-
-
-        start_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startDatePicker();
-            }
-        });
-
-        end_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                endDatePicker();
-            }
-        });
-
-        add_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                addChannelEvents.setTitle(title_editText.getText().toString());
-                addChannelEvents.setContent(content_editText.getText().toString());
-
-                addChannelEvent();
-            }
-        });
-
-
-
+        // addChannelEvents (start_date, end_date)
+        addChannelEvents.setStart_date(start_date);
+        addChannelEvents.setEnd_date(end_date);
     }
 
 
+    // ActionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         return true;
-
     }
 
+    // ActionBar Events
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -149,6 +127,7 @@ public class CreateChannelEvents extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // 채널 검색 (Retrofit2)
     public void searchChannel(){
 
         Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().GetChannel(Login.getString("token",""));
@@ -192,6 +171,7 @@ public class CreateChannelEvents extends AppCompatActivity {
 
     }
 
+    // start_button (시작 날짜 선택)
     public void startDatePicker() {
 
         Calendar c = Calendar.getInstance();
@@ -239,6 +219,7 @@ public class CreateChannelEvents extends AppCompatActivity {
 
     }
 
+    // end_button(종료 날짜 선택)
     public void endDatePicker() {
 
         Calendar c = Calendar.getInstance();
@@ -288,6 +269,7 @@ public class CreateChannelEvents extends AppCompatActivity {
 
     }
 
+    // 일정 추가 (Retrofit2)
     public void addChannelEvent(){
 
         Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().AddChannelEvent(Login.getString("token",""),channelId, addChannelEvents);
@@ -303,6 +285,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                     Intent intent = new Intent(CreateChannelEvents.this, MainActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
                 } else if(response.code() == 400){
 
                     Log.e("[status 400]", "검증 오류입니다.");
@@ -325,5 +308,26 @@ public class CreateChannelEvents extends AppCompatActivity {
                 Toast.makeText(CreateChannelEvents.this, "서버통신 x", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // start_button (Onclick)
+    public void start(View view){
+
+        startDatePicker();
+    }
+
+    // end_button (Onclick)
+    public void end(View view){
+
+        endDatePicker();
+    }
+
+    // editLayout (Onclick)
+    public void edit(View view){
+
+        addChannelEvents.setTitle(title_editText.getText().toString());
+        addChannelEvents.setContent(content_editText.getText().toString());
+
+        addChannelEvent();
     }
 }

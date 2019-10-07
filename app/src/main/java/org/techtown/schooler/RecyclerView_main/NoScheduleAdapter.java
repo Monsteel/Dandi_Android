@@ -2,23 +2,17 @@ package org.techtown.schooler.RecyclerView_main;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
-import android.text.TextUtils;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.techtown.schooler.CreateChannelEvents;
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.R;
 
@@ -71,8 +65,8 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_no_schedule, parent, false);
-            return new MyViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_no_schedule, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override

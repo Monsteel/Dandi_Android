@@ -72,45 +72,31 @@ public class LoginActivity extends AppCompatActivity{
         checkBox = findViewById(R.id.check_Id); // Id 저장 체크박스
         videoView = findViewById(R.id.videoView); // VideoView
 
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.background);
+        // SharedPreferences 클래스를 참조해서 sf 라는 인스턴스를 생성하였습니다.
+        SharedPreferences sf = getSharedPreferences("sFile", MODE_PRIVATE);
 
-//        videoView.setVideoURI(uri);
-//        videoView.start();
-//
-//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mp) {
-//                mp.setLooping(true);
-//            }
-//        });
+        // Number 변수에 앞에서 저장한 Number 이름으로 설정한 값을 저장합니다.
+        // 만약 값이 없을 경우 0을 저장한다.
+        int Number = sf.getInt("Number", 0);
 
+        // Id 라는 변수에 Id 이름으로 설정한 값을 저장합니다.
+        String Id = sf.getString("Id","");
 
+        // 저장한 Number 변수의 값이 1이라면 저장한 텍스트 값을 다시 복구하고 checkBox 값도 복구한다.
+        if(Number == 1){
 
-            // SharedPreferences 클래스를 참조해서 sf 라는 인스턴스를 생성하였습니다.
-            SharedPreferences sf = getSharedPreferences("sFile", MODE_PRIVATE);
+            Id_EditText.setText(Id);
 
-            // Number 변수에 앞에서 저장한 Number 이름으로 설정한 값을 저장합니다.
-            // 만약 값이 없을 경우 0을 저장한다.
-            int Number = sf.getInt("Number", 0);
+            checkBox.setChecked(true);
 
-            // Id 라는 변수에 Id 이름으로 설정한 값을 저장합니다.
-            String Id = sf.getString("Id","");
-
-            // 저장한 Number 변수의 값이 1이라면 저장한 텍스트 값을 다시 복구하고 checkBox 값도 복구한다.
-            if(Number == 1){
-
-                Id_EditText.setText(Id);
-
-                checkBox.setChecked(true);
-
-            }
+        }
 
 
         // 가상 키패드를 내리기 위한 코드이다.
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         // 레이아웃을 클릭 시 가상 키패드를 내린다.
-       layout.setOnClickListener(new View.OnClickListener() {
+        layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
@@ -241,13 +227,13 @@ public class LoginActivity extends AppCompatActivity{
 
 
     // 레이아웃 선택 시 키패드가 종료되도록 설정하는 매서드입니다.
-   public void touchLayout(){
-       imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
-       imm.hideSoftInputFromWindow(Pw_EditText.getWindowToken(), 0);
-   }
+    public void touchLayout(){
+        imm.hideSoftInputFromWindow(Id_EditText.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(Pw_EditText.getWindowToken(), 0);
+    }
 
 
-   // 화면이 종료되고 다시 시작이 되어도 영상이 시작되게합니다.
+    // 화면이 종료되고 다시 시작이 되어도 영상이 시작되게합니다.
     @Override
     protected void onStop() {
         super.onStop();
