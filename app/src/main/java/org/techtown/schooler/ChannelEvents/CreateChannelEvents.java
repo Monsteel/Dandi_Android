@@ -87,9 +87,9 @@ public class CreateChannelEvents extends AppCompatActivity {
         searchChannel();
 
         // Actionbar
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
-        // getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // start_date, end_date (text 변경)
         start_date = date.format(today);
