@@ -15,8 +15,9 @@
         <activity
             android:name=".CreateChannelEvents"
             android:theme="@style/AppTheme2" />
-        <activity android:name=".setChannelImage" />
-        <activity android:name=".CreateChannel" />
+        <activity android:name=".Channels.UploadChannelsThumbnail"/>
+        <activity android:name=".Channels.FinishCreateChannels"/>
+        <activity android:name=".Channels.CreateChannel"/>
         <activity android:name=".Signup.FinishSignup" />
         <activity android:name=".Signup.PhoneNumberActivity" />
         <activity android:name=".Signup.NotifyActivity" />

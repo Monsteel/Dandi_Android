@@ -16,7 +16,6 @@ public class SHA512 {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return toReturn;
     }
 
