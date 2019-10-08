@@ -60,6 +60,10 @@ public class CreateChannel extends AppCompatActivity {
     TextView Next;
     InputMethodManager imm;
 
+    String channel_name = null;
+    String create_user = null;
+    String channel_explain = null;
+    String channel_isPublic = null;
     String channel_id = null;
 
     boolean next1 = false;
@@ -239,8 +243,20 @@ public class CreateChannel extends AppCompatActivity {
                     if(response.code() == 200){
                         Intent intent = new Intent(CreateChannel.this, FinishCreateChannels.class);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        channel_id = response.body().getData().getChannel_id();
+
+
+                        channel_name = response.body().getData().getCreatedChannel().getName();
+                        create_user = response.body().getData().getCreatedChannel().getCreate_user();
+                        channel_explain = response.body().getData().getCreatedChannel().getExplain();
+                        channel_isPublic = response.body().getData().getCreatedChannel().getIsPublic();
+                        channel_id = response.body().getData().getCreatedChannel().getId();
+
+                        intent.putExtra("channel_name",channel_name);
+                        intent.putExtra("create_user",create_user);
+                        intent.putExtra("channel_explain",channel_explain);
+                        intent.putExtra("channel_isPublic",channel_isPublic);
                         intent.putExtra("channel_id",channel_id);
+
                         startActivity(intent);
 
                     }else if(response.code() == 400){

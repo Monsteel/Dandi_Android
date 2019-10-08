@@ -116,9 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // 바로가기 메뉴 정보를 불러오기 위한 userInformation() 매서드 호출
         userInformation();
-
     }
-
 
     // 뒤로가기 버튼 이벤트
     public void onBackPressed(){
@@ -273,8 +271,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
     public void userInformation(){
 

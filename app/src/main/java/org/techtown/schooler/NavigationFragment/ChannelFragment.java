@@ -116,8 +116,6 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
 
             @Override
-
-
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                 Log.d("Retrofit", response.toString());
                 if(response.code() == 200){//만약 스테터스 값이 200이면
@@ -169,7 +167,6 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                             }
                         });
-
 
                     }else{
                         Log.e("","채널이 없어요");

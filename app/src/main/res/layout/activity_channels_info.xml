@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Channels.ChannelsInfo">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="199dp">
+
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#75000000" />
+
+        <View
+            android:id="@+id/Color"
+            android:layout_width="match_parent"
+            android:layout_height="6pt"
+            android:layout_gravity="bottom" />
+
+        <TextView
+            android:id="@+id/title_TextView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10pt"
+            android:layout_marginBottom="16pt"
+            android:text="B1ND"
+            android:textColor="#FFFFFF"
+            android:textSize="16pt" />
+
+        <TextView
+            android:id="@+id/makeUser_TextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10pt"
+            android:layout_marginRight="10pt"
+            android:layout_marginBottom="10pt"
+            android:layout_weight="1"
+            android:text="Master : B1ND"
+            android:textColor="#FFFFFF"
+            android:textSize="6pt" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/content_TextView2"
+        android:layout_width="match_parent"
+        android:layout_height="30pt"
+        android:layout_marginTop="5pt"
+        android:background="#255A5A5A"
+        android:gravity="center"
+        android:text='"바인드 공식 채널입니다"'
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/content_TextView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10pt"
+        android:layout_marginTop="10pt"
+        android:text="Member"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_Member"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        tools:listitem="@layout/item_member" />
+
+</LinearLayout>

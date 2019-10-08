@@ -32,6 +32,10 @@ public class FinishCreateChannels extends AppCompatActivity {
     public void goToChangeImage(View view){
         Intent intent = new Intent(FinishCreateChannels.this, UploadChannelsThumbnail.class);
 
+        intent.putExtra("channel_name",getIntent().getStringExtra("channel_name"));
+        intent.putExtra("create_user",getIntent().getStringExtra("create_user"));
+        intent.putExtra("channel_explain",getIntent().getStringExtra("channel_explain"));
+        intent.putExtra("channel_isPublic",getIntent().getStringExtra("channel_isPublic"));
         intent.putExtra("channel_id",getIntent().getStringExtra("channel_id"));
 
         startActivity(intent);

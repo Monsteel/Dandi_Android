@@ -1,6 +1,8 @@
 package org.techtown.schooler.network;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,8 +24,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
+import org.techtown.schooler.RecyclerView_main.ScheduleAdapter;
+import org.techtown.schooler.Signup.PhoneNumberActivity;
 import org.techtown.schooler.network.response.Response;
 
 import java.io.InputStream;
@@ -117,24 +122,24 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
 
 
         if(item.getUserStatus() == 1){
-            holder.joinButton.setText("Wait");
+            holder.joinButton.setText("Wait");]
             holder.joinButton.setTextColor(Color.parseColor("#FFFF5722"));
         }else if(item.getUserStatus() == 2){
             holder.joinButton.setText("JOINED");
             holder.joinButton.setTextColor(Color.parseColor("#FF2196F3"));
-        }else if(item.getUserStatus() == 0){
+        }else if(item.getUserStatus() == 0) {
             holder.joinButton.setText("JOIN");
             holder.joinButton.setTextColor(Color.parseColor("#FDFFFFFF"));
             holder.joinButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("가입버튼","클릭됐어요");
+                    Log.e("가입버튼", "클릭됐어요");
 
-                    if(item.getUserStatus() == 1){
-                        Toast.makeText(holder.joinButton.getContext(),"가입승인 대기중인 채널입니다.",Toast.LENGTH_SHORT).show();
-                    }else if(item.getUserStatus() == 2){
-                        Toast.makeText(holder.joinButton.getContext(),"이미 가입된 채널입니다.",Toast.LENGTH_SHORT).show();
-                    }else {
+                    if (item.getUserStatus() == 1) {
+                        Toast.makeText(holder.joinButton.getContext(), "가입승인 대기중인 채널입니다.", Toast.LENGTH_SHORT).show();
+                    } else if (item.getUserStatus() == 2) {
+                        Toast.makeText(holder.joinButton.getContext(), "이미 가입된 채널입니다.", Toast.LENGTH_SHORT).show();
+                    } else {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(holder.joinButton.getContext());
                         builder.setTitle("채널가입");
@@ -183,7 +188,21 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
                     }
                 }
             });
+
         }
+            holder.channelCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Activity activity = (Activity) holder.joinButton.getContext();
+                    Intent intent = new Intent(holder.joinButton.getContext(), ChannelsInfo.class);
+                    intent.putExtra("channel_id",item.getId());
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+
     }
 
     @Override

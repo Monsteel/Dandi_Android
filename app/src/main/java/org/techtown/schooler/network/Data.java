@@ -42,6 +42,16 @@ public class Data {
 
     private String channel_id;
 
+    private ChannelInfo createdChannel;
+
+    public ChannelInfo getCreatedChannel() {
+        return createdChannel;
+    }
+
+    public void setCreatedChannel(ChannelInfo createdChannel) {
+        this.createdChannel = createdChannel;
+    }
+
     public ChannelInfo getChannelInfo() {
         return channelInfo;
     }

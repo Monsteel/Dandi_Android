@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.techtown.schooler">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,14 +16,18 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ChannelEvents.CreateChannelEvents"
-            android:theme="@style/AppTheme2"/>
-        <activity android:name=".ChannelEvents.ChannelContent"/>
-        <activity android:name=".ChannelEvents.UpdateEvents"/>
-        <activity android:name=".Channels.UploadChannelsThumbnail"/>
-        <activity android:name=".Channels.FinishCreateChannels"/>
-        <activity android:name=".Channels.CreateChannel"/>
+        <activity android:name=".Channels.ChannelsAdminPage"></activity>
+        <activity
+            android:name=".Channels.ChannelsInfo"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ChannelEvents.CreateChannelEvents"
+            android:theme="@style/AppTheme2" />
+        <activity android:name=".ChannelEvents.ChannelContent" />
+        <activity android:name=".ChannelEvents.UpdateEvents" />
+        <activity android:name=".Channels.UploadChannelsThumbnail" />
+        <activity android:name=".Channels.FinishCreateChannels" />
+        <activity android:name=".Channels.CreateChannel" />
         <activity android:name=".Signup.FinishSignup" />
         <activity android:name=".Signup.PhoneNumberActivity" />
         <activity android:name=".Signup.NotifyActivity" />
@@ -40,10 +49,5 @@
         <activity android:name=".StartMemberActivity.LoginActivity" />
         <activity android:name=".MainActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 </manifest>

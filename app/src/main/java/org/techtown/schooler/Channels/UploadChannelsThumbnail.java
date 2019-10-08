@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,9 +23,11 @@ import android.widget.Toast;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -59,18 +62,40 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     ImageView backgroundImage;
     TextView title;
     TextView content;
+    TextView user;
+    ImageView isPublicImage;
+
+    String channel_name = null;
+    String create_user = null;
+    String channel_explain = null;
+    String channel_isPublic = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_channels_thumbnail);
         Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
-        channel_id = getIntent().getStringExtra("channel_id");
         backgroundImage = (ImageView)findViewById(R.id.Background_ImageView);
         title = (TextView)findViewById(R.id.Title_TextView);
         content = (TextView)findViewById(R.id.Content_TextView);
+        user = (TextView)findViewById(R.id.MakeUser_TextView);
+        isPublicImage = (ImageView)findViewById(R.id.isPublic_ImageView);
 
+        channel_name = getIntent().getStringExtra("channel_name");
+        create_user = getIntent().getStringExtra("create_user");
+        channel_explain = getIntent().getStringExtra("channel_explain");
+        channel_isPublic = getIntent().getStringExtra("channel_isPublic");
+        channel_id = getIntent().getStringExtra("channel_id");
 
+        title.setText(channel_name);
+        content.setText(channel_explain);
+        user.setText("Master : " + create_user);
+
+        if(channel_isPublic.equals("0")) {
+            isPublicImage.setImageResource(R.drawable.locked);
+        }else{
+            isPublicImage.setImageResource(R.drawable.un_locked);
+        }
     }
 
     //이미지파일을 비트로 바꿉니다
@@ -186,9 +211,7 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
                     }
                 }
 
-
-                uploadImage(changeToBytes(),tempFile.getName());
-
+                backgroundImage.setImageURI(Uri.fromFile(tempFile));
 
                 break;
 
@@ -197,6 +220,11 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    //버튼 클릭 이벤트
+    public void Click_Finsih(View view){
+        uploadImage(changeToBytes(),tempFile.getName());
     }
 
     //uri를 패스로 변환해서, 서버통신 시작.
@@ -221,7 +249,9 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         res.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                Log.e("UploadImage", "성공");
+                Log.e("UploadImage", "성공"+response);
+                startActivity(new Intent(UploadChannelsThumbnail.this, MainActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
             @Override

@@ -46,9 +46,9 @@ public interface Channel {
                                      @Query("channel_id") String channel_id);
 
     @Multipart
-    @POST("changeCompanyLogo")
+    @POST("/image/upload/thumbnail")
     Call<Response> uploadThumbnail(@Header("x-access-token")String token,
                                          @Part MultipartBody.Part thumbnail,
-                                         @Part ("name") RequestBody name,
+                                         @Part ("thumbnail") RequestBody name,
                                          @Query("channel_id") String channel_id);
 }

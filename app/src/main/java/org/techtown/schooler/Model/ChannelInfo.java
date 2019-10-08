@@ -1,5 +1,7 @@
 package org.techtown.schooler.Model;
 
+import java.util.List;
+
 public class ChannelInfo {
     private String name;
     private String explain;
@@ -9,9 +11,9 @@ public class ChannelInfo {
     private String id;
     private String color;
     private int userStatus;
+    private List<User> users;
 
-
-    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic, String id, String color, int userStatus) {
+    public ChannelInfo(String name, String explain, String create_user, String thumbnail, String isPublic, String id, String color, int userStatus, List<User> users) {
         this.name = name;
         this.explain = explain;
         this.create_user = create_user;
@@ -20,6 +22,43 @@ public class ChannelInfo {
         this.id = id;
         this.color = color;
         this.userStatus = userStatus;
+        this.users = users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public String getCreate_user() {
+        return create_user;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getIsPublic() {
+        return isPublic;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getUserStatus() {
+        return userStatus;
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
     public void setName(String name) {
@@ -54,35 +93,7 @@ public class ChannelInfo {
         this.userStatus = userStatus;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getExplain() {
-        return explain;
-    }
-
-    public String getCreate_user() {
-        return create_user;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public String getIsPublic() {
-        return isPublic;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public int getUserStatus() {
-        return userStatus;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
