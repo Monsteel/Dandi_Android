@@ -3,9 +3,7 @@ package org.techtown.schooler.NavigationFragment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,7 +30,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
-import org.techtown.schooler.ChannelEvents.EventDecorator;
 import org.techtown.schooler.Model.Author;
 import org.techtown.schooler.Model.Channel;
 import org.techtown.schooler.Model.Events;
@@ -45,7 +44,6 @@ import org.techtown.schooler.network.response.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,11 +79,7 @@ public class MainFragment extends Fragment  {
     // ArrayList 배열인 EventsArrayList 배열 생성
     ArrayList<Events> EventsArrayList = new ArrayList<>();
 
-    Spinner spinner;
-
     View view;
-
-    private DatePickerDialog.OnDateSetListener datePickerDialog;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -103,7 +97,6 @@ public class MainFragment extends Fragment  {
                 Intent addEvents = new Intent(getActivity(), CreateChannelEvents.class);
                 startActivity(addEvents);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
                 break;
 
             default:
@@ -125,7 +118,6 @@ public class MainFragment extends Fragment  {
         materialCalendarView = rootView.findViewById(R.id.materialCalendarView); // 캘린더
         recyclerView = rootView.findViewById(R.id.recyclerView); // 리사이클러뷰
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
-        spinner = rootView.findViewById(R.id.spinner);
         view = rootView.findViewById(R.id.view);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -145,7 +137,6 @@ public class MainFragment extends Fragment  {
 
                 EventsArrayList.clear();
 
-
                 // 각각의 변수에 캘린더의 값을 저장하고있습니다.
                 selectedYear = String.valueOf(date.getYear());
                 month = String.valueOf(date.getMonth());
@@ -160,7 +151,6 @@ public class MainFragment extends Fragment  {
 
                 onChannelEvent();
                 onSchoolEvent();
-
             }
         });
 
@@ -174,103 +164,92 @@ public class MainFragment extends Fragment  {
             }
         });
 
-//        String result = "2019,10,6";
-//        new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
-
         return rootView;
     }
 
 
     public void onChannelEvent() {
 
-        Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().GetChannelEvent(Login.getString("token", ""), "");
-        res.enqueue(new Callback<Response<Data>>() {
+            Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().GetChannelEvent(Login.getString("token", ""), "");
+            res.enqueue(new Callback<Response<Data>>() {
 
-            @Override
-            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                @Override
+                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-                if(response.code() == 200){
+                    if (response.code() == 200) {
 
-                    Log.e("[status 200]", response.body().getMessage());
+                        Log.e("[status 200]", response.body().getMessage());
 
-                    // channelEventsData 배열에 Events 데이터를 모두 저장합니다.
-                    channelEventsData = (ArrayList<Events>) response.body().getData().getEvents();
+                        // channelEventsData 배열에 Events 데이터를 모두 저장합니다.
+                        channelEventsData = (ArrayList<Events>) response.body().getData().getEvents();
 
-                    boolean isEmpty = true;
+                        boolean isEmpty = true;
 
-                    // channelEventsData 의 size 만큼 반복문을 동작시킵니다.
-                    for (int i = 0; i < channelEventsData.size(); i++) {
+                        // channelEventsData 의 size 만큼 반복문을 동작시킵니다.
+                        for (int i = 0; i < channelEventsData.size(); i++) {
 
-                        // start_date 변수에 channelEventsData 배열에 존재하는 i 번째 start_date 값을 저장합니다.
-                        String start_date = channelEventsData.get(i).getStart_date();
+                            // start_date 변수에 channelEventsData 배열에 존재하는 i 번째 start_date 값을 저장합니다.
+                            String start_date = channelEventsData.get(i).getStart_date();
 
-                        String channelYear = start_date.substring(0, 4); // Year
-                        String channelMonth = start_date.substring(5, 7); // Month
-                        String channelDay = start_date.substring(8, 10); // Day
+                            String channelYear = start_date.substring(0, 4); // Year
+                            String channelMonth = start_date.substring(5, 7); // Month
+                            String channelDay = start_date.substring(8, 10); // Day
 
-                        // 만약 사용자가 캘린더에서 선택한 날짜와 start_date 값이 일치하다면 조건을 실행합니다.
-                        if (Integer.parseInt(selectedYear) == Integer.parseInt(channelYear) && selectedMonth == Integer.parseInt(channelMonth) && Integer.parseInt(selectedDay) == Integer.parseInt(channelDay)) {
+                            // 만약 사용자가 캘린더에서 선택한 날짜와 start_date 값이 일치하다면 조건을 실행합니다.
+                            if (Integer.parseInt(selectedYear) == Integer.parseInt(channelYear) && selectedMonth == Integer.parseInt(channelMonth) && Integer.parseInt(selectedDay) == Integer.parseInt(channelDay)) {
 
-                            isEmpty = false;
+                                isEmpty = false;
 
-                            // channelEventsArrayList 배열에 channelEventsArrayList2 배열의 i 번째 데이터를 전달합니다.
-                            EventsArrayList.add(channelEventsData.get(i));
-
+                                // channelEventsArrayList 배열에 channelEventsArrayList2 배열의 i 번째 데이터를 전달합니다.
+                                EventsArrayList.add(channelEventsData.get(i));
+                            }
                         }
+
+                        if (isEmpty) {
+
+                            Log.e("[채널 일정 X]", "채널 일정이 존재하지 않습니다.");
+                            check = true;
+
+                        } else {
+
+                            ScheduleAdapter myAdapter = new ScheduleAdapter(EventsArrayList);
+                            recyclerView.setAdapter(myAdapter);
+                            check = false;
+                        }
+                    } else if (response.code() == 400) {
+
+                        Log.e("[status 400]", response.body().getMessage());
+                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 403) {
+
+                        Log.e("[status 403]", response.body().getMessage());
+                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 410) {
+
+                        SharedPreferences.Editor editor = Login.edit();
+                        editor.putString("token", null);
+                        editor.commit();
+
+                        Log.e("[status 410]", "토큰 만료");
+                        Toast.makeText(getActivity(), "토큰 만료, 로그인 화면으로 이동합니다.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                    } else if (response.code() == 500) {
+
+                        Log.e("[status 500]", response.body().getMessage());
+                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
-                    if (isEmpty) {
 
-                        Log.e("[채널 일정 X]", "채널 일정이 존재하지 않습니다.");
-
-                        check = true;
-
-                        spinner.setVisibility(View.INVISIBLE);
-
-                    } else {
-
-                        ScheduleAdapter myAdapter = new ScheduleAdapter(EventsArrayList);
-                        recyclerView.setAdapter(myAdapter);
-
-                        check = false;
-                        spinner.setVisibility(View.VISIBLE);
-
-                    }
-                } else if(response.code() == 400){
-
-                    Log.e("[status 400]", response.body().getMessage());
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                } else if(response.code() == 403){
-
-                    Log.e("[status 403]", response.body().getMessage());
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                else if(response.code() == 410){
+                @Override
+                public void onFailure(Call<Response<Data>> call, Throwable t) {
 
-                    SharedPreferences.Editor editor = Login.edit();
-                    editor.putString("token",null);
-                    editor.commit();
-
-                    Log.e("[status 410]","토큰 만료");
-                    Toast.makeText(getActivity(), "토큰 만료, 로그인 화면으로 이동합니다.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                } else if(response.code() == 500){
-
-                    Log.e("[status 500]", response.body().getMessage());
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("[ChannelEvent]", "네트워크 연결 오류");
+                    Toast.makeText(getActivity(), "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
                 }
 
-
-            }
-
-            @Override
-            public void onFailure(Call<Response<Data>> call, Throwable t) {
-
-                Log.e("[ChannelEvent]", "네트워크 연결 오류");
-                Toast.makeText(getActivity(), "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
     }
 
     public void onSchoolEvent() {
@@ -321,7 +300,6 @@ public class MainFragment extends Fragment  {
 
                             NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
                             recyclerView.setAdapter(noScheduleAdapter);
-
                         }
 
                     } else {
@@ -343,11 +321,8 @@ public class MainFragment extends Fragment  {
                     if(check == true){
 
                         schoolEventsArrayList.add(null);
-
                         NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
                         recyclerView.setAdapter(noScheduleAdapter);
-
-                        spinner.setVisibility(View.GONE);
                     }
                 }
             }
@@ -359,6 +334,7 @@ public class MainFragment extends Fragment  {
         });
     }
 
+    // 년도 클릭 시 달력 형식의 DatePickerDialog 표시
     public void datePickerDialog(){
 
         Calendar calendar = Calendar.getInstance();
@@ -370,54 +346,8 @@ public class MainFragment extends Fragment  {
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         pickerDialog.show();
-
     }
 
-
-    public class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
-
-        String result;
-
-        public ApiSimulator(String result) {
-
-            this.result = result;
-        }
-
-        @Override
-        protected List<CalendarDay> doInBackground(Void... voids) {
-
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, -2);
-
-            ArrayList<CalendarDay> dates = new ArrayList<>();
-
-            for(int i = 0; i < 30; i++){
-
-                CalendarDay day = CalendarDay.from(calendar);
-                dates.add(day);
-                calendar.add(Calendar.DATE, 5);
-            }
-
-            return dates;
-        }
-
-
-        protected void onPostExecute(@NonNull List<CalendarDay> calendarDays) {
-            super.onPostExecute(calendarDays);
-
-            if (isCancelled()) {
-                return;
-            }
-
-            materialCalendarView.addDecorator(new EventDecorator(Color.RED,calendarDays, MainFragment.this));        }
-
-    }
 }
 
 

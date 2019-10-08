@@ -126,7 +126,7 @@ public class UpdateEvents extends AppCompatActivity {
                 selectedMonth = monthOfYear;
                 selectedDay = dayOfMonth;
 
-                start_date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                start_date = start_button.getText().toString();
 
                 updateChannelEvents.setStart_date(start_date);
 
@@ -172,7 +172,7 @@ public class UpdateEvents extends AppCompatActivity {
 
                 }
 
-                end_date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                end_date = end_button.getText().toString();
 
                 updateChannelEvents.setEnd_date(end_date);
             }
@@ -212,7 +212,7 @@ public class UpdateEvents extends AppCompatActivity {
               } else if(response.code() == 400){
 
                   Log.e("[status 400]", response.message());
-                  Toast.makeText(UpdateEvents.this, "검증 오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(UpdateEvents.this, "입력하신 내용에 오류가 존재합니다, 수정을 해주십시오.", Toast.LENGTH_SHORT).show();
               } else if(response.code() == 404){
 
                   Log.e("[status 404]", response.message());

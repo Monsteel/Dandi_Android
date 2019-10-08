@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -54,7 +55,7 @@
 
             <EditText
                 android:id="@+id/title_editText"
-                android:layout_width="350dp"
+                android:layout_width="340dp"
                 android:layout_height="43dp"
                 android:layout_marginLeft="3dp"
                 android:background="@android:color/transparent"
@@ -93,7 +94,7 @@
 
             <EditText
                 android:id="@+id/content_editText"
-                android:layout_width="350dp"
+                android:layout_width="340dp"
                 android:layout_height="30pt"
                 android:layout_marginLeft="3dp"
                 android:background="@android:color/transparent"

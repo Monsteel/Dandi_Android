@@ -136,30 +136,39 @@ public class CreateChannelEvents extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-                ArrayList<String> arrayList = new ArrayList();
-                ArrayList<String> idList = new ArrayList();
+                if(response.code() == 200){
 
-                for(int i = 0; i < response.body().getData().getJoinedChannel().size(); i++){
+                    Log.e("[status]", response.message());
+                    ArrayList<String> arrayList = new ArrayList();
+                    ArrayList<String> idList = new ArrayList();
 
-                    arrayList.add(response.body().getData().getJoinedChannel().get(i).getName());
-                    idList.add(response.body().getData().getJoinedChannel().get(i).getId());
+                    for(int i = 0; i < response.body().getData().getJoinedChannel().size(); i++){
+
+                        arrayList.add(response.body().getData().getJoinedChannel().get(i).getName());
+                        idList.add(response.body().getData().getJoinedChannel().get(i).getId());
+                    }
+
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
+                    spinner.setAdapter(arrayAdapter);
+
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            channelId = idList.get(position);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                } else if(response.code() == 400){
+
+                    Log.e("[status]","안된다아아");
+                    Toast.makeText(CreateChannelEvents.this, "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
-                spinner.setAdapter(arrayAdapter);
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                        channelId = idList.get(position);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
 
             }
 
@@ -203,7 +212,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                  selectedMonth = monthOfYear;
                  selectedDay = dayOfMonth;
 
-                 start_date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                 start_date = start_button.getText().toString();
 
                 addChannelEvents.setStart_date(start_date);
 
@@ -250,7 +259,7 @@ public class CreateChannelEvents extends AppCompatActivity {
 
                 }
 
-                end_date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                end_date = end_button.getText().toString();
 
                 addChannelEvents.setEnd_date(end_date);
             }
@@ -260,8 +269,6 @@ public class CreateChannelEvents extends AppCompatActivity {
         c.add(Calendar.YEAR,selectedYear-2019);
 
         datePickerDialog.getDatePicker().setCalendarViewShown(false);
-
-        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
 
         datePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -289,7 +296,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                 } else if(response.code() == 400){
 
                     Log.e("[status 400]", "검증 오류입니다.");
-                    Toast.makeText(CreateChannelEvents.this, "검증 오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateChannelEvents.this, "입력하신 내용에 오류가 존재합니다, 수정을 해주십시오.", Toast.LENGTH_SHORT).show();
                 } else if(response.code() == 403){
 
                     Log.e("[status 403]", "일정 추가 권한이 없습니다.");
