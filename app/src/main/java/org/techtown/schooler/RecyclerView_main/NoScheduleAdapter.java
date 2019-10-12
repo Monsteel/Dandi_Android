@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.R;
 
@@ -22,40 +23,25 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        LinearLayout layout;
+        LinearLayout button_layout;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
-            super(view);
+                super(view);
 
-            layout = view.findViewById(R.id.layout);
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(view.getContext(), CreateChannelEvents.class);
-
-                    view.getContext().startActivity(intent);
-
-                    Activity activity = (Activity) view.getContext();
-
-                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-                }
-            });
+                button_layout = view.findViewById(R.id.button_layout);
 
         }
     }
 
-    private ArrayList<Events> channelEventsArrayList;
+    private ArrayList<String> selectedEventsArrayList;
 
-    public NoScheduleAdapter(ArrayList<Events> channelEventsArrayList){
+    public NoScheduleAdapter(ArrayList<String> selectedEventsArrayList){
 
-        this.channelEventsArrayList = channelEventsArrayList;
+        this.selectedEventsArrayList = selectedEventsArrayList;
     }
 
     public NoScheduleAdapter(){
-
 
     }
 
@@ -64,7 +50,6 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_no_schedule, parent, false);
         return new MyViewHolder(view);
     }
@@ -72,12 +57,29 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        NoScheduleAdapter.MyViewHolder myViewHolder = (NoScheduleAdapter.MyViewHolder) holder;
+        myViewHolder.button_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), CreateChannelEvents.class);
+                intent.putExtra("start_date", selectedEventsArrayList.get(position));
+
+                view.getContext().startActivity(intent);
+
+                Activity activity = (Activity) view.getContext();
+
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+
     }
 
     @Override
     public int getItemCount() {
 
-        return channelEventsArrayList.size();
+        return selectedEventsArrayList.size();
     }
 
 }

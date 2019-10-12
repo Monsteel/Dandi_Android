@@ -1,21 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFDD33"
-    tools:context=".NavigationFragment.AccountFragment">
+    android:background="#F2B705"
+    tools:context=".NavigationFragment.AccountFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
+    <FrameLayout
+        android:id="@+id/frameLayout4"
+        android:layout_width="170pt"
+        android:layout_height="108pt"
+        android:layout_marginTop="35pt"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="441dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/profile"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/jinu_profile2" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|clip_vertical"
+                    android:layout_marginTop="3pt"
+                    android:gravity="clip_vertical"
+                    android:text="최진우"
+                    android:textColor="#707070"
+                    android:textSize="8.5pt" />
+
+                <TextView
+                    android:id="@+id/user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="(chlwlsdn)" />
+
+                <Button
+                    android:id="@+id/edit_profile"
+                    android:layout_width="72.5pt"
+                    android:layout_height="15.5pt"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6.5pt"
+                    android:background="@drawable/edit_profile"
+                    android:text="프로필 편집"
+                    android:textColor="#F2B705" />
+
+                <Button
+                    android:id="@+id/check_channel"
+                    android:layout_width="72.5pt"
+                    android:layout_height="15.5pt"
+                    android:layout_marginTop="5.5pt"
+                    android:background="@drawable/edit_profile"
+                    android:text="Channel"
+                    android:textColor="#F2B705"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="계정"
-        android:textColor="#000000"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="41dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout4"
+        app:layout_constraintVertical_bias="0.120000005">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="26pt"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="phone:"
+                android:textSize="9pt" />
+
+            <TextView
+                android:id="@+id/user_phone"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="010-4952-2308"
+                android:textSize="6pt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="26pt"
+            android:layout_marginTop="2dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="E-mail:"
+                android:textSize="9pt" />
+
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="chlwlsdn0828@gmail.com"
+                android:textSize="6pt" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="26pt"
+            android:layout_marginTop="2dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="school:"
+                android:textSize="9pt" />
+
+            <TextView
+                android:id="@+id/user_school"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="대구소프트웨어고등학교"
+                android:textSize="6pt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26pt"
+            android:layout_marginTop="2dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="class:"
+                android:textSize="9pt" />
+
+            <TextView
+                android:id="@+id/user_class"
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="1학년 2반"
+                android:textSize="6pt" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

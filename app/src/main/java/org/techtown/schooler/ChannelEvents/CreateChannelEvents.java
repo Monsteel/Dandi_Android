@@ -91,13 +91,30 @@ public class CreateChannelEvents extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        // start_date, end_date (text 변경)
-        start_date = date.format(today);
-        end_date = date.format(today);
+        Intent intent = getIntent();
 
-        // start_button, end_button (text 변경)
-        start_button.setText(date.format(today));
-        end_button.setText(date.format(today));
+        if(intent.getExtras() == null){
+
+            // start_button, end_button (text 변경)
+            start_button.setText(date.format(today));
+            end_button.setText(date.format(today));
+
+            // start_date, end_date (text 변경)
+            start_date = date.format(today);
+            end_date = date.format(today);
+
+        } else {
+
+            String start = intent.getExtras().getString("start_date");
+
+            // start_button, end_button (text 변경)
+            start_button.setText(start);
+            end_button.setText(start);
+
+            // start_date, end_date (text 변경)
+            start_date = start;
+            end_date = start;
+        }
 
         // addChannelEvents (start_date, end_date)
         addChannelEvents.setStart_date(start_date);

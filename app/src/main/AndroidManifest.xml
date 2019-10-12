@@ -16,7 +16,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Channels.ChannelsAdminPage"></activity>
+
+        <activity android:name=".Account.JoinedChannel"
+            android:theme="@style/AppTheme3"></activity>
+        <activity android:name=".Channels.ChannelsAdminPage" />
         <activity
             android:name=".Channels.ChannelsInfo"
             android:parentActivityName=".MainActivity" />

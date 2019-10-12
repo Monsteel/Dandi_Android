@@ -42,6 +42,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageView channel_image;
         LinearLayout top_layout;
         ImageButton contentButton;
+        LinearLayout button_layout;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
@@ -56,6 +57,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             channel_image = view.findViewById(R.id.channel_image);
             top_layout = view.findViewById(R.id.top_layout);
             contentButton = view.findViewById(R.id.contentButton);
+            button_layout = view.findViewById(R.id.button_layout);
 
             // channel_image 둥글게 만들어줍니다.
             channel_image.setBackground(new ShapeDrawable(new OvalShape()));
@@ -72,8 +74,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                     Intent intent = new Intent(view.getContext(), ChannelContent.class);
                     view.getContext().startActivity(intent);
-
-
 
                 }
             });
@@ -134,7 +134,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .execute(item.getChannel().getThumbnail());
         } else{
 
-            myViewHolder.channel_image.setImageResource(R.drawable.dgsw);
+            myViewHolder.channel_image.setImageResource(R.drawable.channel_school);
         }
 
         myViewHolder.contentButton.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +156,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 v.getContext().startActivity(intent);
             }
         });
+
 
 
     }

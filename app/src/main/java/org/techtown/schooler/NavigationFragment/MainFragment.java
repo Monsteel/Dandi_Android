@@ -3,9 +3,12 @@ package org.techtown.schooler.NavigationFragment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +33,8 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
+import org.techtown.schooler.ChannelEvents.EventDecorator;
+import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.Model.Author;
 import org.techtown.schooler.Model.Channel;
 import org.techtown.schooler.Model.Events;
@@ -42,8 +47,14 @@ import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,6 +91,10 @@ public class MainFragment extends Fragment  {
     ArrayList<Events> EventsArrayList = new ArrayList<>();
 
     View view;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    ArrayList<CalendarDay> dates = new ArrayList<>();
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -122,9 +137,10 @@ public class MainFragment extends Fragment  {
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         // 메인 프레그먼트의 툴바 색상을 설정하는 것입니다.
         ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+
+        checkChannelEvent();
 
         // 캘린더 클릭 시 발생하는 이벤트를 수행합니다.
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -151,6 +167,7 @@ public class MainFragment extends Fragment  {
 
                 onChannelEvent();
                 onSchoolEvent();
+
             }
         });
 
@@ -202,6 +219,7 @@ public class MainFragment extends Fragment  {
 
                                 // channelEventsArrayList 배열에 channelEventsArrayList2 배열의 i 번째 데이터를 전달합니다.
                                 EventsArrayList.add(channelEventsData.get(i));
+
                             }
                         }
 
@@ -215,6 +233,8 @@ public class MainFragment extends Fragment  {
                             ScheduleAdapter myAdapter = new ScheduleAdapter(EventsArrayList);
                             recyclerView.setAdapter(myAdapter);
                             check = false;
+
+
                         }
                     } else if (response.code() == 400) {
 
@@ -261,6 +281,27 @@ public class MainFragment extends Fragment  {
 
                 // ArrayList 배열인 schoolEventsArrayList 배열 생성
                 ArrayList<Events> schoolEventsArrayList = new ArrayList<>();
+                ArrayList<String> selectedEventsArrayList = new ArrayList<>();
+                String date;
+
+                if(selectedMonth < 10){
+
+                    if(Integer.parseInt(selectedDay) < 10){
+                        date = selectedYear + "-0" + selectedMonth + "-" + selectedDay;
+                    } else {
+
+                        date = selectedYear + "-0" + selectedMonth + selectedDay;
+                    }
+                } else {
+
+                    if(Integer.parseInt(selectedDay) < 10){
+
+                        date = selectedYear + selectedMonth + "-0" + selectedDay;
+                    } else {
+
+                        date = selectedYear + "-" + selectedMonth +"-" + selectedDay;
+                    }
+                }
 
                 if (response.code() == 200) {
 
@@ -296,9 +337,10 @@ public class MainFragment extends Fragment  {
 
                         if (check == true) {
 
-                            schoolEventsArrayList.add(schoolEventsData.get(0));
+                            // schoolEventsArrayList.add(schoolEventsData.get(0));
 
-                            NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
+                            selectedEventsArrayList.add(date);
+                            NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(selectedEventsArrayList);
                             recyclerView.setAdapter(noScheduleAdapter);
                         }
 
@@ -314,14 +356,15 @@ public class MainFragment extends Fragment  {
 
                     Toast.makeText(getActivity(), "학사 일정 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show();
 
-                } else if(response.code() == 404){
+                } else if(response.code() == 204){
 
-                    Log.e("[status 404]", "학사일정 API 가 존재하지않습니다.");
+                    Log.e("[status 204]", "학사일정 API 가 존재하지않습니다.");
 
                     if(check == true){
 
-                        schoolEventsArrayList.add(null);
-                        NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(schoolEventsArrayList);
+                        // schoolEventsArrayList.add(null);
+                        selectedEventsArrayList.add(date);
+                        NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(selectedEventsArrayList);
                         recyclerView.setAdapter(noScheduleAdapter);
                     }
                 }
@@ -334,7 +377,6 @@ public class MainFragment extends Fragment  {
         });
     }
 
-    // 년도 클릭 시 달력 형식의 DatePickerDialog 표시
     public void datePickerDialog(){
 
         Calendar calendar = Calendar.getInstance();
@@ -348,6 +390,38 @@ public class MainFragment extends Fragment  {
         pickerDialog.show();
     }
 
+    public void checkChannelEvent(){
+        Call<Response<Data>> res = NetRetrofit.getInstance().getChannelEvent().GetChannelEvent(Login.getString("token",""),"");
+        res.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+
+                if(response.code() == 200){
+
+                    ArrayList<Events> checkEventsData = new ArrayList<>();
+                    checkEventsData = (ArrayList<Events>) response.body().getData().getEvents();
+
+
+                    for(int i = 0; i < response.body().getData().getEvents().size(); i++){
+
+                        try {
+                            dates.add(CalendarDay.from(simpleDateFormat.parse(checkEventsData.get(i).getStart_date())));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    materialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+
+            }
+        });
+    }
 }
 
 

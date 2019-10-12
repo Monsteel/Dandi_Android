@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // toolbar 를 사용할 수 있도록 설정합니다.
         setSupportActionBar(toolbar);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp2);
 

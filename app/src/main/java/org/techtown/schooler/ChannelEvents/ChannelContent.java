@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class ChannelContent extends AppCompatActivity {
     ImageButton backButton;
     LinearLayout layout; // Layout Background
     LinearLayout channel_layout; // Button Background
-
+    LinearLayout content_layout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -89,7 +90,6 @@ public class ChannelContent extends AppCompatActivity {
         channel_image = intent.getExtras().getString("channel_image");
         event_id = intent.getExtras().getString("event_id");
 
-
         // XML View 를 초기화합니다.
         profile = findViewById(R.id.profile);
         backButton = findViewById(R.id.backButton);
@@ -104,14 +104,23 @@ public class ChannelContent extends AppCompatActivity {
         event_channel_name = findViewById(R.id.channel_name);
         delete = findViewById(R.id.delete);
         edit = findViewById(R.id.edit);
+        content_layout = findViewById(R.id.content_layout);
 
         // profile 즉 프로필 사진을 둥글게 만들어줍니다.
         profile.setBackground(new ShapeDrawable(new OvalShape()));
         profile.setClipToOutline(true);
 
-        // 레이아웃 배경을 채널의 색상으로 설정합니다.
-        layout.setBackgroundColor(Color.parseColor(channel_color)); // Layout Background
-        channel_layout.setBackgroundColor(Color.parseColor(channel_color)); // Button Background
+        if(channel_color != null){
+
+            // 레이아웃 배경을 채널의 색상으로 설정합니다.
+            layout.setBackgroundColor(Color.parseColor(channel_color)); // Layout Background
+            channel_layout.setBackgroundColor(Color.parseColor(channel_color)); // Button Background
+        } else {
+
+            // 레이아웃 배경을 채널의 색상으로 설정합니다.
+            layout.setBackgroundColor(Color.parseColor("#F1B71C")); // Layout Background
+            channel_layout.setBackgroundColor(Color.parseColor("#F1B71C")); // Button Background
+        }
 
         // XML View 에 전달받은 부가 데이터를 저장합니다.
         event_title.setText(title);
@@ -119,15 +128,33 @@ public class ChannelContent extends AppCompatActivity {
         id.setText(user_id);
         start.setText(start_date);
         end.setText(end_date);
-        event_content.setText(content);
+
+        if(content == null){
+
+            event_content.setText("학사 일정은 상세 내용이 존재하지 않습니다.");
+        }else {
+
+            event_content.setText(content);
+        }
+
+
         event_channel_name.setText(channel_name);
-        new MainActivity.DownloadImageFromInternet(profile)
-                .execute(channel_image);
+
+        if(channel_image != null){
+
+            new MainActivity.DownloadImageFromInternet(profile)
+                    .execute(channel_image);
+        } else {
+
+            profile.setImageResource(R.drawable.channel_school);
+        }
+
 
         // schedule_title 타이틀 내용이 만약 글자 수를 초과할 시 흐르게 보여줍니다.
         event_title.setSingleLine(true);
         event_title.setEllipsize(TextUtils.TruncateAt.END);
         event_title.setSelected(true);
+
 
     }
 
