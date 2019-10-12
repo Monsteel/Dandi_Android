@@ -65,7 +65,6 @@ public class ClassActivity extends AppCompatActivity {
             GradePicker.setMaxValue(6);
         }
 
-
         final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, "1");
         res.enqueue(new Callback<Response<Data>>() {
             @Override
@@ -123,7 +122,6 @@ public class ClassActivity extends AppCompatActivity {
                 });
             }
         });
-
 
         ClassPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override

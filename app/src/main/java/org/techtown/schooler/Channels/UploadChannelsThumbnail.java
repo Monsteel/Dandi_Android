@@ -163,7 +163,6 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
 
         if (resultCode != Activity.RESULT_OK) {
             Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(UploadChannelsThumbnail.this, FinishCreateChannels.class));
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
             if(tempFile != null) {
@@ -223,13 +222,16 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     }
 
     //버튼 클릭 이벤트
-    public void Click_Finsih(View view){
-        uploadImage(changeToBytes(),tempFile.getName());
+    public void Click_Finsih(View view) {
+        if (tempFile != null)
+            uploadImage(changeToBytes(), tempFile.getName());
+        else {
+            Toast.makeText(this, "사진이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //uri를 패스로 변환해서, 서버통신 시작.
     public void uploadImage(byte[] imageBytes, String originalName) {
-
         String[] filenameArray = originalName.split("\\.");
         String extension = filenameArray[filenameArray.length - 1];
 
@@ -260,5 +262,11 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

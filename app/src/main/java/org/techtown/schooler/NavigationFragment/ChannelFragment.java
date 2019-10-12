@@ -49,6 +49,10 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
     SharedPreferences Login;
     EditText search;
     Spinner field;
+    String user_id;
+
+    String keyword ="";
+    Integer pick = null;
 
 
     @Override
@@ -57,8 +61,14 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        startActivity(new Intent(getActivity(), CreateChannel.class));
+        startActivity((new Intent(getActivity(), CreateChannel.class)));
         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         return super.onOptionsItemSelected(item);
     }
@@ -80,6 +90,7 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
+        user_id = Login.getString("id", "");
 
         onRefresh();
 
@@ -88,6 +99,8 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
         setHasOptionsMenu(true);
 
         return rootView;
+
+
     }
 
     @Override
@@ -104,16 +117,10 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     }
 
-
-    String keyword ="";
-    Integer pick = null;
-
     public void onSearch(){
-
         final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().SearchChannel(Login.getString("token",""),"");//token불러오기
 
         res.enqueue(new Callback<Response<Data>>() {
-
 
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
@@ -124,7 +131,7 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         ChannelListAdapter adapter = new ChannelListAdapter(DataList);
                         recyclerView.setAdapter(adapter);
 
-                        adapter.filter(keyword,pick);
+                        adapter.filter(keyword,pick,user_id);
 
                         search.addTextChangedListener(new TextWatcher() {
                             @Override
@@ -135,7 +142,7 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 //에딧텍스트 만들고, 그 값을 필터에 매개변수로 넣는 작업.
                                 keyword = charSequence.toString();
-                                adapter.filter(keyword,pick);
+                                adapter.filter(keyword,pick,user_id);
                             }
                             @Override
                             public void afterTextChanged(Editable editable) {
@@ -160,7 +167,7 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                                     pick = 1;//승인대기중인 채널
                                 }
 
-                                adapter.filter(keyword,pick);
+                                adapter.filter(keyword,pick,user_id);
                             }
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
@@ -178,7 +185,7 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                     startActivity(new Intent(getActivity(),LoginActivity.class));
                     Log.e("","토큰 만료");
-                }else{
+                }else if(response.code() == 204){
                     Log.e("","오류가 발생했어요");
                 }
             }

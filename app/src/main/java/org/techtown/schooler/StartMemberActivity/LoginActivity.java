@@ -194,9 +194,12 @@ public class LoginActivity extends AppCompatActivity{
                     String Message = response.body().getMessage();
                     Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
 
+
+
                     Login = getSharedPreferences("Login", MODE_PRIVATE);
                     SharedPreferences.Editor editor = Login.edit();
                     editor.putString("token",response.body().getData().getToken());
+                    editor.putString("id",Id_EditText.getText().toString());
                     editor.commit();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);

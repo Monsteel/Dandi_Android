@@ -4,255 +4,218 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Channels.CreateChannel"
-    android:orientation="vertical">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F9F9F9"
-        android:orientation="horizontal">
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        />
 
-        <TextView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:text="취소"
-            android:textColor="#2349E6"
-            android:textSize="18sp"
-            android:onClick="toGoBack"/>
-
-        <TextView
-            android:id="@+id/Finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:onClick="CreateChannel"
-            android:text="생성"
-            android:textColor="#2349E6"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView9"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="채널 생성하기"
-        android:textColor="#020202"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/view26"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="25dp"
-        android:background="#BBBBBB" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="51dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="채널이름"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/InputChannelName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:ems="10"
-            android:hint="name"
-            android:inputType="textPersonName" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view28"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="#BBBBBB" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="51dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="채널 설명"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/InputChannelExplain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:ems="10"
-            android:hint="explain"
-            android:inputType="textPersonName" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view40"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#BBBBBB" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/view10"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
-
-        <Switch
-            android:id="@+id/isPublicForChannel"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="5dp"
-            android:text="가입승인 여부"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/view38"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="#BBBBBB" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="채널가입 신청 시, 개설자의 승인 후 채널에 가입됩니다."
-            android:textColor="#D10000"
-            android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14.5pt"
+                    android:layout_marginTop="1pt"
+                    android:text="NAME"
+                    android:textColor="#707070"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <View
-        android:id="@+id/view41"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:background="#BBBBBB" />
+            <LinearLayout
+                android:layout_width="159pt"
+                android:layout_height="20pt"
+                android:layout_gravity="center"
+                android:layout_marginTop="1pt"
+                android:background="@drawable/register_events"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/InputChannelName"
+                    android:layout_width="340dp"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="5pt"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:enabled="true"
+                    android:hint="채널 이름"
+                    android:inputType="textPersonName"
+                    android:textColor="#525252"
+                    android:textSize="6.5pt" />
 
-        <TextView
-            android:layout_width="161dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:text="채널 색상"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            </LinearLayout>
 
-        <View
-            android:id="@+id/Color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2.5pt"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14.5pt"
+                    android:layout_marginTop="6pt"
+                    android:text="EXPLAIN"
+                    android:textColor="#707070"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-    <View
-        android:id="@+id/view42"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#BBBBBB" />
+            <LinearLayout
+                android:layout_width="159pt"
+                android:layout_height="30pt"
+                android:layout_gravity="center"
+                android:layout_marginTop="1pt"
+                android:background="@drawable/register_events"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/ChooseColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="색상 선택하기"
-        android:textAllCaps="false"
-        android:textColor="#1F31E0"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:onClick="PickColor"/>
+                <EditText
+                    android:id="@+id/InputChannelExplain"
+                    android:layout_width="340dp"
+                    android:layout_height="30pt"
+                    android:layout_marginLeft="5pt"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="채널 설명을 입력 해 주세요"
+                    android:inputType="textPersonName"
+                    android:textSize="6.5pt" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2.5pt"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14.5pt"
+                    android:layout_marginTop="6pt"
+                    android:text="COLOR"
+                    android:textColor="#707070"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="159pt"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="1pt"
+                android:background="@drawable/register_events"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/Color"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:onClick="PickColor" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="색을 클릭해서 색상 선택"
+                    android:textAllCaps="false"
+                    android:textColor="#707070" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2.5pt"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14.5pt"
+                    android:layout_marginTop="6pt"
+                    android:text="ANOTHER"
+                    android:textColor="#707070"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="159pt"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="1pt"
+                android:background="@drawable/register_events"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/isPublicForChannel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:text="가입승인 여부"
+                    android:textColor="#525252"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Finish"
+                android:layout_width="match_parent"
+                android:layout_height="30pt"
+                android:layout_margin="10pt"
+                android:background="@drawable/add_schedule"
+                android:gravity="center"
+                android:onClick="CreateChannel"
+                android:text="채널 개설하기"
+                android:textColor="#525252"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
