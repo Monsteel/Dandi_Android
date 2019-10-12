@@ -224,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SharedPreferences.Editor editor = Login.edit();
 
                 editor.putString("token",null);
+                editor.putString("id",null);
 
                 editor.commit();
 
