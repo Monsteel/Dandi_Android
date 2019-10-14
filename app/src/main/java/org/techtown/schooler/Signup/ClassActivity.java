@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
@@ -65,61 +66,16 @@ public class ClassActivity extends AppCompatActivity {
             GradePicker.setMaxValue(6);
         }
 
-        final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, "1");
-        res.enqueue(new Callback<Response<Data>>() {
-            @Override
-            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                Log.d("Retrofit", response.toString());
-                if (response.code() == 200) {
-                    Class = response.body().getData().getClassCount();
-                    Log.d("", Class + "");
-                    ClassPicker.setMinValue(1);
-                    ClassPicker.setMaxValue(Class);
-                } else {
-                    ClassPicker.setMinValue(1);
-                    ClassPicker.setMaxValue(50);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
-            }
-        });
+        SearchClass(1);
 
         GradePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 PickGrade = newVal;
                 Log.d("Grade", newVal + "");
 
                 DecideGrade.setText(PickGrade + "학년");
-
-
-                final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, PickGrade + "");
-                res.enqueue(new Callback<Response<Data>>() {
-                    @Override
-                    public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                        Log.d("Retrofit", response.toString());
-                        if (response.code() == 200) {
-                            Class = response.body().getData().getClassCount();
-                            Log.d("", Class + "");
-                            ClassPicker.setMinValue(1);
-                            ClassPicker.setMaxValue(Class);
-                        } else {
-                            ClassPicker.setMinValue(1);
-                            ClassPicker.setMaxValue(50);
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Response<Data>> call, Throwable t) {
-                        Log.e("Err", "네트워크 연결오류");
-                    }
-                });
+                SearchClass(2);
             }
         });
 
@@ -133,6 +89,37 @@ public class ClassActivity extends AppCompatActivity {
         });
     }
 
+    public void SearchClass(int input){
+        Call<Response<Data>> res;
+        if (input == 1){
+            res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, "1");
+        }else{
+            res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, PickGrade + "");
+        }
+        res.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                Log.d("Retrofit", response.toString());
+                if (response.code() == 200) {
+                    Class = response.body().getData().getClassCount();
+                    Log.d("", Class + "");
+                    ClassPicker.setMinValue(1);
+                    ClassPicker.setMaxValue(Class);
+                } else if(response.code() == 404){
+                    ClassPicker.setMinValue(1);
+                    ClassPicker.setMaxValue(50);
+                }else{
+                    Toast.makeText(ClassActivity.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                Log.e("","네트워크 오류");
+                Toast.makeText(ClassActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void toGoNext(View view){
         Intent intent = new Intent(getApplicationContext(), NotifyActivity.class);

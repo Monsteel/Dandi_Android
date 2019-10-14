@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
@@ -141,9 +143,7 @@ public class ChannelContent extends AppCompatActivity {
         event_channel_name.setText(channel_name);
 
         if(channel_image != null){
-
-            new MainActivity.DownloadImageFromInternet(profile)
-                    .execute(channel_image);
+            Glide.with(ChannelContent.this).load(channel_image).into(profile);
         } else {
 
             profile.setImageResource(R.drawable.channel_school);
@@ -156,33 +156,6 @@ public class ChannelContent extends AppCompatActivity {
         event_title.setSelected(true);
 
 
-    }
-
-    // Upload Image
-    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
     }
 
     // 일정 삭제 (Retrofit2)

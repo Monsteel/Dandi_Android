@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.techtown.schooler.ChannelEvents.ChannelContent;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.R;
@@ -130,8 +132,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if(item.getChannel().getThumbnail() != null){
 
-            new DownloadImageFromInternet(((MyViewHolder) holder).channel_image)
-                    .execute(item.getChannel().getThumbnail());
+            Glide.with(((MyViewHolder) holder).user_name.getContext()).load(item.getChannel().getThumbnail()).into(((MyViewHolder) holder).channel_image);
+
         } else{
 
             myViewHolder.channel_image.setImageResource(R.drawable.channel_school);
@@ -165,32 +167,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
 
         return channelEventsArrayList.size();
-    }
-
-    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
     }
 
 }

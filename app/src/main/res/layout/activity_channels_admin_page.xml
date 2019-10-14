@@ -140,13 +140,15 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <View
+                <androidx.cardview.widget.CardView
                     android:id="@+id/EditChannelColor"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:onClick="PickColor" />
+                    android:gravity="center"
+                    android:onClick="PickColor"
+                    android:orientation="horizontal"
+                    app:cardCornerRadius="20dp" />
 
                 <TextView
                     android:id="@+id/textView8"

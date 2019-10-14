@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.Channels.CreateChannel;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
@@ -89,6 +91,7 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
+
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
         user_id = Login.getString("id", "");
 
@@ -99,7 +102,6 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
         setHasOptionsMenu(true);
 
         return rootView;
-
 
     }
 
@@ -125,13 +127,13 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                 Log.d("Retrofit", response.toString());
-                if(response.code() == 200){//만약 스테터스 값이 200이면
+                if(response.code() == 200) {//만약 스테터스 값이 200이면
                     if (response.body().getData().getChannels().size() != 0) {
                         DataList = response.body().getData().getChannels();
                         ChannelListAdapter adapter = new ChannelListAdapter(DataList);
                         recyclerView.setAdapter(adapter);
 
-                        adapter.filter(keyword,pick,user_id);
+                        adapter.filter(keyword, pick, user_id);
 
                         search.addTextChangedListener(new TextWatcher() {
                             @Override
@@ -142,8 +144,9 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 //에딧텍스트 만들고, 그 값을 필터에 매개변수로 넣는 작업.
                                 keyword = charSequence.toString();
-                                adapter.filter(keyword,pick,user_id);
+                                adapter.filter(keyword, pick, user_id);
                             }
+
                             @Override
                             public void afterTextChanged(Editable editable) {
                                 //입력후
@@ -155,43 +158,47 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             public void onItemSelected(AdapterView<?> parent, View view,
                                                        int position, long id) {
 
-                                if(position == 0){
+                                if (position == 0) {
                                     pick = null;//전체
-                                }else if(position == 1){
+                                } else if (position == 1) {
                                     pick = 2;//가입한채널
-                                }else if(position == 2){
+                                } else if (position == 2) {
                                     pick = 3;//내가만든채널
-                                }else if(position == 3){
+                                } else if (position == 3) {
                                     pick = 0;//가입안된 채널
-                                }else if(position == 4){
+                                } else if (position == 4) {
                                     pick = 1;//승인대기중인 채널
                                 }
 
-                                adapter.filter(keyword,pick,user_id);
+                                adapter.filter(keyword, pick, user_id);
                             }
+
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
 
                             }
                         });
-
-                    }else{
-                        Log.e("","채널이 없어요");
                     }
-                }else if(response.code() == 400){//만약 Status값이 400이면 check에 false를 주고, 로그인 엑티비티로 이동
-                    SharedPreferences.Editor editor = Login.edit();
-                    editor.putString("token",null);
-                    editor.commit();
-
-                    startActivity(new Intent(getActivity(),LoginActivity.class));
-                    Log.e("","토큰 만료");
                 }else if(response.code() == 204){
-                    Log.e("","오류가 발생했어요");
-                }
+                        Log.e("[status]","안된다아아");
+                        Toast.makeText(getActivity(), "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    } else if(response.code() == 410){
+                        SharedPreferences.Editor editor = Login.edit();
+                        editor.putString("token",null);
+                        editor.putString("id",null);
+                        editor.commit();
+
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        Log.e("","토큰 만료");
+                        Toast.makeText(getActivity(), "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(getActivity(), "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                    }
             }
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
+                Log.e("","네트워크 오류");
+                Toast.makeText(getActivity(), "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
             }
         });
     }

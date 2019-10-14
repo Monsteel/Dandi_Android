@@ -25,6 +25,7 @@ import com.gun0912.tedpermission.TedPermission;
 
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
+import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 import org.w3c.dom.Text;
@@ -247,18 +248,30 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         RequestBody fileNameBody = RequestBody.create(MediaType.parse("text/plain"), uploadName);
 
         Call<Response> res = NetRetrofit.getInstance().getChannel().uploadThumbnail(Login.getString("token", ""), body,fileNameBody, channel_id);
-
         res.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                Log.e("UploadImage", "성공"+response);
-                startActivity(new Intent(UploadChannelsThumbnail.this, MainActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if(response.code() == 200){
+                    Log.e("UploadImage", "성공"+response);
+                    startActivity(new Intent(UploadChannelsThumbnail.this, MainActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }else if(response.code() == 410){
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+                    startActivity(new Intent(UploadChannelsThumbnail.this, LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(UploadChannelsThumbnail.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.e("","오류 발생");
+                    Toast.makeText(UploadChannelsThumbnail.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                }
             }
-
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
-                Log.e("UploadImage", "실패");
+                Log.e("","네트워크 오류");
+                Toast.makeText(UploadChannelsThumbnail.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
             }
         });
 

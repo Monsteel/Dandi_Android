@@ -69,7 +69,7 @@ public interface Channel {
                                    @Query("channel_id") String channel_id,
                                    @Query("user_id") String user_id);
 
-    @GET("/channel-admin/reject")
+    @DELETE("/channel-admin/reject")
     Call<Response<Data>> RejectUser(@Header("x-access-token") String token,
                                     @Query("channel_id") String channel_id,
                                     @Query("user_id") String user_id);

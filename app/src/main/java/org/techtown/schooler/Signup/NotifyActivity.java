@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
@@ -127,7 +128,7 @@ public class NotifyActivity extends AppCompatActivity {
         res.enqueue(new Callback<Response<Data>>() {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 200) {
                     Integer Status = response.body().getStatus();
                     String Message = response.body().getMessage();
                     Log.d("[SignUp] Status", Status + ":" + Message);
@@ -135,29 +136,15 @@ public class NotifyActivity extends AppCompatActivity {
                     Intent intent = new Intent(NotifyActivity.this, FinishSignup.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
                 }else{
-                    try {
-                        JSONObject errorBody = new JSONObject(response.errorBody().string());
-                        Integer Error =errorBody.getInt("status");
-
-                        if (Error == 401 ||Error == 405) {
-                            Response response1 = new Response();
-                            response1.setStatus(errorBody.getInt("status"));
-                            response1.setMessage(errorBody.getString("message"));
-                            Log.e("[SignUp] Status", errorBody.getString("message"));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Toast.makeText(NotifyActivity.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
-                Toast.makeText(NotifyActivity.this, "네트워크에 연결되지 않았습니다.\nError:200", Toast.LENGTH_SHORT).show();
-
+                Log.e("","네트워크 오류");
+                Toast.makeText(NotifyActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
             }
         });
 

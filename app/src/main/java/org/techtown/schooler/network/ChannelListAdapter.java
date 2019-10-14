@@ -24,11 +24,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.RecyclerView_main.ScheduleAdapter;
 import org.techtown.schooler.Signup.PhoneNumberActivity;
+import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.response.Response;
 
 import java.io.InputStream;
@@ -113,14 +116,13 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Login = holder.joinButton.getContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
+        Activity activity = (Activity) holder.joinButton.getContext();
 
         ChannelInfo item = mDataList.get(position);
         holder.title.setText(item.getName());
         holder.content.setText(item.getExplain());
         holder.create_User.setText("Master : " + item.getCreate_user());
-
-        new DownloadImageFromInternet(holder.BackGroundImage)
-                .execute(item.getThumbnail());
+        Glide.with(holder.joinButton.getContext()).load(item.getThumbnail()).into(holder.BackGroundImage);
 
         if (item.getIsPublic().equals("0")) {
             holder.isPublicImage.setImageResource(R.drawable.locked);
@@ -147,7 +149,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         }
 
         holder.channelCardView.setOnClickListener(v -> {
-            Activity activity = (Activity) holder.joinButton.getContext();
+
             Intent intent = new Intent(holder.joinButton.getContext(), ChannelsInfo.class);
             intent.putExtra("channel_id",item.getId());
             intent.putExtra("userStatus",item.getUserStatus()+"");
@@ -178,7 +180,8 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
                     res1.enqueue(new Callback<Response<Data>>() {
                         @Override
                         public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                            if (response.isSuccessful()) {
+                            if (response.code() == 200) {
+
                                 if (item.getIsPublic().equals("0")) {
                                     Toast.makeText(holder.joinButton.getContext(), "채널가입 신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                                     item.setUserStatus(1);
@@ -188,21 +191,31 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
                                     item.setUserStatus(2);
                                     notifyDataSetChanged();
                                 }
-
+                            }else if(response.code() == 409){
+                                Toast.makeText(holder.joinButton.getContext(), "이미 가입된 채널입니다.", Toast.LENGTH_SHORT).show();
+                            }else if(response.code() == 410){
+                                SharedPreferences.Editor editor = Login.edit();
+                                editor.putString("token",null);
+                                editor.putString("id",null);
+                                editor.commit();
+                                activity.startActivity(new Intent(holder.joinButton.getContext(), LoginActivity.class));
+                                Log.e("","토큰 만료");
+                                Toast.makeText(holder.joinButton.getContext(), "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Log.e("","오류 발생");
+                                Toast.makeText(holder.joinButton.getContext(), "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                             }
+
                         }
 
                         @Override
                         public void onFailure(Call<Response<Data>> call, Throwable t) {
-                            Log.e("Err", "네트워크 연결오류");
+                            Log.e("","네트워크 오류");
+                            Toast.makeText(holder.joinButton.getContext(), "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    Log.e("예 버튼", "클릭됐어요");
                 });
-
                 builder.setNegativeButton("아니오", (dialogInterface, i) -> Log.e("아니오 버튼", "클릭됐어요"));
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
@@ -240,29 +253,4 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         }
     }
 
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
-    }
 }

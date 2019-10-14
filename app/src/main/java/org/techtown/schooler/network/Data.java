@@ -44,6 +44,16 @@ public class Data {
 
     private ChannelInfo createdChannel;
 
+    private List<UserInfo> awaitUsers;
+
+    public List<UserInfo> getAwaitUsers() {
+        return awaitUsers;
+    }
+
+    public void setAwaitUsers(List<UserInfo> awaitUsers) {
+        this.awaitUsers = awaitUsers;
+    }
+
     public ChannelInfo getCreatedChannel() {
         return createdChannel;
     }

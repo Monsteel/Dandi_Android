@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -137,8 +138,8 @@ public class AccountFragment extends Fragment {
                     user_school.setText(userData.getSchool().getSchool_name());
                     user_class.setText(userData.getSchool_grade() + "학년 " + userData.getSchool_class() + "반");
 
-                    new MainActivity.DownloadImageFromInternet(profile)
-                            .execute(userData.getProfile_pic());
+                    Glide.with(getActivity()).load(userData.getProfile_pic()).into(profile);
+
 
                     Toast.makeText(getActivity(), "정상적으로 프로필을 조회하였습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("[status 200]",response.message());
@@ -192,32 +193,6 @@ public class AccountFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent, PICK_FROM_ALBUM);
-    }
-
-    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
     }
 
 }

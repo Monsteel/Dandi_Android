@@ -20,32 +20,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
+import com.bumptech.glide.Glide;
 
-import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
-import org.techtown.schooler.MainActivity;
-import org.techtown.schooler.Model.Channel;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
-import org.techtown.schooler.network.ChannelListAdapter;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
 import java.io.InputStream;
-import java.io.PushbackInputStream;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +90,6 @@ public class ChannelsInfo extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f5f5f5")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,34 +172,7 @@ public class ChannelsInfo extends AppCompatActivity {
         return true;
     }
 
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
-    }
-
     public void ChannelLeave(){
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("안내");
         builder.setMessage("채널을 탈퇴하시겠습니까?");
@@ -222,14 +186,27 @@ public class ChannelsInfo extends AppCompatActivity {
                 res3.enqueue(new Callback<Response<Data>>() {
                     @Override
                     public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                        Toast.makeText(ChannelsInfo.this, "탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
+                        if(response.code() == 200){
+                            Toast.makeText(ChannelsInfo.this, "탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }else if(response.code() == 410){
+                            SharedPreferences.Editor editor = Login.edit();
+                            editor.putString("token",null);
+                            editor.putString("id",null);
+                            editor.commit();
+                            startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                            Log.e("","토큰 만료");
+                            Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                        } else{
+                            Log.e("","오류 발생");
+                            Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<Response<Data>> call, Throwable t) {
-                        Toast.makeText(ChannelsInfo.this, "네트워크에 오류가 생겼습니다. 잠시 후 다시 시도 해 주세요", Toast.LENGTH_SHORT).show();
-                        Log.e("Err", "네트워크 연결오류");
+                        Log.e("","네트워크 오류");
+                        Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -260,14 +237,32 @@ public class ChannelsInfo extends AppCompatActivity {
                 res4.enqueue(new Callback<Response<Data>>() {
                     @Override
                     public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                        Toast.makeText(ChannelsInfo.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
+                        if(response.code() == 200){
+                            Toast.makeText(ChannelsInfo.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }else if(response.code() == 403){
+                            Toast.makeText(ChannelsInfo.this, "삭제권한이 없습니다.", Toast.LENGTH_SHORT).show();
+                        }else if(response.code() == 404){
+                            Toast.makeText(ChannelsInfo.this, "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                        }else if(response.code() == 410){
+                            SharedPreferences.Editor editor = Login.edit();
+                            editor.putString("token",null);
+                            editor.putString("id",null);
+                            editor.commit();
+                            startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                            Log.e("","토큰 만료");
+                            Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Log.e("","오류 발생");
+                            Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
                     public void onFailure(Call<Response<Data>> call, Throwable t) {
-                        Toast.makeText(ChannelsInfo.this, "네트워크에 오류가 생겼습니다. 잠시 후 다시 시도 해 주세요", Toast.LENGTH_SHORT).show();
-                        Log.e("Err", "네트워크 연결오류");
+                        Log.e("","네트워크 오류");
+                        Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -296,7 +291,7 @@ public class ChannelsInfo extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
 
-                if(response.code() != 404) {
+                if(response.code() == 200) {
                     Channel_name = response.body().getData().getChannelInfo().getName();
                     Channel_content = response.body().getData().getChannelInfo().getExplain();
                     Channel_create_user = response.body().getData().getChannelInfo().getCreate_user();
@@ -309,9 +304,7 @@ public class ChannelsInfo extends AppCompatActivity {
                     content.setText("\""+Channel_content+"\"");
                     Create_user.setText("Master : "+Channel_create_user);
                     color.setBackgroundColor(Color.parseColor(Channel_Color));
-
-                    new DownloadImageFromInternet(thumbnail)
-                            .execute(Channel_thumbnail);
+                    Glide.with(ChannelsInfo.this).load(Channel_thumbnail).into(thumbnail);
 
 
                     DataList = response.body().getData().getChannelInfo().getUsers();
@@ -323,29 +316,57 @@ public class ChannelsInfo extends AppCompatActivity {
                     res2.enqueue(new Callback<Response<Data>>() {
                         @Override
                         public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                            usr_id = response.body().getData().getUserInfo().getUser_id();
-                            if(Channel_create_user.equals(usr_id))
-                                getMenuInflater().inflate(R.menu.channels_admin_page_menu, menu);
-                            else if(getIntent().getStringExtra("userStatus").equals("2"))
-                                getMenuInflater().inflate(R.menu.channel_user_page_menu, menu);
+
+                            if (response.code() == 200) {
+                                usr_id = response.body().getData().getUserInfo().getUser_id();
+                                if (Channel_create_user.equals(usr_id))
+                                    getMenuInflater().inflate(R.menu.channels_admin_page_menu, menu);
+                                else if (getIntent().getStringExtra("userStatus").equals("2"))
+                                    getMenuInflater().inflate(R.menu.channel_user_page_menu, menu);
+                            }else if(response.code() == 204){
+                                Toast.makeText(ChannelsInfo.this, "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                            } else if(response.code() == 410){
+                                SharedPreferences.Editor editor = Login.edit();
+                                editor.putString("token",null);
+                                editor.putString("id",null);
+                                editor.commit();
+                                startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                                Log.e("","토큰 만료");
+                                Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                            } else{
+                                Log.e("","오류 발생");
+                                Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<Response<Data>> call, Throwable t) {
-                            Log.e("Err", "네트워크 연결오류");
+                            Log.e("","네트워크 오류");
+                            Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                }else{
+                }else if(response.code() == 404){
                     Toast.makeText(ChannelsInfo.this, "존재하지 않는 채널입니다.", Toast.LENGTH_SHORT).show();
                     onBackPressed();
+                }else if(response.code() == 410){
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+                    startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.e("","오류 발생");
+                    Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
+                Log.e("","네트워크 오류");
+                Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
             }
         });
     }

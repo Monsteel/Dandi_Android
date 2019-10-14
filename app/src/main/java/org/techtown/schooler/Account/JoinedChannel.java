@@ -14,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.NavigationFragment.AccountFragment;
 import org.techtown.schooler.NavigationFragment.MainFragment;
 import org.techtown.schooler.R;
 import org.techtown.schooler.RecyclerView_main.JoinedChannelAdapter;
 import org.techtown.schooler.RecyclerView_main.NoScheduleAdapter;
+import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
@@ -101,13 +103,24 @@ public class JoinedChannel extends AppCompatActivity {
                     JoinedChannelAdapter myAdapter = new JoinedChannelAdapter(joinedChannel);
                     recyclerView.setAdapter(myAdapter);
 
+                }else if(response.code() == 410){//만약 Status값이 400이면 check에 false를 주고, 로그인 엑티비티로 이동
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+
+                    startActivity(new Intent(JoinedChannel.this,LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(JoinedChannel.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(JoinedChannel.this,"서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
-
-                Toast.makeText(JoinedChannel.this, "서버 통신 X", Toast.LENGTH_SHORT).show();
+                Log.e("","네트워크 오류");
+                Toast.makeText(JoinedChannel.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
             }
         });
     }

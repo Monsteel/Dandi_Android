@@ -2,6 +2,7 @@ package org.techtown.schooler.Channels;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +44,7 @@ public class ChannelsAdminPage extends AppCompatActivity {
     private EditText inputName;
     private EditText inputExplain;
     private Switch inputCheck;
-    private View inputColor;
+    private CardView inputColor;
 
     public static ChannelEditRequest channelEditRequest  = new ChannelEditRequest("","","");
 
@@ -65,7 +66,7 @@ public class ChannelsAdminPage extends AppCompatActivity {
         inputName = (EditText)findViewById(R.id.EditChannelName);
         inputExplain = (EditText)findViewById(R.id.EditChannelExplain);
         inputCheck = (Switch)findViewById(R.id.EditChannelIsPublic);
-        inputColor = (View)findViewById(R.id.EditChannelColor);
+        inputColor = (CardView)findViewById(R.id.EditChannelColor);
 
         inputName.setText(Channel_name);
         inputExplain.setText(Channel_explain);
@@ -94,6 +95,7 @@ public class ChannelsAdminPage extends AppCompatActivity {
         setSupportActionBar(toolbar1);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f5f5f5")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("채널 설정");
 
         toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

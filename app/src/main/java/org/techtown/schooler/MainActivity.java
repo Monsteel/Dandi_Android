@@ -29,6 +29,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
 import org.techtown.schooler.NavigationFragment.AccountFragment;
@@ -291,8 +293,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     school.setText(schoolName);
                     grade.setText(school_grade + "학년 " + school_class + "반");
 
-                    new DownloadImageFromInternet(profile)
-                            .execute(user_profile);
+                    Glide.with(MainActivity.this).load(user_profile).into(profile);
+
 
                 } else if(response.code() == 410){
 
@@ -318,32 +320,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "oh no", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
     }
 
 }

@@ -27,6 +27,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
@@ -79,8 +81,8 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         holder.Id.setText(item.getUser_id());
         user_id = item.getUser_id();
 
-        new DownloadImageFromInternet(holder.Profile)
-                .execute(item.getPrifle_pic());
+        Glide.with(holder.Name.getContext()).load(item.getProfile_pic()).into(holder.Profile);
+
         if(Login.getString("id","").equals(create_user)){
             holder.MemberCardView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -141,32 +143,6 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
             Name = itemView.findViewById(R.id.Name_Info);
             Id = itemView.findViewById(R.id.ID_Info);
             Profile = itemView.findViewById(R.id.Profile_Info);
-        }
-    }
-
-    private class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
         }
     }
 }

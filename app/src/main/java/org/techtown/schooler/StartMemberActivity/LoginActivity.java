@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import org.techtown.schooler.Channels.CreateChannel;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.SHA512;
@@ -180,45 +181,46 @@ public class LoginActivity extends AppCompatActivity{
 
     // login 매서드
     private void login(LoginPostRequest loginPostRequest) {
+        if(Id_EditText.getText().toString().length() == 0 || Pw_EditText.getText().toString().length() == 0){
+            Toast.makeText(LoginActivity.this, "아이디 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+            Log.d("[Login]","아이디 비밀번호를 입력해주세요");
+        }else{
+            final Call<Response<Data>> res = NetRetrofit.getInstance().getLogin().loginPost(loginPostRequest);
+            res.enqueue(new Callback<Response<Data>>() {
+                @Override
+                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                    if (response.code() == 200) {
+                        Integer Status = response.body().getStatus();
+                        String Message = response.body().getMessage();
 
-        final Call<Response<Data>> res = NetRetrofit.getInstance().getLogin().loginPost(loginPostRequest);
-        res.enqueue(new Callback<Response<Data>>() {
-            @Override
-            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                        Login = getSharedPreferences("Login", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = Login.edit();
+                        editor.putString("token",response.body().getData().getToken());
+                        editor.putString("id",Id_EditText.getText().toString());
+                        editor.commit();
 
-                if(Id_EditText.getText().toString().length() == 0 || Pw_EditText.getText().toString().length() == 0){
-                    Toast.makeText(LoginActivity.this, "아이디 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
-                    Log.d("[Login]","아이디 비밀번호를 입력해주세요");
-                } else if (response.isSuccessful()) {
-                    Integer Status = response.body().getStatus();
-                    String Message = response.body().getMessage();
-                    Toast.makeText(LoginActivity.this, Status + ":" + Message, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
 
-
-
-                    Login = getSharedPreferences("Login", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = Login.edit();
-                    editor.putString("token",response.body().getData().getToken());
-                    editor.putString("id",Id_EditText.getText().toString());
-                    editor.commit();
-
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-
-                    overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
-                    Log.d("[Login] Status", Status + ":" + Message);
-                }else if(response.code()==401){
-                    Toast.makeText(LoginActivity.this, "승인 대기중인 유저입니다.", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(LoginActivity.this, "일치하는 회원정보가 없습니다.", Toast.LENGTH_SHORT).show();
+                        overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
+                        Log.d("[Login] Token", response.body().getData().getToken());
+                    }else if(response.code()==403){
+                        Toast.makeText(LoginActivity.this, "승인 대기중인 유저입니다.", Toast.LENGTH_SHORT).show();
+                    }else if(response.code() == 401){
+                        Toast.makeText(LoginActivity.this, "일치하는 회원정보가 없습니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(LoginActivity.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
-            }
-        });
+                @Override
+                public void onFailure(Call<Response<Data>> call, Throwable t) {
+                    Log.e("","네트워크 오류");
+                    Toast.makeText(LoginActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 
     // onBackPresses() 매서드를 사용하여 뒤로가기 버튼을 방지합니다.

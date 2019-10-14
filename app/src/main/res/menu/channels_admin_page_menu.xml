@@ -16,7 +16,7 @@
     <item
         android:id="@+id/FixMember"
         android:icon="@drawable/add"
-        android:title="멤버 관리"
+        android:title="채널가입 승인하기"
         app:showAsAction="collapseActionView" />
 
     <item

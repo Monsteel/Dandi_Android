@@ -14,8 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.Model.Email;
@@ -112,8 +114,6 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     public void toClickSendAuth(View view){
-
-
         SendAuthCode.setTextColor(Color.parseColor("#FF5C5C5C"));
         SendAuthCode.setEnabled(false);
 
@@ -127,40 +127,19 @@ public class EmailActivity extends AppCompatActivity {
         res.enqueue(new Callback<Response<Data>>() {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-
-                // Status == 200
-                if(response.isSuccessful()){
-
-                    Integer Status = response.body().getStatus(); // Status 값
-                    String Message = response.body().getMessage(); // Message 값
+                if(response.code() == 200){
                     AuthCode = response.body().getData().getAuthCode(); // authCode(이메일 코드)
-                    Log.d("[SandEmail] Status", Status + ":" + Message);
+                    Log.d("[SandEmail] AuthCode", AuthCode);
                     SendEmailSuccess();
-
-                }
-
-                // Status != 200
-                else{
-                    try {
-                        JSONObject errorBody = new JSONObject(response.errorBody().string());
-
-                        Integer Error =errorBody.getInt("status");//error status value
-                        if (Error == 500) {
-                            Response response1 = new Response();
-                            response1.setStatus(errorBody.getInt("status"));
-                            response1.setMessage(errorBody.getString("message"));
-                            Log.e("[SandEmail] Status", errorBody.getString("message"));
-                            SendEmailFail();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                }else if(response.code() == 500){
+                    SendEmailFail();
                 }
             }
 
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
+                Log.e("","네트워크 오류");
+                Toast.makeText(EmailActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
                 SendEmailFail();
             }
         });
@@ -197,8 +176,6 @@ public class EmailActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
-
-
 
     @Override
     public void onBackPressed() {

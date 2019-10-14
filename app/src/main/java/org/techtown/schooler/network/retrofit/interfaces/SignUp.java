@@ -31,5 +31,7 @@ public interface SignUp {
 
 
     @GET("/school/search-class")
-    Call<Response<Data>> SearchClassGet(@Query("school_id") String SchoolId,@Query("office_id") String OfficeId,@Query("grade") String Grade);
+    Call<Response<Data>> SearchClassGet(@Query("school_id") String SchoolId,
+                                        @Query("office_id") String OfficeId,
+                                        @Query("grade") String Grade);
 }

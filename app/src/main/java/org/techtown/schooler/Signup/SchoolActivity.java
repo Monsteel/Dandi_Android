@@ -15,7 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.network.SchoolListAdapter;
 import org.techtown.schooler.Model.SchoolList;
 import org.techtown.schooler.R;
@@ -86,70 +88,60 @@ public class SchoolActivity extends AppCompatActivity {
         res.enqueue(new Callback<Response<Data>>() {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                Log.d("Retrofit", response.toString());
-                if (response.body() != null) {
+                if (response.code() == 200) {
                     String[] contents = new String[response.body().getData().getSchoolInfo().size()];
                     String[] titles = new String[response.body().getData().getSchoolInfo().size()];
 
                     String SchoolName = "";
                     String SchoolLocal = "";
 
-                    if (response.body().getData() != null) {
-                        adapter.clear();
-                        for (int A = 0; A < response.body().getData().getSchoolInfo().size(); A++) {
-                            SchoolList dto = new SchoolList();
-                            SchoolName = response.body().getData().getSchoolInfo().get(A).getSchool_name();
-                            SchoolLocal = response.body().getData().getSchoolInfo().get(A).getSchool_locate();
+                    adapter.clear();
+                    for (int A = 0; A < response.body().getData().getSchoolInfo().size(); A++) {
+                        SchoolList dto = new SchoolList();
+                        SchoolName = response.body().getData().getSchoolInfo().get(A).getSchool_name();
+                        SchoolLocal = response.body().getData().getSchoolInfo().get(A).getSchool_locate();
 
-                            contents[A] = SchoolLocal;
-                            titles[A] = SchoolName;
+                        contents[A] = SchoolLocal;
+                        titles[A] = SchoolName;
 
-                            dto.setTitle(titles[A]);
-                            dto.setContent(contents[A]);
-                            adapter.addItem(dto);
-                        }
+                        dto.setTitle(titles[A]);
+                        dto.setContent(contents[A]);
+                        adapter.addItem(dto);
                     }
-                } else {
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                    {
+                        @Override
+                        public void onItemClick (AdapterView< ? > parent, View view, final int position, long id) {
+                            School = response.body().getData().getSchoolInfo().get(position).getSchool_name();
+                            SchoolId = response.body().getData().getSchoolInfo().get(position).getSchool_code();
+                            OfficeId = response.body().getData().getSchoolInfo().get(position).getOffice_code();
+                            SchoolKind = response.body().getData().getSchoolInfo().get(position).getSchool_type();
+                            DecideSchoolName.setText(School);
+                            DecideSchoolName.setVisibility(View.VISIBLE);
+
+                            GotoClass.setEnabled(true);
+                            GotoClass.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
+                        }
+
+                    });
+
+
+                }else if(response.code() == 404) {
+                    Toast.makeText(SchoolActivity.this, "검색결과가 없습니다", Toast.LENGTH_SHORT).show();
+                    list_layout.setVisibility(View.INVISIBLE);
+                }else{
+                    Toast.makeText(SchoolActivity.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                    list_layout.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
-                Log.e("Err", "네트워크 연결오류");
+                Log.e("","네트워크 오류");
+                Toast.makeText(SchoolActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                list_layout.setVisibility(View.INVISIBLE);
             }
-        });
-
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick (AdapterView< ? > parent, View view, final int position, long id) {
-                String SearchSchool = (SearchSchoolName.getText().toString());
-                final Call<Response<Data>> res = NetRetrofit.getInstance().getSignup().SearchSchoolGet(SearchSchool);
-                res.enqueue(new Callback<Response<Data>>() {
-                    @Override
-                    public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                        Log.d("Retrofit", response.toString());
-                        School = response.body().getData().getSchoolInfo().get(position).getSchool_name();
-                        SchoolId = response.body().getData().getSchoolInfo().get(position).getSchool_code();
-                        OfficeId = response.body().getData().getSchoolInfo().get(position).getOffice_code();
-                        SchoolKind = response.body().getData().getSchoolInfo().get(position).getSchool_type();
-                        DecideSchoolName.setText(School);
-                        DecideSchoolName.setVisibility(View.VISIBLE);
-
-                        GotoClass.setEnabled(true);
-                        GotoClass.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Response<Data>> call, Throwable t) {
-                        Log.e("Err", "네트워크 연결오류");
-                    }
-                });
-
-            }
-
         });
 
     }
