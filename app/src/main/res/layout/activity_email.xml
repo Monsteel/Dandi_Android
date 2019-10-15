@@ -169,7 +169,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:ems="10"
-            android:hint="10자리 인증키"
+            android:hint="5자리 인증키"
             android:inputType="textPersonName" />
 
         <ImageView

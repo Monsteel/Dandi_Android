@@ -80,6 +80,7 @@ public class CreateChannel extends AppCompatActivity {
 
     boolean next1 = false;
     boolean next2 = false;
+    boolean next3 = false;
 
     public static CreateChannelRequest createChannelRequest = new CreateChannelRequest("","","","");
 
@@ -156,9 +157,9 @@ public class CreateChannel extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (next1 && next2) {
+                if (next1 && next2 && next3) {
                     Next.setEnabled(true);
-                    Next.setTextColor(Color.parseColor("#2349E6"));
+                    Next.setTextColor(Color.parseColor("#F1B71C"));
                 }else{
                     Next.setEnabled(false);
                     Next.setTextColor(Color.parseColor("#FF5C5C5C"));
@@ -183,16 +184,15 @@ public class CreateChannel extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (next1 && next2) {
+                if (next1 && next2 && next3) {
                     Next.setEnabled(true);
-                    Next.setTextColor(Color.parseColor("#2349E6"));
+                    Next.setTextColor(Color.parseColor("#F1B71C"));
                 }else{
                     Next.setEnabled(false);
                     Next.setTextColor(Color.parseColor("#FF5C5C5C"));
                 }
             }
         });
-
     }
 
     //컬러피커
@@ -230,12 +230,30 @@ public class CreateChannel extends AppCompatActivity {
                             String strColor = String.format("#%06X", 0xFFFFFF & color);//Color int를 String 으로 변환하기
                             colorView.setCardBackgroundColor(color);
                             createChannelRequest.setColor(strColor);
+                            next3 = true;
+
+                            if (next1 && next2 && next3) {
+                                Next.setEnabled(true);
+                                Next.setTextColor(Color.parseColor("#F1B71C"));
+                            }else{
+                                Next.setEnabled(false);
+                                Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                            }
                         }
                     }
 
                     @Override
                     public void onCancel() {
                          // Cancel 버튼 클릭 시 이벤트
+                        next3 = false;
+                        if (next1 && next2 && next3) {
+                            Next.setEnabled(true);
+                            Next.setTextColor(Color.parseColor("#F1B71C"));
+                        }else{
+                            Next.setEnabled(false);
+                            Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                        }
+
                     }
                 }).show();  // dialog 생성
     }
