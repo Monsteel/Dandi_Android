@@ -24,8 +24,7 @@
         <activity android:name=".Account.JoinedChannel"
             android:theme="@style/AppTheme3"></activity>
         <activity
-            android:name=".Channels.ChannelsInfo"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Channels.ChannelsInfo"/>
         <activity
             android:name=".ChannelEvents.CreateChannelEvents"
             android:theme="@style/AppTheme2" />
@@ -42,6 +41,7 @@
         <activity android:name=".Signup.SchoolActivity" />
         <activity android:name=".Signup.IdActivity" />
         <activity android:name=".Signup.EmailActivity" />
+
         <activity
             android:name=".Signup.SignupOneActivity"
             android:parentActivityName=".StartMemberActivity.LoginActivity" />

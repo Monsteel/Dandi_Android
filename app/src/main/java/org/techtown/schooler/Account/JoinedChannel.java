@@ -42,6 +42,8 @@ public class JoinedChannel extends AppCompatActivity {
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(JoinedChannel.this);
 
+    String channel_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

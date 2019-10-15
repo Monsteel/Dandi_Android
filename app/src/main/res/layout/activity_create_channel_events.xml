@@ -221,7 +221,8 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.4"
                         app:srcCompat="@drawable/schedule_add_button"
-                        tools:ignore="MissingConstraints" />
+                        tools:ignore="MissingConstraints"
+                        android:onClick="edit2"/>
 
                     <TextView
                         android:id="@+id/addSchedule_textView"

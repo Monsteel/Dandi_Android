@@ -154,6 +154,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 intent.putExtra("channel_image", channelEventsArrayList.get(position).getChannel().getThumbnail());
                 intent.putExtra("content",channelEventsArrayList.get(position).getContent());
                 intent.putExtra("event_id", channelEventsArrayList.get(position).getId());
+                intent.putExtra("channel_id", channelEventsArrayList.get(position).getChannel().getId());
 
                 v.getContext().startActivity(intent);
             }

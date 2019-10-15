@@ -21,11 +21,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import org.techtown.schooler.ChannelEvents.ChannelContent;
+import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.Model.JoinedChannel;
 import org.techtown.schooler.R;
@@ -40,6 +42,7 @@ public class JoinedChannelAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView channel_name;
         ImageView channel_image;
         ImageView isPublic_image;
+        CardView cardView;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view) {
@@ -48,6 +51,7 @@ public class JoinedChannelAdapter extends RecyclerView.Adapter<RecyclerView.View
             channel_name = view.findViewById(R.id.channel_name);
             channel_image = view.findViewById(R.id.channel_Image);
             isPublic_image = view.findViewById(R.id.isPublic);
+            cardView = view.findViewById(R.id.ChannelCardView);
 
         }
     }
@@ -87,6 +91,17 @@ public class JoinedChannelAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             myViewHolder.isPublic_image.setImageResource(R.drawable.un_locked);
         }
+
+        myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), ChannelsInfo.class);
+                intent.putExtra("channel_id", joinedChannelArrayList.get(position).getId());
+                intent.putExtra("userStatus", "2");
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

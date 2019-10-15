@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class UpdateEvents extends AppCompatActivity {
     EditText events_content;
     Button start_button;
     Button end_button;
+    ImageButton button;
 
     // 일정 수정하기 레이아웃
     LinearLayout editLayout;
@@ -82,6 +84,7 @@ public class UpdateEvents extends AppCompatActivity {
         start_button = findViewById(R.id.start_button);
         end_button = findViewById(R.id.end_button);
         editLayout = findViewById(R.id.layout);
+        button = findViewById(R.id.imageButton);
 
         // XML View 에 전달받은 부가 데이터를 저장합니다.
         events_title.setText(title);
@@ -248,6 +251,14 @@ public class UpdateEvents extends AppCompatActivity {
 
     // editLayout (Onclick)
     public void update(View view){
+
+        updateChannelEvents.setTitle(events_title.getText().toString());
+        updateChannelEvents.setContent(events_content.getText().toString());
+
+        updateChannelEvent();
+    }
+
+    public void update2(View view){
 
         updateChannelEvents.setTitle(events_title.getText().toString());
         updateChannelEvents.setContent(events_content.getText().toString());

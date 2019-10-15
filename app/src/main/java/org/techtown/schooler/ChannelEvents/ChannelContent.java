@@ -25,7 +25,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.MainActivity;
+import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
@@ -52,6 +54,7 @@ public class ChannelContent extends AppCompatActivity {
     String channel_color;
     String channel_image;
     String event_id;
+    String channel_id;
 
     // XML View
     TextView event_title;
@@ -91,6 +94,7 @@ public class ChannelContent extends AppCompatActivity {
         channel_color = intent.getExtras().getString("channel_color");
         channel_image = intent.getExtras().getString("channel_image");
         event_id = intent.getExtras().getString("event_id");
+        channel_id = intent.getExtras().getString("channel_id");
 
         // XML View 를 초기화합니다.
         profile = findViewById(R.id.profile);
@@ -154,6 +158,29 @@ public class ChannelContent extends AppCompatActivity {
         event_title.setSingleLine(true);
         event_title.setEllipsize(TextUtils.TruncateAt.END);
         event_title.setSelected(true);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ChannelContent.this, ChannelsInfo.class);
+                intent.putExtra("channel_id", channel_id);
+                intent.putExtra("userStatus", "2");
+                startActivity(intent);
+            }
+        });
+
+        channel_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ChannelContent.this, ChannelsInfo.class);
+                intent.putExtra("channel_id", channel_id);
+                intent.putExtra("userStatus", "2");
+                startActivity(intent);
+            }
+        });
+
 
 
     }

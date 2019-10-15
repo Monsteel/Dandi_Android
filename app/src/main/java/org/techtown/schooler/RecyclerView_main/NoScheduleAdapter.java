@@ -6,6 +6,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -24,12 +25,14 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout button_layout;
+        ImageButton imageButton;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
                 super(view);
 
                 button_layout = view.findViewById(R.id.button_layout);
+                imageButton = view.findViewById(R.id.imageButton);
 
         }
     }
@@ -59,6 +62,21 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         NoScheduleAdapter.MyViewHolder myViewHolder = (NoScheduleAdapter.MyViewHolder) holder;
         myViewHolder.button_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), CreateChannelEvents.class);
+                intent.putExtra("start_date", selectedEventsArrayList.get(position));
+
+                view.getContext().startActivity(intent);
+
+                Activity activity = (Activity) view.getContext();
+
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        myViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
