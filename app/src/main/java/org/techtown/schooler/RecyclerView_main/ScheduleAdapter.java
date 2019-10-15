@@ -133,10 +133,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(item.getChannel().getThumbnail() != null){
 
             Glide.with(((MyViewHolder) holder).user_name.getContext()).load(item.getChannel().getThumbnail()).into(((MyViewHolder) holder).channel_image);
-
         } else{
 
-            myViewHolder.channel_image.setImageResource(R.drawable.channel_school);
+            myViewHolder.channel_image.setImageResource(R.drawable.dgsw);
         }
 
         myViewHolder.contentButton.setOnClickListener(new View.OnClickListener() {
