@@ -57,12 +57,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View main_nav_header; // 헤더 부분
     ImageView profile; // 헤더 부분 이미지
     MainFragment main = new MainFragment(); // 메인 프레그먼트
+    AccountFragment account = new AccountFragment();
     SharedPreferences Login;
     Toolbar toolbar; // Toolbar
 
     TextView userName; // 이름
     TextView school; // 학교
     TextView grade; // 학반
+
+    Boolean profile_check = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -93,8 +96,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.e("[LoginCheck] ", "로그인 O");
         }
 
-        // 메인 프레그먼트를 먼저 설정해둡니다.
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, main).commit();
+        try{
+
+            Intent intent = getIntent();
+            profile_check = intent.getExtras().getBoolean("profile",false);
+        } catch (NullPointerException e){
+
+        }
+
+        if(profile_check == true){
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout, main).commit();
+            drawerLayout.openDrawer(navigationView);
+
+        } else{
+
+            // 메인 프레그먼트를 먼저 설정해둡니다.
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout, main).commit();
+        }
+
 
         // toolbar 를 사용할 수 있도록 설정합니다.
         setSupportActionBar(toolbar);

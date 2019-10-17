@@ -150,7 +150,7 @@ public class ChannelContent extends AppCompatActivity {
             Glide.with(ChannelContent.this).load(channel_image).into(profile);
         } else {
 
-            profile.setImageResource(R.drawable.channel_school);
+            profile.setImageResource(R.drawable.dgsw);
         }
 
 

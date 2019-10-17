@@ -1,6 +1,7 @@
 package org.techtown.schooler.NavigationFragment;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -131,6 +133,7 @@ public class AccountFragment extends Fragment {
         Toast.makeText(getContext(), "HELLO", Toast.LENGTH_SHORT).show();
 
         return rootView;
+
     }
 
     public void userProfile(){
@@ -220,7 +223,15 @@ public class AccountFragment extends Fragment {
             case PICK_FROM_ALBUM:
 
                 // Uri 클래스를 사용해서 photoUri 변수에 값을 저장받는다.
-                Uri photoUri = data.getData();
+                Uri photoUri = null;
+
+                try{
+                    photoUri = data.getData();
+                }catch (NullPointerException e){
+
+                    photoUri = null;
+                }
+
                 Log.d("TAG", "PICK_FROM_ALBUM photoUri : " + photoUri);
 
                 // cursor 변수
@@ -231,7 +242,7 @@ public class AccountFragment extends Fragment {
                     String[] proj = { MediaStore.Images.Media.DATA };
 
                     // assert 자료형을 사용합니다.
-                    // assert 자료형은 null 이 들어오면 안되는 값에 사용한다
+                    // assert 자료형은 null 이 들어오면 안되는 값에 사용한다.
                     assert photoUri != null;
                     cursor = getActivity().getContentResolver().query(photoUri, proj, null, null, null);
 
@@ -244,16 +255,25 @@ public class AccountFragment extends Fragment {
 
                     Log.d("TAG", "tempFile Uri : " + Uri.fromFile(tempFile));
 
-                } finally {
+                }catch (NullPointerException e){
+
+                }
+
+                finally {
                     if (cursor != null) {
                         cursor.close();
                     }
                 }
 
-                profile.setImageURI(Uri.fromFile(tempFile));
-                uploadProfile(changeToBytes(), tempFile.getName());
 
-                System.out.println("");
+                try {
+
+                    profile.setImageURI(Uri.fromFile(tempFile));
+                    uploadProfile(changeToBytes(), tempFile.getName());
+                } catch (NullPointerException e){
+                    
+                }
+
                 break;
 
             case REQUEST_IMAGE_CROP:
@@ -339,6 +359,10 @@ public class AccountFragment extends Fragment {
                 if(response.code() ==200)
                 {
                     Log.e("[upload]", "성공");
+
+                    getActivity().finish();
+                    startActivity(getActivity().getIntent().putExtra("profile", true));
+
                 }
             }
             @Override
