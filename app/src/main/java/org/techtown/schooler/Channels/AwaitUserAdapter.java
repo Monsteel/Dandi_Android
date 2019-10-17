@@ -98,8 +98,6 @@ public class AwaitUserAdapter extends RecyclerView.Adapter<AwaitUserAdapter.View
         holder.profile.setBackground(new ShapeDrawable(new OvalShape()));
         holder.profile.setClipToOutline(true);
 
-        출처: https://chocorolls.tistory.com/47 [초코롤의 개발이야기]
-
         Glide.with(holder.gradeClass.getContext()).load(item.getProfile_pic()).into(holder.profile);
         //유저 프로필 로딩
 
