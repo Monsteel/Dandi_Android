@@ -53,7 +53,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StartMemberActivity.LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:label=""/>
     </application>
 
 </manifest>
