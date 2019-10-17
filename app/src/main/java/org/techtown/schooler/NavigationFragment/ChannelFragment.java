@@ -25,12 +25,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.Channels.CreateChannel;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
-import org.techtown.schooler.network.ChannelListAdapter;
+import org.techtown.schooler.Channels.ChannelListAdapter;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;

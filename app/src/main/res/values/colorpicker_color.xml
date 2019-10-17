@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colorPicker">
+    <item>#F1B71C</item>
+    <item>#F07D22</item>
+    <item>#EE2B29</item>
+    <item>#F0516E</item>
+    <item>#D891BF</item>
+    <item>#1DBCBD</item>
+    <item>#4C53A4</item>
+    <item>#72BF44</item>
+    </array>
+</resources>

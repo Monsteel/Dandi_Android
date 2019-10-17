@@ -24,7 +24,8 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10pt"
-            app:srcCompat="@drawable/add" />
+            app:srcCompat="@drawable/add"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"

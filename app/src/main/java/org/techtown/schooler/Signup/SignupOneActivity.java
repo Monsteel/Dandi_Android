@@ -53,7 +53,7 @@ public class SignupOneActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Pattern ps = Pattern.compile("^[ㄱ-ㅎ가-흐a-zA-Z]+$");
+                Pattern ps = Pattern.compile("^[ㄱ-ㅎ가-힣a-zA-z]*$");
                 if(!ps.matcher(InputName.getText()).matches()){
                     NoticeName.setText("이름에는 한글 및 영문만 입력 가능합니다.");
                     NoticeName.setTextColor(Color.parseColor("#F80000"));

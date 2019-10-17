@@ -1,23 +1,16 @@
 package org.techtown.schooler.Channels;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,71 +19,50 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-
-import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class ChannelsInfo extends AppCompatActivity {
 
-    String Channel_id;
-    String Channel_name;
-    String Channel_content;
-    String Channel_create_user;
-    String Channel_thumbnail;
-    String Channel_Color;
-    String usr_id;
-    Toolbar toolbar;
-    Menu menu;
-    String Channel_check;
-    DrawerLayout drawerLayout;
-    int activityBrequestCode = 0;
+    private SharedPreferences login;
+    private String channel_id;
+    private String channel_name;
+    private String channel_content;
+    private String channel_create_user;
+    private String channel_thumbnail;
+    private String channel_Color;
+    private String usr_id;
+    private String channel_check;
+    private List<User> dataList= new ArrayList<>();
+    private int activityBrequestCode = 0;
 
-    SharedPreferences Login;
-
-    TextView name;
-    TextView content;
-    TextView Create_user;
-    ImageView thumbnail;
-    View color;
-    RecyclerView recyclerView;
-    List<User> DataList= new ArrayList<>();
+    private TextView name;
+    private TextView content;
+    private TextView Create_user;
+    private ImageView thumbnail;
+    private View color;
+    private RecyclerView recyclerView;
+    private Toolbar toolbar;
+    private Menu menu;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channels_info);
-        Channel_id = getIntent().getStringExtra("channel_id");
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
-
-        name = (TextView) findViewById(R.id.title_TextView2);
-        content = (TextView) findViewById(R.id.content_TextView2);
-        Create_user = (TextView) findViewById(R.id.makeUser_TextView2);
-        thumbnail = (ImageView) findViewById(R.id.backgroundImage);
-        color = (View) findViewById(R.id.Color);
-        Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Member);
-        LinearLayoutManager LinearLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(LinearLayoutManager);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f5f5f5")));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        settingsToolbar();
+        settingsActivity();
+        settingsRecyclerView();
+        channelInfoRoad(channel_id);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,8 +70,6 @@ public class ChannelsInfo extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-
-
     }
 
     @Override
@@ -111,15 +81,14 @@ public class ChannelsInfo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //or switch문을 이용하면 될듯 하다.
+        //or switch
         if (id == R.id.FixChannel) {
             Intent intent = new Intent(this, ChannelsAdminPage.class);
-            intent.putExtra("channel_name", Channel_name);
-            intent.putExtra("channel_color",Channel_Color);
-            intent.putExtra("channel_explain",Channel_content);
-            intent.putExtra("channel_check",Channel_check);
-            intent.putExtra("channel_id",Channel_id);
-
+            intent.putExtra("channel_name", channel_name);
+            intent.putExtra("channel_color",channel_Color);
+            intent.putExtra("channel_explain",channel_content);
+            intent.putExtra("channel_check",channel_check);
+            intent.putExtra("channel_id",channel_id);
 
             startActivityForResult(intent, activityBrequestCode);
 
@@ -128,29 +97,33 @@ public class ChannelsInfo extends AppCompatActivity {
 
         if (id == R.id.UploadThumbnail) {
             Intent intent = new Intent(this, UploadChannelsThumbnail.class);
-            intent.putExtra("channel_name", Channel_name);
-            intent.putExtra("create_user", Channel_create_user);
-            intent.putExtra("channel_color", Channel_Color);
-            intent.putExtra("channel_explain", Channel_content);
-            intent.putExtra("channel_isPublic", Channel_check);
-            intent.putExtra("channel_id", Channel_id);
+            intent.putExtra("channel_name", channel_name);
+            intent.putExtra("create_user", channel_create_user);
+            intent.putExtra("channel_color", channel_Color);
+            intent.putExtra("channel_explain", channel_content);
+            intent.putExtra("channel_isPublic", channel_check);
+            intent.putExtra("channel_id", channel_id);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
         if (id == R.id.LeaveChannel) {
-            ChannelLeave();
+            channelLeave();
         }
 
         if (id == R.id.deleteChannel) {
-            ChannelDelete();
+            channelDelete();
         }
 
         if (id == R.id.FixMember) {
             Intent intent = new Intent(this, MemberAllowActivity.class);
-            intent.putExtra("channel_id", Channel_id);
+            intent.putExtra("channel_id", channel_id);
             startActivityForResult(intent, activityBrequestCode);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+
+        if (id == R.id.JoinChannel){
+            joinChannel();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -158,7 +131,6 @@ public class ChannelsInfo extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == activityBrequestCode && resultCode == RESULT_OK){
             finish();
             startActivity(getIntent());
@@ -167,198 +139,238 @@ public class ChannelsInfo extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Road();
+        checkingAdmin();
         this.menu = menu;
         return true;
-    }
+    }//메뉴 설정
 
-    public void ChannelLeave(){
+    private void settingsToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.channelFixTitle);
+    }//toolbar 관련설정
+
+    private void settingsActivity(){
+        login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
+        channel_id = getIntent().getStringExtra("channel_id");
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+        name = (TextView) findViewById(R.id.title_TextView2);
+        content = (TextView) findViewById(R.id.content_TextView2);
+        Create_user = (TextView) findViewById(R.id.makeUser_TextView2);
+        thumbnail = (ImageView) findViewById(R.id.backgroundImage);
+        color = (View) findViewById(R.id.Color);
+    }//엑티비티 설정
+
+    private void settingsRecyclerView(){
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Member);
+        LinearLayoutManager LinearLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(LinearLayoutManager);
+    }//리사이클러뷰 설정
+
+    public void channelLeave(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("안내");
-        builder.setMessage("채널을 탈퇴하시겠습니까?");
+        builder.setTitle(R.string.warningMessage_1);
+        builder.setMessage(R.string.channelLeaveMessage_1);
         builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
 
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yesMessage_1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-                Call<Response<Data>> res3 = NetRetrofit.getInstance().getChannel().LeaveChannel(Login.getString("token",""),Channel_id);
-                res3.enqueue(new Callback<Response<Data>>() {
-                    @Override
-                    public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                        if(response.code() == 200){
-                            Toast.makeText(ChannelsInfo.this, "탈퇴되었습니다.", Toast.LENGTH_SHORT).show();
-                            onBackPressed();
-                        }else if(response.code() == 410){
-                            SharedPreferences.Editor editor = Login.edit();
-                            editor.putString("token",null);
-                            editor.putString("id",null);
-                            editor.commit();
-                            startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
-                            Log.e("","토큰 만료");
-                            Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
-                        } else{
-                            Log.e("","오류 발생");
-                            Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Response<Data>> call, Throwable t) {
-                        Log.e("","네트워크 오류");
-                        Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                leaveChannel(channel_id);
             }
         });
 
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.noMessage_1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(ChannelsInfo.this, "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChannelsInfo.this, R.string.cancelMessage_1, Toast.LENGTH_SHORT).show();
             }
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
+    }//채널 나가기 다이얼로그
 
-    public void ChannelDelete(){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("경고");
-        builder.setMessage("채널을 삭제하시겠습니까?");
+    private void joinChannel(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ChannelsInfo.this);
+        builder.setTitle("채널가입");
+        builder.setMessage("채널에 가입하시겠습니까?\n\n채널이름 : " + channel_name + "\n개설자 : " + channel_create_user);
         builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
 
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.setPositiveButton("예", (dialogInterface, i) -> {
+            Call<Response<Data>> res1 = NetRetrofit.getInstance().getChannel().JoinChannel(login.getString("token", ""), channel_id);//token불러오기
+            res1.enqueue(new Callback<Response<Data>>() {
+                @Override
+                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                    if (response.code() == 200) {
 
-                Call<Response<Data>> res4 = NetRetrofit.getInstance().getChannel().DeleteChannel(Login.getString("token",""),Channel_id);
-                res4.enqueue(new Callback<Response<Data>>() {
-                    @Override
-                    public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                        if(response.code() == 200){
-                            Toast.makeText(ChannelsInfo.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                            onBackPressed();
-                        }else if(response.code() == 403){
-                            Toast.makeText(ChannelsInfo.this, "삭제권한이 없습니다.", Toast.LENGTH_SHORT).show();
-                        }else if(response.code() == 404){
-                            Toast.makeText(ChannelsInfo.this, "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
-                        }else if(response.code() == 410){
-                            SharedPreferences.Editor editor = Login.edit();
-                            editor.putString("token",null);
-                            editor.putString("id",null);
-                            editor.commit();
-                            startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
-                            Log.e("","토큰 만료");
-                            Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Log.e("","오류 발생");
-                            Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                        if (channel_check.equals("0")) {
+                            Toast.makeText(ChannelsInfo.this, "채널가입 신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ChannelsInfo.this, "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         }
-
+                    }else if(response.code() == 409){
+                        Toast.makeText(ChannelsInfo.this, "이미 가입된 채널입니다.", Toast.LENGTH_SHORT).show();
+                    }else if(response.code() == 410){
+                        SharedPreferences.Editor editor = login.edit();
+                        editor.putString("token",null);
+                        editor.putString("id",null);
+                        editor.commit();
+                        startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                        Log.e("","토큰 만료");
+                        Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Log.e("","오류 발생");
+                        Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<Response<Data>> call, Throwable t) {
-                        Log.e("","네트워크 오류");
-                        Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Call<Response<Data>> call, Throwable t) {
+                    Log.e("","네트워크 오류");
+                    Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
-
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(ChannelsInfo.this, "취소되었습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        builder.setNegativeButton("아니오", (dialogInterface, i) -> Log.e("아니오 버튼", "클릭됐어요"));
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
-    @Override
-    public void onBackPressed () {
-        setResult(RESULT_OK);
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
+    public void channelDelete(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.warningMessage_1);
+        builder.setMessage(R.string.channelDeleteMessage_1);
+        builder.setIcon(Integer.parseInt(String.valueOf(R.drawable.ic_exit_to_app_black_24dp)));
 
-    public void Road(){
-        final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().ChannelInfo(Login.getString("token",""),Channel_id);
+        builder.setPositiveButton(R.string.yesMessage_1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteChannel(channel_id);
+            }
+        });
+
+        builder.setNegativeButton(R.string.noMessage_1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(ChannelsInfo.this, R.string.cancelMessage_1, Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }//채널 삭제 다이얼로그
+
+    private void channelInfoRoad(String input){
+    Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().ChannelInfo(login.getString("token",""),input);
         res.enqueue(new Callback<Response<Data>>() {
+        @Override
+        public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+            if(response.code() == 200) {
+                channel_name = response.body().getData().getChannelInfo().getName();
+                channel_content = response.body().getData().getChannelInfo().getExplain();
+                channel_create_user = response.body().getData().getChannelInfo().getCreate_user();
+                channel_thumbnail = response.body().getData().getChannelInfo().getThumbnail();
+                channel_Color = response.body().getData().getChannelInfo().getColor();
+                channel_check = response.body().getData().getChannelInfo().getIsPublic();
+
+                name.setText(channel_name);
+                getSupportActionBar().setTitle(channel_name);
+                content.setText("\""+channel_content+"\"");
+                Create_user.setText("Master : "+channel_create_user);
+                color.setBackgroundColor(Color.parseColor(channel_Color));
+                Glide.with(ChannelsInfo.this).load(channel_thumbnail).into(thumbnail);
+
+                dataList = response.body().getData().getChannelInfo().getUsers();
+                MemberListAdapter adapter = new MemberListAdapter(dataList);
+                recyclerView.setAdapter(adapter);
+                adapter.CatchChannelId(channel_id,channel_create_user);
+
+            }else if(response.code() == 404){
+                Toast.makeText(ChannelsInfo.this, "존재하지 않는 채널입니다.", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+
+            }else if(response.code() == 410){
+                SharedPreferences.Editor editor = login.edit();
+                editor.putString("token",null);
+                editor.putString("id",null);
+                editor.commit();
+                startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                Log.e("","토큰 만료");
+                Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+            }else{
+                Log.e("","오류 발생");
+                Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<Response<Data>> call, Throwable t) {
+            Log.e("","네트워크 오류");
+            Toast.makeText(ChannelsInfo.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
+        }
+    });
+}//채널정보 로딩 (서버통신)
+
+    private void checkingAdmin(){
+        Call<Response<Data>> res2 = NetRetrofit.getInstance().getProfile().GetProfile(login.getString("token",""),"");
+        res2.enqueue(new Callback<Response<Data>>() {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                if (response.code() == 200) {
+                    usr_id = response.body().getData().getUserInfo().getUser_id();
+                    if (channel_create_user.equals(usr_id))
+                        getMenuInflater().inflate(R.menu.channels_admin_page_menu, menu);
+                    else if (getIntent().getStringExtra("userStatus").equals("2"))
+                        getMenuInflater().inflate(R.menu.channel_user_page_menu, menu);
+                    else if (getIntent().getStringExtra("userStatus").equals("0"))
+                        getMenuInflater().inflate(R.menu.join_channel, menu);
 
-                if(response.code() == 200) {
-                    Channel_name = response.body().getData().getChannelInfo().getName();
-                    Channel_content = response.body().getData().getChannelInfo().getExplain();
-                    Channel_create_user = response.body().getData().getChannelInfo().getCreate_user();
-                    Channel_thumbnail = response.body().getData().getChannelInfo().getThumbnail();
-                    Channel_Color = response.body().getData().getChannelInfo().getColor();
-                    Channel_check = response.body().getData().getChannelInfo().getIsPublic();
-
-                    name.setText(Channel_name);
-                    getSupportActionBar().setTitle(Channel_name);
-                    content.setText("\""+Channel_content+"\"");
-                    Create_user.setText("Master : "+Channel_create_user);
-                    color.setBackgroundColor(Color.parseColor(Channel_Color));
-                    Glide.with(ChannelsInfo.this).load(Channel_thumbnail).into(thumbnail);
-
-
-                    DataList = response.body().getData().getChannelInfo().getUsers();
-                    MemberListAdapter adapter = new MemberListAdapter(DataList);
-                    recyclerView.setAdapter(adapter);
-                    adapter.CatchChannelId(Channel_id,Channel_create_user);
-
-                    final Call<Response<Data>> res2 = NetRetrofit.getInstance().getProfile().GetProfile(Login.getString("token",""),"");
-                    res2.enqueue(new Callback<Response<Data>>() {
-                        @Override
-                        public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-
-                            if (response.code() == 200) {
-                                usr_id = response.body().getData().getUserInfo().getUser_id();
-                                if (Channel_create_user.equals(usr_id))
-                                    getMenuInflater().inflate(R.menu.channels_admin_page_menu, menu);
-                                else if (getIntent().getStringExtra("userStatus").equals("2"))
-                                    getMenuInflater().inflate(R.menu.channel_user_page_menu, menu);
-                            }else if(response.code() == 204){
-                                Toast.makeText(ChannelsInfo.this, "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
-                            } else if(response.code() == 410){
-                                SharedPreferences.Editor editor = Login.edit();
-                                editor.putString("token",null);
-                                editor.putString("id",null);
-                                editor.commit();
-                                startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
-                                Log.e("","토큰 만료");
-                                Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
-                            } else{
-                                Log.e("","오류 발생");
-                                Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Response<Data>> call, Throwable t) {
-                            Log.e("","네트워크 오류");
-                            Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else if(response.code() == 404){
-                    Toast.makeText(ChannelsInfo.this, "존재하지 않는 채널입니다.", Toast.LENGTH_SHORT).show();
-                    onBackPressed();
                 }else if(response.code() == 410){
-                    SharedPreferences.Editor editor = Login.edit();
+                    SharedPreferences.Editor editor = login.edit();
                     editor.putString("token",null);
                     editor.putString("id",null);
                     editor.commit();
                     startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
                     Log.e("","토큰 만료");
-                    Toast.makeText(ChannelsInfo.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
                 }else{
                     Log.e("","오류 발생");
-                    Toast.makeText(ChannelsInfo.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                Log.e("","네트워크 오류");
+                Toast.makeText(ChannelsInfo.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }//유저정보 확인 -> menu 옵션 다르게 설정(서버통신)
+
+    private void deleteChannel(String input){
+        Call<Response<Data>> res4 = NetRetrofit.getInstance().getChannel().DeleteChannel(login.getString("token",""),input);
+        res4.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                if(response.code() == 200){
+                    Toast.makeText(ChannelsInfo.this, R.string.deleteMessage_1, Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }else if(response.code() == 403){
+                    Toast.makeText(ChannelsInfo.this, R.string.permission_3, Toast.LENGTH_SHORT).show();
+                }else if(response.code() == 404){
+                    Toast.makeText(ChannelsInfo.this, R.string.channelMessage_1, Toast.LENGTH_SHORT).show();
+                }else if(response.code() == 410){
+                    SharedPreferences.Editor editor = login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+                    startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.e("","오류 발생");
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -366,8 +378,51 @@ public class ChannelsInfo extends AppCompatActivity {
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("","네트워크 오류");
-                Toast.makeText(ChannelsInfo.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChannelsInfo.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }//채널 삭제(서버통신)
+
+    private void leaveChannel(String input){
+        Call<Response<Data>> res3 = NetRetrofit.getInstance().getChannel().LeaveChannel(login.getString("token",""),input);
+        res3.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                if(response.code() == 200){
+                    Toast.makeText(ChannelsInfo.this, R.string.leaveMessage_1, Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }else if(response.code() == 403){
+                    Toast.makeText(ChannelsInfo.this, R.string.permission_3, Toast.LENGTH_SHORT).show();
+                }else if(response.code() == 404){
+                    Toast.makeText(ChannelsInfo.this, R.string.channelMessage_1, Toast.LENGTH_SHORT).show();
+                }else if(response.code() == 410){
+                    SharedPreferences.Editor editor = login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+                    startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.e("","오류 발생");
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                Log.e("","네트워크 오류");
+                Toast.makeText(ChannelsInfo.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }//채널 나가기(서버통신)
+
+    @Override
+    public void onBackPressed () {
+        setResult(RESULT_OK);
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }//뒤로가기 버튼을 눌렀을 때
+
+
 }

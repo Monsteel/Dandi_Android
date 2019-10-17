@@ -1,19 +1,12 @@
 package org.techtown.schooler.Channels;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.text.TextUtils;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,38 +14,28 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
-import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
-import org.techtown.schooler.network.ChannelListAdapter;
+import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
-
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
-
 import static android.content.Context.MODE_PRIVATE;
 
 public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder>{
 
     private final List<User> mDataList;
-    SharedPreferences Login;
-    String channel_id;
-    String create_user;
+    private SharedPreferences login;
+    private String channel_id;
+    private String create_user;
 
     public void CatchChannelId(String channel_id, String Create_user){
         this.channel_id = channel_id;
@@ -71,23 +54,25 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User item = mDataList.get(position);
         String user_id;
-        Login = holder.Id.getContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
+        login = holder.Id.getContext().getSharedPreferences("Login", MODE_PRIVATE);
 
         holder.Name.setText(item.getUser_name());
         holder.Id.setText(item.getUser_id());
         user_id = item.getUser_id();
 
+        holder.Profile.setBackground(new ShapeDrawable(new OvalShape()));
+        holder.Profile.setClipToOutline(true);
         Glide.with(holder.Name.getContext()).load(item.getProfile_pic()).into(holder.Profile);
 
-        if(Login.getString("id","").equals(create_user)){
+        if(login.getString("id","").equals(create_user)){
             holder.MemberCardView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-
                     PopupMenu popup = new PopupMenu(holder.MemberCardView.getContext(), holder.MemberCardView);
                     if(!create_user.equals(user_id)) {
                         popup.inflate(R.menu.user_long_click);
@@ -95,24 +80,7 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            Call<Response<Data>> res4 = NetRetrofit.getInstance().getChannel().ForcedExit(Login.getString("token",""),channel_id,user_id);
-                            res4.enqueue(new Callback<Response<Data>>() {
-                                @Override
-                                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-                                    Toast.makeText(holder.MemberCardView.getContext(), "강퇴처리 되었습니다.", Toast.LENGTH_SHORT).show();
-                                    mDataList.remove(position);
-                                    notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onFailure(Call<Response<Data>> call, Throwable t) {
-                                    Toast.makeText(holder.MemberCardView.getContext(), "네트워크에 오류가 생겼습니다. 잠시 후 다시 시도 해 주세요", Toast.LENGTH_SHORT).show();
-                                    Log.e("Err", "네트워크 연결오류");
-                                }
-                            });
-
-
-
+                            kickUser(user_id,holder,position);
                             return true;
                         }
                     });
@@ -125,6 +93,43 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
 
     }
 
+    private void kickUser(String user_id,ViewHolder holder,int position){
+        Call<Response<Data>> res4 = NetRetrofit.getInstance().getChannel().ForcedExit(login.getString("token",""),channel_id,user_id);
+        res4.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                if(response.code() == 200){
+                    Toast.makeText(holder.MemberCardView.getContext(), R.string.kickMessage_1, Toast.LENGTH_SHORT).show();
+                    mDataList.remove(position);
+                    notifyDataSetChanged();
+                }else if(response.code() == 403){
+                    //권한 없음
+                    Toast.makeText(holder.MemberCardView.getContext(),R.string.permission_3,Toast.LENGTH_LONG).show();
+                }else if(response.code() == 410){
+                    //토큰만료
+                    SharedPreferences.Editor editor = login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+                    holder.MemberCardView.getContext().startActivity(new Intent(holder.MemberCardView.getContext(), LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(holder.MemberCardView.getContext(), R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    //status : 500 : 서버오류
+                    Log.e("","서버 오류 발생");
+                    Toast.makeText(holder.MemberCardView.getContext(),R.string.serverErrorMessage_1,Toast.LENGTH_LONG).show();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                Log.e("","네트워크 오류");
+                Toast.makeText(holder.MemberCardView.getContext(), R.string.networkErrorMessage_1, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public int getItemCount() {
         return mDataList.size();
@@ -135,7 +140,6 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         TextView Id;
         ImageView Profile;
         CardView MemberCardView;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

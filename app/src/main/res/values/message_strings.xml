@@ -1,0 +1,44 @@
+<resources>
+    <string name = "permission_1">사진 및 파일을 저장하기 위하여 접근 권한이 필요합니다.</string>
+    <string name = "permission_2">[설정] > [권한] 에서 권한을 허용할 수 있습니다.</string>
+    <string name = "permission_3">권한이 없습니다.</string>
+
+    <string name = "channelMessage_1">채널정보가 존재하지 않습니다.</string>
+
+    <string name = "allowMessage_1">승인되었습니다.</string>
+    <string name = "allowMessage_2">이미 승인된 유저입니다.</string>
+
+    <string name = "rejectMessage_1">거절되었습니다.</string>
+    <string name = "rejectMessage_2">이미 거절된 유저입니다.</string>
+
+    <string name = "deleteMessage_1">삭제되었습니다.</string>
+    <string name = "leaveMessage_1">탈퇴되었습니다.</string>
+
+
+    <string name = "cancelMessage_1">취소되었습니다.</string>
+
+    <string name = "kickMessage_1">강퇴처리 되었습니다.</string>
+
+
+    <string name = "tokenMessage_1">토큰이 만료되었습니다.\n다시 로그인 해 주세요.</string>
+
+
+    <string name = "serverErrorMessage_1">서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요.</string>
+
+    <string name = "networkErrorMessage_1">서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요.</string>
+
+    <string name = "colorPickerMessage_1">색상이 선택되지 않았습니다.</string>
+    <string name = "colorPickerMessage_2">채널 색상 변경</string>
+
+
+    <string name = "yesMessage_1">예</string>
+    <string name = "noMessage_1">아니오</string>
+
+    <string name = "warningMessage_1">[경고]</string>
+    <string name = "channelDeleteMessage_1">채널을 삭제하시겠습니까?</string>
+    <string name = "channelLeaveMessage_1">채널을 삭제하시겠습니까?</string>
+
+    <string name = "createChannelMessage_1">동일한 이름의 채널이 존재합니다.</string>
+
+    <string name = "imageUploadMessage_1">동일한 이름의 채널이 존재합니다.</string>
+</resources>

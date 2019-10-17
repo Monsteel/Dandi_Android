@@ -3,84 +3,51 @@ package org.techtown.schooler.Channels;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-
-import android.Manifest;
-import android.app.Activity;
+import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.MimeTypeMap;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.material.card.MaterialCardView;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-
-import org.techtown.schooler.Account.JoinedChannel;
-import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
 import org.techtown.schooler.Model.CreateChannelRequest;
 import org.techtown.schooler.R;
-import org.techtown.schooler.Signup.PhoneNumberActivity;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class CreateChannel extends AppCompatActivity {
 
-    CardView colorView;
-    EditText name;
-    EditText explain;
-    Switch isPublic;
-    SharedPreferences Login;
-    TextView Next;
-    InputMethodManager imm;
-    Toolbar toolbar;
+    private CardView colorView;
+    private EditText name;
+    private EditText explain;
+    private Switch isPublic;
+    private SharedPreferences Login;
+    private TextView Next;
+    private InputMethodManager imm;
+    private Toolbar toolbar;
 
-    String channel_name = null;
-    String create_user = null;
-    String channel_explain = null;
-    String channel_isPublic = null;
-    String channel_id = null;
+    private String channel_name = null;
+    private String create_user = null;
+    private String channel_explain = null;
+    private String channel_isPublic = null;
+    private String channel_id = null;
 
-    boolean next1 = false;
-    boolean next2 = false;
-    boolean next3 = false;
+    private boolean next1 = false;
+    private boolean next2 = false;
+    private boolean next3 = false;
 
     public static CreateChannelRequest createChannelRequest = new CreateChannelRequest("","","","");
 
@@ -88,38 +55,17 @@ public class CreateChannel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_channel);
-        colorView = (CardView) findViewById(R.id.pickColor);
-        name =(EditText)findViewById(R.id.InputChannelName);
-        explain = (EditText)findViewById(R.id.InputChannelExplain);
-        isPublic = (Switch)findViewById(R.id.isPublicForChannel);
-        Next = (TextView)findViewById(R.id.Finish);
-        toolbar = (Toolbar) findViewById(R.id.toolbar3);
-        setSupportActionBar(toolbar);
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f5f5f5")));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("채널 개설");
-
+        settingsToolbar();
+        settingsActivity();
+        setData();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-
-        createChannelRequest.setIsPublic("true");
-        createChannelRequest.setExplain("");
-        createChannelRequest.setName("");
-        createChannelRequest.setColor(null);
-        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-        Next.setEnabled(false);
-        Next.setTextColor(Color.parseColor("#FF5C5C5C"));
-
-
-        Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
         isPublic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -132,13 +78,6 @@ public class CreateChannel extends AppCompatActivity {
                 }
             }
         });
-
-
-        //               Next.setEnabled(true);
-        //               Next.setTextColor(Color.parseColor("#2349E6"));
-
-
-
 
         name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -159,10 +98,10 @@ public class CreateChannel extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (next1 && next2 && next3) {
                     Next.setEnabled(true);
-                    Next.setTextColor(Color.parseColor("#F1B71C"));
+                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
                 }else{
                     Next.setEnabled(false);
-                    Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
                 }
             }
         });
@@ -186,45 +125,69 @@ public class CreateChannel extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (next1 && next2 && next3) {
                     Next.setEnabled(true);
-                    Next.setTextColor(Color.parseColor("#F1B71C"));
+                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
                 }else{
                     Next.setEnabled(false);
-                    Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
                 }
             }
         });
     }
 
-    //컬러피커
-    public void openColorPicker() {
+    public void pickColor(View view){
+        openColorPicker();
+        colorView.setCardBackgroundColor(0);
+    }
+
+    public void createChannel(View view){
+        if(name.getText().equals("")||explain.getText().equals("")){
+            //비워져있으면
+        }else{
+            createChannelRequest.setName(name.getText()+"");
+            createChannelRequest.setExplain(explain.getText()+"");
+            addChannel();
+            //서버통신 시작
+        }
+    }//채널만들기
+
+    private void settingsActivity(){
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        colorView = (CardView) findViewById(R.id.pickColor);
+        name =(EditText)findViewById(R.id.InputChannelName);
+        explain = (EditText)findViewById(R.id.InputChannelExplain);
+        isPublic = (Switch)findViewById(R.id.isPublicForChannel);
+        Next = (TextView)findViewById(R.id.Finish);
+        Login = getSharedPreferences("Login", MODE_PRIVATE);
+        Next.setEnabled(false);
+        Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+
+    }//엑티비티 설정
+
+    private void settingsToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("채널 개설");
+    }
+
+    private void setData(){
+        createChannelRequest.setIsPublic("true");
+        createChannelRequest.setExplain("");
+        createChannelRequest.setName("");
+        createChannelRequest.setColor(null);
+    }//변수초기화
+
+    private void openColorPicker() {
         final ColorPicker colorPicker = new ColorPicker(this);  // ColorPicker 객체 생성
-        ArrayList<String> colors = new ArrayList<>();  // Color 넣어줄 list
-
-        colors.add("#ffab91");
-        colors.add("#F48FB1");
-        colors.add("#ce93d8");
-        colors.add("#b39ddb");
-        colors.add("#9fa8da");
-        colors.add("#90caf9");
-        colors.add("#81d4fa");
-        colors.add("#80deea");
-        colors.add("#80cbc4");
-        colors.add("#c5e1a5");
-        colors.add("#e6ee9c");
-        colors.add("#fff59d");
-        colors.add("#ffe082");
-        colors.add("#ffcc80");
-        colors.add("#bcaaa4");
-
-        colorPicker.setColors(colors)  // 만들어둔 list 적용
-                .setColumns(5)  // 5열로 설정
-                .setRoundColorButton(true)  // 원형 버튼으로 설정
+        colorPicker.setTitle("채널색상 선택");//타이틀 설정
+        colorPicker.setColors(R.array.colorPicker)//colorPicker color 색상
+                .setColumns(4)
+                .setRoundColorButton(true)  // 원형 버튼으로 설정//
                 .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-
                     @Override
                     public void onChooseColor(int position, int color) {// OK 버튼 클릭 시 이벤트
                         if(color == 0){
-                            Toast.makeText(CreateChannel.this,"색상이 선택되지 않았습니다",Toast.LENGTH_LONG).show();
+                            Toast.makeText(CreateChannel.this,R.string.colorPickerMessage_1,Toast.LENGTH_LONG).show();
                             openColorPicker();
                         }else{
                             String strColor = String.format("#%06X", 0xFFFFFF & color);//Color int를 String 으로 변환하기
@@ -234,108 +197,78 @@ public class CreateChannel extends AppCompatActivity {
 
                             if (next1 && next2 && next3) {
                                 Next.setEnabled(true);
-                                Next.setTextColor(Color.parseColor("#F1B71C"));
+                                Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
                             }else{
                                 Next.setEnabled(false);
-                                Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                                Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
                             }
                         }
                     }
-
                     @Override
                     public void onCancel() {
-                         // Cancel 버튼 클릭 시 이벤트
+                        // Cancel 버튼 클릭 시 이벤트
                         next3 = false;
                         if (next1 && next2 && next3) {
                             Next.setEnabled(true);
-                            Next.setTextColor(Color.parseColor("#F1B71C"));
+                            Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
                         }else{
                             Next.setEnabled(false);
-                            Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+                            Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
                         }
-
                     }
-                }).show();  // dialog 생성
-    }
+                })
+                .show();  // dialog 생성
+    }//컬러피커
 
-    //컬러피커
-    public void PickColor(View view){
-        openColorPicker();
-        colorView.setCardBackgroundColor(0);
-    }
+    private void addChannel(){
+        Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().AddChannel(Login.getString("token",""),createChannelRequest);
+        res.enqueue(new Callback<Response<Data>>() {
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                if (response.code() == 200) {
+                    Intent intent = new Intent(CreateChannel.this, FinishCreateChannels.class);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-    //스크린 뒤로가기 버튼 이벤트
-    public void toGoBack (View view) {
-        onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
+                    channel_name = response.body().getData().getCreatedChannel().getName();
+                    create_user = response.body().getData().getCreatedChannel().getCreate_user();
+                    channel_explain = response.body().getData().getCreatedChannel().getExplain();
+                    channel_isPublic = response.body().getData().getCreatedChannel().getIsPublic();
+                    channel_id = response.body().getData().getCreatedChannel().getId();
 
-    //채널만들기
-    public void CreateChannel(View view){
-        if(name.getText().equals("")||explain.getText().equals("")){
-            //비워져있으면
-        }else{
-            createChannelRequest.setName(name.getText()+"");
-            createChannelRequest.setExplain(explain.getText()+"");
+                    intent.putExtra("channel_name", channel_name);
+                    intent.putExtra("create_user", create_user);
+                    intent.putExtra("channel_explain", channel_explain);
+                    intent.putExtra("channel_isPublic", channel_isPublic);
+                    intent.putExtra("channel_id", channel_id);
 
-            //서버통신 시작
+                    startActivity(intent);
 
-            final Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().AddChannel(Login.getString("token",""),createChannelRequest);
-            res.enqueue(new Callback<Response<Data>>() {
-                @Override
-                public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                } else if (response.code() == 409) {
+                    Toast.makeText(CreateChannel.this, R.string.createChannelMessage_1, Toast.LENGTH_LONG).show();
+                    imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+                } else if (response.code() == 410) {
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token", null);
+                    editor.putString("id", null);
+                    editor.commit();
 
-                    // Status == 200
-                    if (response.code() == 200) {
-                        Intent intent = new Intent(CreateChannel.this, FinishCreateChannels.class);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-
-                        channel_name = response.body().getData().getCreatedChannel().getName();
-                        create_user = response.body().getData().getCreatedChannel().getCreate_user();
-                        channel_explain = response.body().getData().getCreatedChannel().getExplain();
-                        channel_isPublic = response.body().getData().getCreatedChannel().getIsPublic();
-                        channel_id = response.body().getData().getCreatedChannel().getId();
-
-                        intent.putExtra("channel_name", channel_name);
-                        intent.putExtra("create_user", create_user);
-                        intent.putExtra("channel_explain", channel_explain);
-                        intent.putExtra("channel_isPublic", channel_isPublic);
-                        intent.putExtra("channel_id", channel_id);
-
-                        startActivity(intent);
-
-                    } else if (response.code() == 409) {
-                        Toast.makeText(CreateChannel.this, "동일한 이름의 채널이 이미 존재합니다.", Toast.LENGTH_LONG).show();
-                        imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
-                    } else if (response.code() == 410) {
-                        SharedPreferences.Editor editor = Login.edit();
-                        editor.putString("token", null);
-                        editor.putString("id", null);
-                        editor.commit();
-
-                        startActivity(new Intent(CreateChannel.this, LoginActivity.class));
-                        Log.e("", "토큰 만료");
-                        Toast.makeText(CreateChannel.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(CreateChannel.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
-                    }
+                    startActivity(new Intent(CreateChannel.this, LoginActivity.class));
+                    Log.e("", "토큰 만료");
+                    Toast.makeText(CreateChannel.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CreateChannel.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Response<Data>> call, Throwable t) {
-                    Log.e("","네트워크 오류");
-                    Toast.makeText(CreateChannel.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                Log.e("","네트워크 오류");
+                Toast.makeText(CreateChannel.this, R.string.networkErrorMessage_1, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        //만약 채워지지 않은 부분이 있으면,
-        //뷰 아래에 빨간색 텍스트뷰 띄우기
-        //아니면 채널 가입 요청 보내고, 다음 엑티비티로 넘어가기
-    }
+    }//채널추가(서버통신)
 
-    //물리적 뒤로가기 버튼 이벤트
     @Override
     public void onBackPressed () {
         super.onBackPressed();

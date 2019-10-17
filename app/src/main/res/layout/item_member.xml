@@ -16,7 +16,7 @@
         android:layout_height="30pt"
         android:layout_gravity="center"
         android:layout_marginBottom="10pt"
-        app:srcCompat="@drawable/add" />
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/Name_Info"

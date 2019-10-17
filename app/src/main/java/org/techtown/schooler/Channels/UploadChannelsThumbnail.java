@@ -60,21 +60,23 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
 
     private Boolean isPermission = false;
 
-    ImageView backgroundImage;
-    TextView title;
-    TextView content;
-    TextView user;
-    ImageView isPublicImage;
+    private ImageView backgroundImage;
+    private TextView title;
+    private TextView content;
+    private TextView user;
+    private ImageView isPublicImage;
 
-    String channel_name = null;
-    String create_user = null;
-    String channel_explain = null;
-    String channel_isPublic = null;
+    private String channel_name = null;
+    private String create_user = null;
+    private String channel_explain = null;
+    private String channel_isPublic = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_channels_thumbnail);
+
+
         Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
         backgroundImage = (ImageView)findViewById(R.id.Background_ImageView);
         title = (TextView)findViewById(R.id.Title_TextView);
@@ -82,15 +84,18 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         user = (TextView)findViewById(R.id.MakeUser_TextView);
         isPublicImage = (ImageView)findViewById(R.id.isPublic_ImageView);
 
+
         channel_name = getIntent().getStringExtra("channel_name");
         create_user = getIntent().getStringExtra("create_user");
         channel_explain = getIntent().getStringExtra("channel_explain");
         channel_isPublic = getIntent().getStringExtra("channel_isPublic");
         channel_id = getIntent().getStringExtra("channel_id");
 
+
         title.setText(channel_name);
         content.setText(channel_explain);
         user.setText("Master : " + create_user);
+
 
         if(channel_isPublic.equals("0")) {
             isPublicImage.setImageResource(R.drawable.locked);
@@ -141,8 +146,8 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
 
         TedPermission.with(this)
                 .setPermissionListener(permissionListener)
-                .setRationaleMessage("채널 이미지 등록을 위해서는 접근권한이 필요합니다.")
-                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
+                .setRationaleMessage(R.string.permission_1)
+                .setDeniedMessage(R.string.permission_2)
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
     }
@@ -163,7 +168,7 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.cancelMessage_1, Toast.LENGTH_SHORT).show();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
             if(tempFile != null) {
@@ -227,7 +232,7 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         if (tempFile != null)
             uploadImage(changeToBytes(), tempFile.getName());
         else {
-            Toast.makeText(this, "사진이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.imageUploadMessage_1, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -235,16 +240,11 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     public void uploadImage(byte[] imageBytes, String originalName) {
         String[] filenameArray = originalName.split("\\.");
         String extension = filenameArray[filenameArray.length - 1];
-
         fileType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
         fileExt = "." + extension;
-
         uploadName = Integer.toString(new Random().nextInt(999999999));
-
         RequestBody requestFile = RequestBody.create(MediaType.parse(Objects.requireNonNull(fileType)), imageBytes);
-
         MultipartBody.Part body = MultipartBody.Part.createFormData("thumbnail", uploadName + fileExt, requestFile);
-
         RequestBody fileNameBody = RequestBody.create(MediaType.parse("text/plain"), uploadName);
 
         Call<Response> res = NetRetrofit.getInstance().getChannel().uploadThumbnail(Login.getString("token", ""), body,fileNameBody, channel_id);
@@ -262,19 +262,18 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
                     editor.commit();
                     startActivity(new Intent(UploadChannelsThumbnail.this, LoginActivity.class));
                     Log.e("","토큰 만료");
-                    Toast.makeText(UploadChannelsThumbnail.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadChannelsThumbnail.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
                 }else{
                     Log.e("","오류 발생");
-                    Toast.makeText(UploadChannelsThumbnail.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadChannelsThumbnail.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
                 Log.e("","네트워크 오류");
-                Toast.makeText(UploadChannelsThumbnail.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UploadChannelsThumbnail.this, R.string.networkErrorMessage_1, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

@@ -13,10 +13,9 @@
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/toolBar"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        />
+        android:theme="?attr/actionBarTheme" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -146,7 +145,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:gravity="center"
-                    android:onClick="PickColor"
+                    android:onClick="pickColor"
                     android:orientation="horizontal"
                     app:cardCornerRadius="20dp" />
 
@@ -211,7 +210,7 @@
                 android:layout_margin="10pt"
                 android:background="@drawable/add_schedule"
                 android:gravity="center"
-                android:onClick="ChannelUpdate"
+                android:onClick="channelUpdate"
                 android:text="채널수정 완료하기"
                 android:textColor="#525252"
                 android:textSize="24sp"
