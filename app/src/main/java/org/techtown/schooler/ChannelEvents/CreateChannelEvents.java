@@ -23,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.techtown.schooler.Account.JoinedChannel;
-import org.techtown.schooler.Channels.CreateChannel;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.Model.AddChannelEvents;
 import org.techtown.schooler.R;

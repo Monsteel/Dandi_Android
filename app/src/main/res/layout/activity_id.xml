@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Signup.IdActivity">
+    tools:context=".Signup.IdActivity"
+    android:id="@+id/signUpIdLayout">
 
     <LinearLayout
         android:id="@+id/Bar"
@@ -17,106 +17,76 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="toGoBack"
             android:scaleType="fitStart"
             android:src="@drawable/ic_chevron_left_yellow_24dp" />
 
-        <ImageView
-            android:id="@+id/next_password"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="toGoNext"
-            android:scaleType="fitEnd"
-            android:src="@drawable/ic_chevron_right_yellow_24dp" />
-
     </LinearLayout>
 
     <TextView
-        android:id="@+id/text_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14.5pt"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:text="ID 설정"
         android:textColor="#707070"
-        android:textSize="20pt"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="23.5pt"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/input_text_box"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="8pt"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:text="ID"
-            android:textColor="#707070"
-            android:textSize="11.5pt"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/view37"
-            android:layout_width="1pt"
-            android:layout_height="11.5pt"
-            android:layout_gravity="center"
-            android:background="#f2b705" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25pt"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/InputId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="3.8pt"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
             android:layout_weight="1"
-            android:background="@null"
-            android:ems="10"
-            android:hint="아이디를 입력하세요"
-            android:inputType="textPersonName" />
+            android:hint="아이디를 입력해주세요"
+            android:inputType="textVisiblePassword"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/CheckID"
+            android:id="@+id/noticeIdError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="중복확인"
-            android:textColor="#f2b705"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="#5C5C5C"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/noticeIdError"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:textColor="#5C5C5C" />
+        android:layout_height="match_parent"
+        android:gravity="bottom|center|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/next_password"
+            android:layout_width="match_parent"
+            android:layout_height="25pt"
+            android:layout_gravity="bottom"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="toGoNext"
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_chevron_right_yellow_24dp"
+            android:text="다음"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

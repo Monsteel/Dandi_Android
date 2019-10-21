@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +27,14 @@ import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+
+/**
+ * @author 이영은
+ */
 
 public class SchoolActivity extends AppCompatActivity {
 
@@ -35,49 +43,58 @@ public class SchoolActivity extends AppCompatActivity {
     EditText SearchSchoolName;
     private ListView listView;
     TextView DecideSchoolName;
-    ImageView GotoClass;
+    TextView GotoClass;
     String School;
     String SchoolId;
     String OfficeId;
     String SchoolKind;
-    FrameLayout list_layout;
+    LinearLayout layout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new SchoolListAdapter();
         setContentView(R.layout.activity_school);
-        Search = (TextView)findViewById(R.id.Search);
         listView = (ListView) findViewById(R.id.School_ListView);
         SearchSchoolName = (EditText)findViewById(R.id.InputSchoolName);
         listView.setAdapter(adapter);
         DecideSchoolName = (TextView)findViewById(R.id.decideSchoolName);
         DecideSchoolName.setVisibility(View.INVISIBLE);
-        GotoClass = (ImageView)findViewById(R.id.next_class);
-        list_layout = (FrameLayout)findViewById(R.id.list_layout);
+        GotoClass = (TextView)findViewById(R.id.next_class);
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         GotoClass.setEnabled(false);
-        GotoClass.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+        GotoClass.setBackgroundResource(R.color.gray);
 
-        list_layout.setVisibility(View.INVISIBLE);
+        layout = (LinearLayout) findViewById(R.id.signUpSchoolLayout);
 
-
-
-
-        SearchSchoolName.setOnClickListener(new View.OnClickListener() {
+        layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                list_layout.setVisibility(View.INVISIBLE);
+            public void onClick(View v) {
+                InputMethodManager imm=(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(layout.getWindowToken(),0);
             }
         });
 
-        Search.setOnClickListener(new View.OnClickListener() {
+        SearchSchoolName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                onSearch();
-                list_layout.setVisibility(View.VISIBLE);
-                imm.hideSoftInputFromWindow(list_layout.getWindowToken(), 0);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(SearchSchoolName.getText().toString().length() != 0)
+                    onSearch();
+                else
+                    listView.setVisibility(View.INVISIBLE);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -118,21 +135,23 @@ public class SchoolActivity extends AppCompatActivity {
                             OfficeId = response.body().getData().getSchoolInfo().get(position).getOffice_code();
                             SchoolKind = response.body().getData().getSchoolInfo().get(position).getSchool_type();
                             DecideSchoolName.setText(School);
+                            InputMethodManager imm=(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(layout.getWindowToken(),0);
                             DecideSchoolName.setVisibility(View.VISIBLE);
 
                             GotoClass.setEnabled(true);
-                            GotoClass.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
+                            GotoClass.setBackgroundResource(R.color.mainColor);
                         }
-
                     });
+
+                    listView.setVisibility(View.VISIBLE);
 
 
                 }else if(response.code() == 404) {
-                    Toast.makeText(SchoolActivity.this, "검색결과가 없습니다", Toast.LENGTH_SHORT).show();
-                    list_layout.setVisibility(View.INVISIBLE);
+                    listView.setVisibility(View.INVISIBLE);
                 }else{
                     Toast.makeText(SchoolActivity.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
-                    list_layout.setVisibility(View.INVISIBLE);
+                    listView.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -140,7 +159,7 @@ public class SchoolActivity extends AppCompatActivity {
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("","네트워크 오류");
                 Toast.makeText(SchoolActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-                list_layout.setVisibility(View.INVISIBLE);
+                listView.setVisibility(View.INVISIBLE);
             }
         });
 

@@ -6,7 +6,6 @@ import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.response.Response;
 
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

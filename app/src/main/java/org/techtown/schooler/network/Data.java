@@ -12,7 +12,6 @@ import org.techtown.schooler.Model.UserInfo;
 import java.util.List;
 
 public class Data {
-
     // User
     private User user;
 

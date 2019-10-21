@@ -6,25 +6,30 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.techtown.schooler.R;
 
-import java.util.regex.Pattern;
+/**
+ * @author 이영은
+ */
 
 public class PhoneNumberActivity extends AppCompatActivity {
 
     String PhoneNumber;
     EditText InputPhoneNumber;
     TextView noticePhoneNumberError;
-    ImageView GotoSchool;
+    TextView GotoSchool;
+    LinearLayout layout;
+    CheckBox noPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +37,38 @@ public class PhoneNumberActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_number);
         InputPhoneNumber = (EditText)findViewById(R.id.InputPhoneNumber);
         noticePhoneNumberError = (TextView)findViewById(R.id.noticePhoneNumberError);
-        GotoSchool = (ImageView)findViewById(R.id.next_school);
+        GotoSchool = (TextView)findViewById(R.id.next_school);
         noticePhoneNumberError.setText("");
 
+        noPhone = (CheckBox)findViewById(R.id.noPhone);
+
         GotoSchool.setEnabled(false);
-        GotoSchool.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+        GotoSchool.setBackgroundResource(R.color.gray);
+
+        layout = (LinearLayout) findViewById(R.id.signUpPhoneNumberLayout);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm=(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(layout.getWindowToken(),0);
+            }
+        });
+        noPhone.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox)v).isChecked()) {
+                    GotoSchool.setEnabled(true);
+                    GotoSchool.setBackgroundResource(R.color.mainColor);
+                    InputPhoneNumber.setEnabled(false);
+                    PhoneNumber = null;
+                } else {
+                    GotoSchool.setEnabled(false);
+                    GotoSchool.setBackgroundResource(R.color.gray);
+                    InputPhoneNumber.setEnabled(true);
+                }
+            }
+        }) ;
 
         InputPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
@@ -51,13 +83,13 @@ public class PhoneNumberActivity extends AppCompatActivity {
                 //입력중
                 if(!android.util.Patterns.PHONE.matcher(InputPhoneNumber.getText().toString()).matches()){
                         GotoSchool.setEnabled(false);
-                    GotoSchool.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+                        GotoSchool.setBackgroundResource(R.color.gray);
 
                         noticePhoneNumberError.setTextColor(Color.parseColor("#F80000"));
                         noticePhoneNumberError.setText("올바른 형식의 전화번호를 입력하세요");
                 }else{
                     GotoSchool.setEnabled(true);
-                    GotoSchool.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
+                    GotoSchool.setBackgroundResource(R.color.mainColor);
 
                     noticePhoneNumberError.setTextColor(Color.parseColor("#0078F8"));
                     noticePhoneNumberError.setText("올바른 형식의 전화번호가 입력되었습니다");

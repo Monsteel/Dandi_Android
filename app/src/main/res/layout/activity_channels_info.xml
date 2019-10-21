@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f5f5f5"
     android:orientation="vertical"
     tools:context=".Channels.ChannelsInfo">
 
@@ -15,82 +16,92 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <FrameLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout3"
         android:layout_width="match_parent"
-        android:layout_height="199dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/backgroundImage"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/view6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#75000000" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="199dp">
 
-        <View
-            android:id="@+id/Color"
-            android:layout_width="match_parent"
-            android:layout_height="6pt"
-            android:layout_gravity="bottom" />
+                <ImageView
+                    android:id="@+id/backgroundImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/title_TextView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10pt"
-            android:layout_marginBottom="16pt"
-            android:text="B1ND"
-            android:textColor="#FFFFFF"
-            android:textSize="16pt" />
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#75000000" />
 
-        <TextView
-            android:id="@+id/makeUser_TextView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="10pt"
-            android:layout_marginRight="10pt"
-            android:layout_marginBottom="10pt"
-            android:layout_weight="1"
-            android:text="Master : B1ND"
-            android:textColor="#FFFFFF"
-            android:textSize="6pt" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="5pt"
+                    android:orientation="vertical">
 
-    </FrameLayout>
+                    <TextView
+                        android:id="@+id/title_TextView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginRight="30pt"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16pt"
+                        android:textStyle="bold"
+                        tools:text="B1ND" />
 
-    <TextView
-        android:id="@+id/content_TextView2"
-        android:layout_width="match_parent"
-        android:layout_height="30pt"
-        android:layout_marginTop="5pt"
-        android:background="#255A5A5A"
-        android:gravity="center"
-        android:text='"바인드 공식 채널입니다"'
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+                    <TextView
+                        android:id="@+id/content_TextView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="1pt"
+                        android:layout_marginRight="30pt"
+                        android:ellipsize="end"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        tools:text="b1nd 공식 일정입니다." />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/content_TextView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10pt"
-        android:layout_marginTop="10pt"
-        android:text="Member"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+            </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_Member"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        tools:listitem="@layout/item_member" />
+            <TextView
+                android:id="@+id/content_TextView4"
+                android:layout_width="match_parent"
+                android:layout_height="25pt"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:text="Member"
+                android:textColor="@color/mainColor"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view15"
+                android:layout_width="50pt"
+                android:layout_height="1pt"
+                android:layout_gravity="center"
+                android:background="@color/mainColor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_Member"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                tools:listitem="@layout/item_member" />
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -16,35 +16,43 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Channels.MemberAllowActivity"></activity>
-        <activity android:name=".Channels.ChannelMemberActivity" />
-        <activity android:name=".Channels.ChannelsAdminPage" />
-
-        <activity android:name=".Account.JoinedChannel"
-            android:theme="@style/AppTheme3"></activity>
         <activity
-            android:name=".Channels.ChannelsInfo"/>
+            android:name=".Signup.CheckPasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Channels.ChannelHandling.MemberAllowActivity" />
+        <activity android:name=".Channels.ChannelHandling.EditChannelAcitivty" />
+        <activity
+            android:name=".Account.JoinedChannel"
+            android:theme="@style/AppTheme3" />
+        <activity android:name=".Channels.ChannelsInfo" />
         <activity
             android:name=".ChannelEvents.CreateChannelEvents"
             android:theme="@style/AppTheme2" />
         <activity android:name=".ChannelEvents.ChannelContent" />
         <activity android:name=".ChannelEvents.UpdateEvents" />
-        <activity android:name=".Channels.UploadChannelsThumbnail" />
-        <activity android:name=".Channels.FinishCreateChannels" />
-        <activity android:name=".Channels.CreateChannel" />
+        <activity android:name=".Channels.ChannelHandling.UploadChannelsThumbnail" />
+        <activity android:name=".Channels.CreateChannel.FinishCreateChannels" />
+        <activity android:name=".Channels.CreateChannel.CreateChannel" />
         <activity android:name=".Signup.FinishSignup" />
-        <activity android:name=".Signup.PhoneNumberActivity" />
+        <activity
+            android:name=".Signup.PhoneNumberActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Signup.NotifyActivity" />
-        <activity android:name=".Signup.PasswordActivity" />
+        <activity
+            android:name=".Signup.PasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Signup.ClassActivity" />
-        <activity android:name=".Signup.SchoolActivity" />
-        <activity android:name=".Signup.IdActivity" />
-        <activity android:name=".Signup.EmailActivity" />
-
+        <activity android:name=".Signup.SchoolActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".Signup.IdActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Signup.EmailActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Signup.SignupOneActivity"
-            android:parentActivityName=".StartMemberActivity.LoginActivity" />
+            android:parentActivityName=".StartMemberActivity.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".SplashActivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,8 +61,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".StartMemberActivity.LoginActivity" />
-        <activity android:name=".MainActivity"
-            android:label=""/>
+        <activity
+            android:name=".MainActivity"
+            android:label="" />
     </application>
 
 </manifest>

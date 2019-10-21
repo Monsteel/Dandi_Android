@@ -10,6 +10,10 @@ import android.view.View;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 
+/**
+ * @author 이영은
+ */
+
 public class FinishSignup extends AppCompatActivity {
 
     @Override

@@ -1,4 +1,4 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.ChannelHandling;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,7 +23,11 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ChannelsAdminPage extends AppCompatActivity {
+/**
+ * @author 이영은
+ */
+
+public class EditChannelAcitivty extends AppCompatActivity {
 
     private Toolbar toolbar;
     private String channel_name;
@@ -42,7 +46,7 @@ public class ChannelsAdminPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channels_admin_page);
+        setContentView(R.layout.activity_edit_channel);
 
         settingsToolbar();//툴바설정
         settingsActivity();//엑티비티 로드
@@ -78,30 +82,30 @@ public class ChannelsAdminPage extends AppCompatActivity {
                     onBackPressed();
                 } else if(response.code() == 403){
                     //권한 없음
-                    Toast.makeText(ChannelsAdminPage.this,R.string.permission_3,Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditChannelAcitivty.this,R.string.permission_3,Toast.LENGTH_LONG).show();
                 } else if(response.code() == 404){
                     //채널정보 없음
-                    Toast.makeText(ChannelsAdminPage.this,R.string.channelMessage_1,Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditChannelAcitivty.this,R.string.channelMessage_1,Toast.LENGTH_LONG).show();
                 }else if(response.code() == 410){
                     //토큰만료
                     SharedPreferences.Editor editor = login.edit();
                     editor.putString("token",null);
                     editor.putString("id",null);
                     editor.commit();
-                    startActivity(new Intent(ChannelsAdminPage.this, LoginActivity.class));
+                    startActivity(new Intent(EditChannelAcitivty.this, LoginActivity.class));
                     Log.e("","토큰 만료");
-                    Toast.makeText(ChannelsAdminPage.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditChannelAcitivty.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
                 }
                 else{
                     //status : 500 : 서버오류
                     Log.e("","서버 오류 발생");
-                    Toast.makeText(ChannelsAdminPage.this,R.string.serverErrorMessage_1,Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditChannelAcitivty.this,R.string.serverErrorMessage_1,Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("","네트워크 오류");
-                Toast.makeText(ChannelsAdminPage.this,R.string.networkErrorMessage_1,Toast.LENGTH_LONG).show();
+                Toast.makeText(EditChannelAcitivty.this,R.string.networkErrorMessage_1,Toast.LENGTH_LONG).show();
             }
         });
     }//채널정보 업데이트(서버통신)
@@ -116,7 +120,7 @@ public class ChannelsAdminPage extends AppCompatActivity {
                     @Override
                     public void onChooseColor(int position, int color) {// OK 버튼 클릭 시 이벤트
                         if(color == 0){
-                            Toast.makeText(ChannelsAdminPage.this,R.string.colorPickerMessage_1,Toast.LENGTH_LONG).show();
+                            Toast.makeText(EditChannelAcitivty.this,R.string.colorPickerMessage_1,Toast.LENGTH_LONG).show();
                             openColorPicker();
                         }else{
                             inputColor.setBackgroundColor(color);

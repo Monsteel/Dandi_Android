@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,11 +26,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import org.techtown.schooler.Channels.CreateChannel;
+import org.techtown.schooler.Channels.ChannelsInfo;
+import org.techtown.schooler.Channels.CreateChannel.CreateChannel;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
-import org.techtown.schooler.Channels.ChannelListAdapter;
+import org.techtown.schooler.Channels.ListAdapter.ChannelListAdapter;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
@@ -41,6 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.view.View.GONE;
 
 public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -51,10 +54,12 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
     EditText search;
     Spinner field;
     String user_id;
+    LinearLayout NoChannelMessage;
+    LinearLayout createChannel;
+    ChannelsInfo channelsInfo = new ChannelsInfo();
 
     String keyword ="";
     Integer pick = null;
-
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -69,30 +74,41 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        startActivity((new Intent(getActivity(), CreateChannel.class)));
-        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        makeChannel();
         return super.onOptionsItemSelected(item);
     }
+
+    private void makeChannel(){
+        startActivity((new Intent(getActivity(), CreateChannel.class)));
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_channel, container, false);
-
-
-
         recyclerView = rootView.findViewById(R.id.ChannelRecyclerView);
         LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(LinearLayoutManager);
         mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_layout);
         search = (EditText)rootView.findViewById(R.id.searchChannel);
         field = (Spinner)rootView.findViewById(R.id.channelField);
+        NoChannelMessage = (LinearLayout)rootView.findViewById(R.id.NoChannelMessage);
+        createChannel = (LinearLayout)rootView.findViewById(R.id.createChannel);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
         user_id = Login.getString("id", "");
+
+        createChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeChannel();
+            }
+        });
 
         onRefresh();
 
@@ -128,10 +144,13 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 Log.d("Retrofit", response.toString());
                 if(response.code() == 200) {//만약 스테터스 값이 200이면
                     if (response.body().getData().getChannels().size() != 0) {
+
+                        recyclerView.setVisibility(View.VISIBLE);
+                        NoChannelMessage.setVisibility(GONE);
+
                         DataList = response.body().getData().getChannels();
                         ChannelListAdapter adapter = new ChannelListAdapter(DataList);
                         recyclerView.setAdapter(adapter);
-
                         adapter.filter(keyword, pick, user_id);
 
                         search.addTextChangedListener(new TextWatcher() {
@@ -179,26 +198,28 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         });
                     }
                 }else if(response.code() == 204){
-                        Log.e("[status]","안된다아아");
-                        Toast.makeText(getActivity(), "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
-                    } else if(response.code() == 410){
-                        SharedPreferences.Editor editor = Login.edit();
-                        editor.putString("token",null);
-                        editor.putString("id",null);
-                        editor.commit();
+                    recyclerView.setVisibility(View.GONE);
+                    NoChannelMessage.setVisibility(View.VISIBLE);
+                } else if(response.code() == 410){
+                    SharedPreferences.Editor editor = Login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
 
-                        startActivity(new Intent(getActivity(), LoginActivity.class));
-                        Log.e("","토큰 만료");
-                        Toast.makeText(getActivity(), "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
-                    } else{
-                        Toast.makeText(getActivity(), "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
-                    }
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(getActivity(), R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getActivity(), R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("","네트워크 오류");
-                Toast.makeText(getActivity(), "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.networkErrorMessage_1, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 }

@@ -52,7 +52,6 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_no_schedule, parent, false);
         return new MyViewHolder(view);
     }

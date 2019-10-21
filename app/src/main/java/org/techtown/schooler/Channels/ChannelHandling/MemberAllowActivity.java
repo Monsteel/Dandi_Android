@@ -1,4 +1,4 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.ChannelHandling;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -16,7 +14,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import org.techtown.schooler.Channels.ListAdapter.AwaitUserAdapter;
 import org.techtown.schooler.Model.UserInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -29,6 +30,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+import static android.view.View.GONE;
+
+/**
+ * @author 이영은
+ */
+
 public class MemberAllowActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     RecyclerView recyclerView;
@@ -39,6 +46,7 @@ public class MemberAllowActivity extends AppCompatActivity implements SwipeRefre
     String keyword = "";
     String Channel_id;
     Toolbar toolbar;
+    LinearLayout NoAwaitUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,7 @@ public class MemberAllowActivity extends AppCompatActivity implements SwipeRefre
         recyclerView = (RecyclerView) findViewById(R.id.AwaitRecyclerView);
         Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
         Channel_id = getIntent().getStringExtra("channel_id");
+        NoAwaitUser = (LinearLayout) findViewById(R.id.NoAwaitUserMessage);
     }
 
     private void settingsRecyclerView(){
@@ -104,6 +113,8 @@ public class MemberAllowActivity extends AppCompatActivity implements SwipeRefre
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                 if(response.code() == 200){
+                    recyclerView.setVisibility(View.VISIBLE);
+                    NoAwaitUser.setVisibility(GONE);
                     DataList = response.body().getData().getAwaitUsers();
                     AwaitUserAdapter adapter = new AwaitUserAdapter(DataList);
                     recyclerView.setAdapter(adapter);
@@ -127,7 +138,8 @@ public class MemberAllowActivity extends AppCompatActivity implements SwipeRefre
                         }
                     });
                 }else if(response.code() == 204){
-                    //승인대기 유저 존재x
+                    recyclerView.setVisibility(View.GONE);
+                    NoAwaitUser.setVisibility(View.VISIBLE);
                 }else if(response.code() == 403) {
                     Toast.makeText(MemberAllowActivity.this, R.string.permission_3, Toast.LENGTH_SHORT).show();
                     onBackPressed();

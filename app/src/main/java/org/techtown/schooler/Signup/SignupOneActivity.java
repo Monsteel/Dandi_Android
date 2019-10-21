@@ -7,14 +7,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +28,16 @@ import org.w3c.dom.Text;
 
 import java.util.regex.Pattern;
 
+/**
+ * @author 이영은
+ */
+
 public class SignupOneActivity extends AppCompatActivity {
 
     EditText InputName;
     TextView NoticeName;
-    ImageView NextButton;
+    TextView NextButton;
+    LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +46,21 @@ public class SignupOneActivity extends AppCompatActivity {
 
         InputName = (EditText)findViewById(R.id.InputName);
         NoticeName = (TextView)findViewById(R.id.NoticeNameError);
-        NextButton = (ImageView)findViewById(R.id.next_id);
-
-
+        NextButton = (TextView)findViewById(R.id.next_id);
         NoticeName.setVisibility(View.INVISIBLE);
 
+        layout = (LinearLayout) findViewById(R.id.signUpNameLayout);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm=(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(layout.getWindowToken(),0);
+            }
+        });
+
         NextButton.setEnabled(false);
-        NextButton.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+        NextButton.setBackgroundResource(R.color.gray);
 
         InputName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -59,13 +75,20 @@ public class SignupOneActivity extends AppCompatActivity {
                     NoticeName.setTextColor(Color.parseColor("#F80000"));
                     NoticeName.setVisibility(View.VISIBLE);//해당 뷰를 보여줌
                     NextButton.setEnabled(false);
-                    NextButton.setImageResource(R.drawable.ic_chevron_right_black_24dp);
-                }else{
+                    NextButton.setBackgroundResource(R.color.gray);
+                }else if(InputName.getText().toString().length() == 0){
+                    NoticeName.setText("이름을 입력해주세요.");
+                    NoticeName.setTextColor(Color.parseColor("#F80000"));
+                    NoticeName.setVisibility(View.VISIBLE);//해당 뷰를 보여줌
+                    NextButton.setEnabled(false);
+                    NextButton.setBackgroundResource(R.color.gray);
+                }
+                else{
                     NoticeName.setText("올바른 형식의 이름이 입력되었습니다.");
                     NoticeName.setTextColor(Color.parseColor("#0078F8"));
                     NoticeName.setVisibility(View.VISIBLE);
                     NextButton.setEnabled(true);
-                    NextButton.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
+                    NextButton.setBackgroundResource(R.color.mainColor);
                 }
                 //입력하는 중
             }

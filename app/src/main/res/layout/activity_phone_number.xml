@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Signup.PhoneNumberActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/signUpPhoneNumberLayout">
+
 
     <LinearLayout
         android:id="@+id/Bar"
@@ -16,93 +18,101 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:onClick="toGoBack"
             android:scaleType="fitStart"
             android:src="@drawable/ic_chevron_left_yellow_24dp" />
 
-        <ImageView
-            android:id="@+id/next_school"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:onClick="toGoNext"
-            android:scaleType="fitEnd"
-            android:src="@drawable/ic_chevron_right_yellow_24dp" />
-
     </LinearLayout>
 
     <TextView
-        android:id="@+id/text_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14.5pt"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:text="전화번호"
         android:textColor="#707070"
-        android:textSize="20pt"
+        android:textSize="30sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="자신의 전화번호를 입력 해 주세요"
+        android:textColor="#5C5C5C" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="23.5pt"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/input_text_box"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="8pt"
-            android:layout_marginRight="6dp"
-            android:layout_weight="1"
-            android:text="전화번호"
-            android:textColor="#707070"
-            android:textSize="11.5pt"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/view37"
-            android:layout_width="1pt"
-            android:layout_height="11.5pt"
-            android:layout_gravity="center"
-            android:background="#f2b705" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10pt"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/InputPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:layout_weight="1"
+            android:hint="010-1234-5678"
+            android:inputType="phone"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/noticePhoneNumberError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="3.8pt"
+            android:textColor="#5C5C5C"
+            android:textSize="12sp" />
+
+        <CheckBox
+            android:id="@+id/noPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@null"
-            android:ems="10"
-            android:hint="010-1234-5678"
-            android:inputType="phone" />
+            android:gravity="center"
+            android:text="휴대전화가 없습니다." />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/noticePhoneNumberError"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="30dp"
-        android:text="자신의 전화번호를 입력 해 주세요"
-        android:textColor="#5C5C5C" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom|center|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/next_school"
+            android:layout_width="match_parent"
+            android:layout_height="25pt"
+            android:layout_gravity="bottom"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="toGoNext"
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_chevron_right_yellow_24dp"
+            android:text="다음"
+            android:imeOptions="actionSearch"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:enabled="false"/>
+    </LinearLayout>
+
+
+
+
 </LinearLayout>

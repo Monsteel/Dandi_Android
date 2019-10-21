@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +18,14 @@ import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
+
+/**
+ * @author 이영은
+ */
 
 public class ClassActivity extends AppCompatActivity {
 
@@ -26,76 +35,79 @@ public class ClassActivity extends AppCompatActivity {
     String OfficeId;
     String SchoolId;
     String SchoolKind;
-    NumberPicker GradePicker;
-    NumberPicker ClassPicker;
+
     TextView SchoolName;
     TextView DecideGrade;
     TextView DecideClass;
+    ArrayList<String> arrayListClass;
+    ArrayAdapter<String> arrayAdapterClass;
+    ArrayList<String> arrayListGrade;
+    ArrayAdapter<String> arrayAdapterGrade;
+    Spinner classPick;
+    Spinner gradePick;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
 
-        GradePicker = findViewById(R.id.GradePicker);
-        ClassPicker = findViewById(R.id.ClassPicker);
         SchoolName = findViewById(R.id.SchoolName);
         SchoolName.setText(getIntent().getStringExtra("School"));
 
         OfficeId = getIntent().getStringExtra("OfficeId");
         SchoolId = getIntent().getStringExtra("SchoolId");
         SchoolKind = getIntent().getStringExtra("SchoolKind");
-        DecideClass = findViewById(R.id.Class);
-        DecideGrade = findViewById(R.id.Grade);
+        classPick = findViewById(R.id.classSpinner);
+        gradePick = findViewById(R.id.gradeSpinner);
 
-        DecideGrade.setText("1학년");
-        PickGrade = 1;
-        DecideClass.setText("1반");
-        PickClass = 1;
-
-
+        arrayListClass = new ArrayList<>();
+        arrayListGrade = new ArrayList<>();
 
         if (SchoolKind.equals("중학교") || SchoolKind.equals("고등학교")) {
-            GradePicker.setMinValue(1);
-            GradePicker.setMaxValue(3);
+            for(int i = 1;i<=3;i++)
+                arrayListGrade.add(i+"학년");
         } else if (SchoolKind.equals("초등학교")) {
-            GradePicker.setMinValue(1);
-            GradePicker.setMaxValue(6);
+            for(int i = 1;i<=6;i++)
+                arrayListGrade.add(i+"학년");
         } else {
-            GradePicker.setMinValue(1);
-            GradePicker.setMaxValue(6);
+            for(int i = 1;i<=6;i++)
+                arrayListGrade.add(i+"학년");
         }
 
-        SearchClass(1);
+        arrayAdapterGrade = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,arrayListGrade);
+        gradePick.setAdapter(arrayAdapterGrade);
 
-        GradePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
+
+        classPick.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                PickGrade = newVal;
-                Log.d("Grade", newVal + "");
-
-                DecideGrade.setText(PickGrade + "학년");
-                SearchClass(2);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                PickClass = i+1;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
-        ClassPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        gradePick.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                PickClass = newVal;
-                DecideClass.setText(PickClass + "반");
-                Log.d("Class", PickClass + "");
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                PickGrade = i+1;
+                SearchClass();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
     }
 
-    public void SearchClass(int input){
+    public void SearchClass(){
+        arrayListClass.clear();
         Call<Response<Data>> res;
-        if (input == 1){
-            res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, "1");
-        }else{
-            res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, PickGrade + "");
-        }
+        res = NetRetrofit.getInstance().getSignup().SearchClassGet(SchoolId, OfficeId, PickGrade + "");
         res.enqueue(new Callback<Response<Data>>() {
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
@@ -103,14 +115,17 @@ public class ClassActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     Class = response.body().getData().getClassCount();
                     Log.d("", Class + "");
-                    ClassPicker.setMinValue(1);
-                    ClassPicker.setMaxValue(Class);
+                    for(int i = 1;i<=Class;i++)
+                        arrayListClass.add(i+"반");
                 } else if(response.code() == 404){
-                    ClassPicker.setMinValue(1);
-                    ClassPicker.setMaxValue(50);
+                    for(int i = 1;i<=50;i++)
+                        arrayListClass.add(i+"반");
+
                 }else{
                     Toast.makeText(ClassActivity.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                 }
+                arrayAdapterClass = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,arrayListClass);
+                classPick.setAdapter(arrayAdapterClass);
             }
 
             @Override
@@ -119,6 +134,8 @@ public class ClassActivity extends AppCompatActivity {
                 Toast.makeText(ClassActivity.this, "네크워크 상태가 원할하지 않습니다.\n잠시 후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     public void toGoNext(View view){

@@ -8,24 +8,29 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.SHA512;
 
+import java.util.regex.Pattern;
+
+/**
+ * @author 이영은
+ */
+
 public class PasswordActivity extends AppCompatActivity {
 
 
     EditText InputPassword;
-    EditText InputCheckPassword;
     String password;
     TextView NoticePassword;
-    TextView NoticeCheckPassword;
-    ImageView GotoEmail;
-    boolean Password;
-    boolean CheckPassword;
+    TextView GotoCheckPassword;
+    LinearLayout layout;
 
 
     @Override
@@ -33,16 +38,22 @@ public class PasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
         InputPassword = (EditText)findViewById(R.id.InputPassword);
-        InputCheckPassword = (EditText)findViewById(R.id.InputCheckPassword);
-        NoticePassword = (TextView)findViewById(R.id.NoticePassword);
-        NoticeCheckPassword =(TextView)findViewById(R.id.NoticeCheckPassword);
-        GotoEmail = (ImageView)findViewById(R.id.next_email);
+        GotoCheckPassword = (TextView)findViewById(R.id.next_PasswordCheck);
+        NoticePassword = (TextView)findViewById(R.id.NoticePasswrod);
 
-        GotoEmail.setEnabled(false);
-        GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+        GotoCheckPassword.setEnabled(false);
+        GotoCheckPassword.setBackgroundResource(R.color.gray);
+
+        layout = (LinearLayout) findViewById(R.id.signUpPasswordLayout);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm=(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(layout.getWindowToken(),0);
+            }
+        });
 
         NoticePassword.setText("");
-        NoticeCheckPassword.setText("");
 
         InputPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -52,18 +63,19 @@ public class PasswordActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(InputPassword.getText().toString().length() < 8) {
-                    NoticePassword.setText("비밀번호를 8자리 이상으로 구성해주세요");
-                    NoticePassword.setTextColor(Color.parseColor("#bc0000"));
-                    Password= false;
-                    GotoEmail.setEnabled(false);
-                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
-                }else{
+                Pattern ps = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$");
+                if(ps.matcher(InputPassword.getText()).matches()){
                     NoticePassword.setText("사용할 수 있는 비밀번호 입니다.");
                     NoticePassword.setTextColor(Color.parseColor("#0ec600"));
-                    Password = true;
-                    GotoEmail.setEnabled(false);
-                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
+                    GotoCheckPassword.setEnabled(true);
+                    GotoCheckPassword.setBackgroundResource(R.color.mainColor);
+                    password = InputPassword.getText().toString();
+                }else{
+                    NoticePassword.setText("비밀번호는 문자, 숫자를 포함하여 8자 이상으로 구성하여야 합니다");
+                    NoticePassword.setTextColor(Color.parseColor("#F80000"));
+                    NoticePassword.setVisibility(View.VISIBLE);//해당 뷰를 보여줌
+                    GotoCheckPassword.setEnabled(false);
+                    GotoCheckPassword.setBackgroundResource(R.color.gray);
                 }
             }
 
@@ -72,73 +84,6 @@ public class PasswordActivity extends AppCompatActivity {
                 //입력후
             }
         });
-
-        InputCheckPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //입력 전
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(InputPassword.getText().toString().length() < 8) {
-                    NoticeCheckPassword.setText("비밀번호를 8자리 이상으로 구성해주세요");
-                    NoticeCheckPassword.setTextColor(Color.parseColor("#bc0000"));
-                    GotoEmail.setEnabled(false);
-                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
-                }else {
-                    if (InputCheckPassword.getText().toString().equals(InputPassword.getText().toString())) {
-                        NoticeCheckPassword.setTextColor(Color.parseColor("#0ec600"));
-                        NoticeCheckPassword.setText("비밀번호가 일치합니다.");
-                        CheckPassword = true;
-                    } else {
-                        NoticeCheckPassword.setTextColor(Color.parseColor("#FFC00000"));
-                        NoticeCheckPassword.setText("비밀번호가 일치하지 않습니다.");
-                        CheckPassword = false;
-                        GotoEmail.setEnabled(false);
-                        GotoEmail.setImageResource(R.drawable.ic_chevron_right_black_24dp);
-                        password = InputPassword.getText().toString();
-
-
-                        System.out.print(password);
-
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (CheckPassword && Password) {
-                    GotoEmail.setEnabled(true);
-                    GotoEmail.setImageResource(R.drawable.ic_chevron_right_yellow_24dp);
-                }
-            }
-        });
-
-        InputCheckPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus){
-                    InputCheckPassword.setText("");
-                }else{
-
-                }
-            }
-        });
-
-        InputPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus){
-                    InputPassword.setText("");
-                    InputCheckPassword.setText("");
-                    NoticePassword.setText("");
-                    NoticeCheckPassword.setText("");
-                }else {
-                }
-            }
-        });
-
     }
 
     public void toGoBack (View view) {
@@ -153,10 +98,10 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
     public void toGoNext(View view){
-        Intent intent = new Intent(getApplicationContext(), EmailActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CheckPasswordActivity.class);
         intent.putExtra("Name",getIntent().getStringExtra("Name"));
         intent.putExtra("Id",getIntent().getStringExtra("Id"));
-        intent.putExtra("Password", SHA512.getSHA512(password));
+        intent.putExtra("Password",password);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

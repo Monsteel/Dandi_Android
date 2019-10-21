@@ -43,134 +43,75 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/text_title5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="학년, 반 정보 입력"
+        android:textColor="#707070"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14.5pt"
-        android:layout_marginTop="30dp"
-        android:text="학년, 반 설정"
-        android:textColor="#707070"
-        android:textSize="20pt"
-        android:textStyle="bold" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="자신의 학반정보를 정확히 입력해주세요.\n잘못된 정보 기입 시 가입이 거절될 수 있습니다."
+        android:textColor="#5C5C5C" />
 
     <TextView
         android:id="@+id/SchoolName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14.5pt"
-        android:layout_marginTop="5pt"
-        android:layout_marginBottom="8pt"
-        android:text="대구소프트웨어고등학교"
-        android:textColor="#f2b705"
-        android:textSize="24sp" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:textColor="@color/mainColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="대구소프트웨어고등학교" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/input_text_box"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20pt"
+        android:layout_marginTop="10pt"
+        android:layout_marginRight="20pt"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Grade"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="1학년" />
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/gradeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/classSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
         <View
             android:id="@+id/view5"
-            android:layout_width="1pt"
-            android:layout_height="11.5pt"
-            android:layout_gravity="center"
-            android:background="#f2b705" />
-
-        <TextView
-            android:id="@+id/Class"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="2반" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|center_horizontal"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15pt"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/input_text_box"
-                android:gravity="center"
-                android:text="학년"
-                android:textColor="#040404"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <NumberPicker
-                android:id="@+id/GradePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15pt"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/input_text_box"
-                android:gravity="center"
-                android:text="학반"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <NumberPicker
-                android:id="@+id/ClassPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        </LinearLayout>
+            android:layout_height="1pt"
+            android:layout_marginLeft="1pt"
+            android:layout_marginRight="1pt"
+            android:background="@color/mainColor" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,12 +1,17 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.CreateChannel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import org.techtown.schooler.Channels.ChannelHandling.UploadChannelsThumbnail;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
+
+/**
+ * @author 이영은
+ */
 
 public class FinishCreateChannels extends AppCompatActivity {
 

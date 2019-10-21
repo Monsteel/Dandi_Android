@@ -3,6 +3,7 @@ package org.techtown.schooler.Signup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,10 @@ import org.techtown.schooler.network.response.Response;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+
+/**
+ * @author 이영은
+ */
 
 public class NotifyActivity extends AppCompatActivity {
 
@@ -41,6 +46,7 @@ public class NotifyActivity extends AppCompatActivity {
     TextView ClearGrade;
     TextView ClearClass;
     TextView Finish;
+    TextView noticeProfile;
 
     Switch isPublic;
     Switch isNotify;
@@ -64,14 +70,17 @@ public class NotifyActivity extends AppCompatActivity {
         isPublic = (Switch)findViewById(R.id.isPublic);
         isNotify = (Switch)findViewById(R.id.isNotify);
         Finish = (TextView)findViewById(R.id.Finish);
+        noticeProfile = (TextView)findViewById(R.id.noticeProfile);
 
         user.setPushNotify("false");
         isPublic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     user.setPushNotify("true");
+                    noticeProfile.setVisibility(View.VISIBLE);
                 }else{
                     user.setPushNotify("false");
+                    noticeProfile.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -108,10 +117,14 @@ public class NotifyActivity extends AppCompatActivity {
         ClearName.setText(Name);
         ClearId.setText(Id);
         ClearEmail.setText(Email);
-        ClearPhone.setText(Phone);
+        if(Phone.equals("null")){
+            ClearPhone.setText("없음");
+            ClearPhone.setTextColor(Color.parseColor("#D10000"));
+        }else
+            ClearPhone.setText(Phone);
         ClearSchool.setText(getIntent().getStringExtra("SchoolName"));
-        ClearGrade.setText(Grade);
-        ClearClass.setText(Class);
+        ClearGrade.setText(Grade+"학년");
+        ClearClass.setText(Class+"반");
 
         Finish.setOnClickListener(new View.OnClickListener(){
             @Override

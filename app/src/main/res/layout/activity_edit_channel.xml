@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Channels.ChannelsAdminPage"
+    tools:context=".Channels.ChannelHandling.EditChannelAcitivty"
     android:focusable="true"
     android:focusableInTouchMode="true">
 

@@ -25,7 +25,7 @@
 
     <string name = "serverErrorMessage_1">서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요.</string>
 
-    <string name = "networkErrorMessage_1">서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요.</string>
+    <string name = "networkErrorMessage_1">네트워크 연결상태가 불안정합니다.\n인터넷 연결을 확이 해 주세요.</string>
 
     <string name = "colorPickerMessage_1">색상이 선택되지 않았습니다.</string>
     <string name = "colorPickerMessage_2">채널 색상 변경</string>

@@ -3,15 +3,16 @@ package org.techtown.schooler.Channels;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+
+import org.techtown.schooler.Channels.ListAdapter.MemberListAdapter;
+import org.techtown.schooler.Channels.ChannelHandling.EditChannelAcitivty;
+import org.techtown.schooler.Channels.ChannelHandling.MemberAllowActivity;
+import org.techtown.schooler.Channels.ChannelHandling.UploadChannelsThumbnail;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -31,7 +37,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ChannelsInfo extends AppCompatActivity {
+/**
+ * @author 이영은
+ */
+
+public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     private SharedPreferences login;
     private String channel_id;
@@ -47,13 +57,11 @@ public class ChannelsInfo extends AppCompatActivity {
 
     private TextView name;
     private TextView content;
-    private TextView Create_user;
     private ImageView thumbnail;
-    private View color;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private Menu menu;
-    private DrawerLayout drawerLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,7 @@ public class ChannelsInfo extends AppCompatActivity {
         setContentView(R.layout.activity_channels_info);
         settingsToolbar();
         settingsActivity();
+        settingsSwipeRefreshLayout();
         settingsRecyclerView();
         channelInfoRoad(channel_id);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -70,6 +79,9 @@ public class ChannelsInfo extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+
+        name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        content.setEllipsize(TextUtils.TruncateAt.MARQUEE);
     }
 
     @Override
@@ -79,11 +91,25 @@ public class ChannelsInfo extends AppCompatActivity {
     }
 
     @Override
+    public void onRefresh() {
+        channelInfoRoad(channel_id);
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);// 딜레이를 준 후 시작
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //or switch
         if (id == R.id.FixChannel) {
-            Intent intent = new Intent(this, ChannelsAdminPage.class);
+            Intent intent = new Intent(this, EditChannelAcitivty.class);
             intent.putExtra("channel_name", channel_name);
             intent.putExtra("channel_color",channel_Color);
             intent.putExtra("channel_explain",channel_content);
@@ -151,20 +177,22 @@ public class ChannelsInfo extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.channelFixTitle);
     }//toolbar 관련설정
 
+    private void settingsSwipeRefreshLayout(){
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout3);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+    }
+
     private void settingsActivity(){
         login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
         channel_id = getIntent().getStringExtra("channel_id");
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         name = (TextView) findViewById(R.id.title_TextView2);
         content = (TextView) findViewById(R.id.content_TextView2);
-        Create_user = (TextView) findViewById(R.id.makeUser_TextView2);
         thumbnail = (ImageView) findViewById(R.id.backgroundImage);
-        color = (View) findViewById(R.id.Color);
     }//엑티비티 설정
 
     private void settingsRecyclerView(){
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_Member);
-        LinearLayoutManager LinearLayoutManager = new GridLayoutManager(this, 2);
+        LinearLayoutManager LinearLayoutManager = new LinearLayoutManager(ChannelsInfo.this);
         recyclerView.setLayoutManager(LinearLayoutManager);
     }//리사이클러뷰 설정
 
@@ -267,17 +295,24 @@ public class ChannelsInfo extends AppCompatActivity {
         public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
             if(response.code() == 200) {
                 channel_name = response.body().getData().getChannelInfo().getName();
+
                 channel_content = response.body().getData().getChannelInfo().getExplain();
                 channel_create_user = response.body().getData().getChannelInfo().getCreate_user();
                 channel_thumbnail = response.body().getData().getChannelInfo().getThumbnail();
                 channel_Color = response.body().getData().getChannelInfo().getColor();
                 channel_check = response.body().getData().getChannelInfo().getIsPublic();
 
+
+
                 name.setText(channel_name);
+                name.setMaxLines(1);
+                name.setEllipsize(TextUtils.TruncateAt.END);
                 getSupportActionBar().setTitle(channel_name);
-                content.setText("\""+channel_content+"\"");
-                Create_user.setText("Master : "+channel_create_user);
-                color.setBackgroundColor(Color.parseColor(channel_Color));
+
+                content.setText(channel_content);
+                content.setMaxLines(3);
+                content.setEllipsize(TextUtils.TruncateAt.END);
+
                 Glide.with(ChannelsInfo.this).load(channel_thumbnail).into(thumbnail);
 
                 dataList = response.body().getData().getChannelInfo().getUsers();

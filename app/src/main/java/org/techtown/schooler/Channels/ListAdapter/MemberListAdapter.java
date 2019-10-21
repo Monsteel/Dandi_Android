@@ -1,4 +1,4 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.ListAdapter;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +29,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import static android.content.Context.MODE_PRIVATE;
+
+/**
+ * @author 이영은
+ */
 
 public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder>{
 
@@ -65,6 +69,11 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         holder.Id.setText(item.getUser_id());
         user_id = item.getUser_id();
 
+        if(position == 0){
+            holder.masterMark2.setVisibility(View.VISIBLE);
+            holder.masterMark1.setVisibility(View.VISIBLE);
+        }
+
         holder.Profile.setBackground(new ShapeDrawable(new OvalShape()));
         holder.Profile.setClipToOutline(true);
         Glide.with(holder.Name.getContext()).load(item.getProfile_pic()).into(holder.Profile);
@@ -90,7 +99,6 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
                 }
             });
         }
-
     }
 
     private void kickUser(String user_id,ViewHolder holder,int position){
@@ -140,6 +148,8 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         TextView Id;
         ImageView Profile;
         CardView MemberCardView;
+        ImageView masterMark1;
+        ImageView masterMark2;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -147,6 +157,8 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
             Name = itemView.findViewById(R.id.Name_Info);
             Id = itemView.findViewById(R.id.ID_Info);
             Profile = itemView.findViewById(R.id.Profile_Info);
+            masterMark1 = itemView.findViewById(R.id.masterMark1);
+            masterMark2 = itemView.findViewById(R.id.masterMark2);
         }
     }
 }

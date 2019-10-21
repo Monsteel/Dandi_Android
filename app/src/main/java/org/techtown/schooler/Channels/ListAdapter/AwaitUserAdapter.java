@@ -1,4 +1,4 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.ListAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +29,10 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import static android.content.Context.MODE_PRIVATE;
+
+/**
+ * @author 이영은
+ */
 
 public class AwaitUserAdapter extends RecyclerView.Adapter<AwaitUserAdapter.ViewHolder>{
     private final List<UserInfo> mDataList;

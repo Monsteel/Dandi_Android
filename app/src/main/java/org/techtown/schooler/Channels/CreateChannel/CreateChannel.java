@@ -1,4 +1,4 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.CreateChannel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +27,10 @@ import org.techtown.schooler.network.response.Response;
 import petrov.kristiyan.colorpicker.ColorPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
+
+/**
+ * @author 이영은
+ */
 
 public class CreateChannel extends AppCompatActivity {
 

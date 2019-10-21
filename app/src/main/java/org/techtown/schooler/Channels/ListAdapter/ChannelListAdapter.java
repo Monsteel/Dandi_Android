@@ -1,9 +1,12 @@
-package org.techtown.schooler.Channels;
+package org.techtown.schooler.Channels.ListAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -35,6 +40,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
+
+/**
+ * @author 이영은
+ */
 
 public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.ViewHolder>{
 
@@ -103,6 +112,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -112,7 +122,12 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         ChannelInfo item = mDataList.get(position);
         holder.title.setText(item.getName());
         holder.content.setText(item.getExplain());
+        holder.content.setMaxLines(2);
+        holder.content.setEllipsize(TextUtils.TruncateAt.END);
         holder.create_User.setText("Master : " + item.getCreate_user());
+
+        holder.BackGroundImage.setBackground(new ShapeDrawable(new OvalShape()));
+        holder.BackGroundImage.setClipToOutline(true);
         Glide.with(holder.joinButton.getContext()).load(item.getThumbnail()).into(holder.BackGroundImage);
 
         if (item.getIsPublic().equals("0")) {
