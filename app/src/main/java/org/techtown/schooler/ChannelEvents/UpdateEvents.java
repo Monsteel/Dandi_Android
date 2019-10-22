@@ -16,9 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.techtown.schooler.MainActivity;
-import org.techtown.schooler.Model.AddChannelEvents;
 import org.techtown.schooler.Model.UpdateChannelEvents;
-import org.techtown.schooler.NavigationFragment.MainFragment;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
@@ -83,7 +81,7 @@ public class UpdateEvents extends AppCompatActivity {
         events_content = findViewById(R.id.content_editText);
         start_button = findViewById(R.id.start_button);
         end_button = findViewById(R.id.end_button);
-        editLayout = findViewById(R.id.layout);
+        editLayout = findViewById(R.id.shadow_layout);
         button = findViewById(R.id.imageButton);
 
         // XML View 에 전달받은 부가 데이터를 저장합니다.

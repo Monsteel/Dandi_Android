@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -60,7 +59,7 @@ public class CreateChannelEvents extends AppCompatActivity {
     EditText content_editText;
     Spinner spinner;
     LinearLayout add_button;
-    ImageButton imageButton;
+    LinearLayout layout;
 
     // 부가 데이터
     String channelId;
@@ -82,11 +81,10 @@ public class CreateChannelEvents extends AppCompatActivity {
         spinner = (Spinner)findViewById(R.id.spinner);
         start_button = findViewById(R.id.start_button);
         end_button = findViewById(R.id.end_button);
-        add_button = findViewById(R.id.layout);
+        add_button = findViewById(R.id.shadow_layout);
         title_editText = findViewById(R.id.title_editText);
         content_editText = findViewById(R.id.content_editText);
-        imageButton = findViewById(R.id.imageButton);
-
+        layout = findViewById(R.id.shadow_layout);
 
         // Channel Search
         searchChannel();
@@ -364,14 +362,6 @@ public class CreateChannelEvents extends AppCompatActivity {
 
     // editLayout (Onclick)
     public void edit(View view){
-
-        addChannelEvents.setTitle(title_editText.getText().toString());
-        addChannelEvents.setContent(content_editText.getText().toString());
-
-        addChannelEvent();
-    }
-
-    public void edit2(View view){
 
         addChannelEvents.setTitle(title_editText.getText().toString());
         addChannelEvents.setContent(content_editText.getText().toString());

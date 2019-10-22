@@ -1,219 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2B705"
-    tools:context=".NavigationFragment.AccountFragment" >
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context=".NavigationFragment.AccountFragment">
 
-    <FrameLayout
-        android:id="@+id/frameLayout4"
-        android:layout_width="170pt"
-        android:layout_height="108pt"
-        android:layout_marginTop="35pt"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="441dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.594"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:background="#F5F5F5"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/profile"
-                android:layout_width="50pt"
-                android:layout_height="50pt"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="60dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/jinu_profile2" />
+                android:src="@drawable/jinu_profile2"
+                app:srcCompat="@drawable/noprofileimg" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|clip_vertical"
+                android:layout_marginTop="3pt"
+                android:gravity="clip_vertical"
+                android:text="김주엽"
+                android:textColor="#707070"
+                android:textSize="8.5pt" />
+
+            <TextView
+                android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="40dp"
-                android:orientation="vertical">
+                android:text="(juyeop)" />
 
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|clip_vertical"
-                    android:layout_marginTop="3pt"
-                    android:gravity="clip_vertical"
-                    android:text="최진우"
-                    android:textColor="#707070"
-                    android:textSize="8.5pt" />
-
-                <TextView
-                    android:id="@+id/user_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="(chlwlsdn)" />
-
-                <Button
-                    android:id="@+id/edit_profile"
-                    android:layout_width="72.5pt"
-                    android:layout_height="15.5pt"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6.5pt"
-                    android:background="@drawable/edit_profile"
-                    android:text="프로필 편집"
-                    android:textColor="#F2B705" />
-
-                <Button
-                    android:id="@+id/check_channel"
-                    android:layout_width="72.5pt"
-                    android:layout_height="15.5pt"
-                    android:layout_marginTop="5.5pt"
-                    android:background="@drawable/edit_profile"
-                    android:text="Channel"
-                    android:textColor="#F2B705"
-                    android:textAllCaps="false"/>
-            </LinearLayout>
+            <Button
+                android:id="@+id/edit_profile"
+                android:layout_width="72.5pt"
+                android:layout_height="15.5pt"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_profile"
+                android:text="프로필 편집"
+                android:textColor="#F2B705"
+                android:visibility="visible" />
 
         </LinearLayout>
 
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="41dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout4"
-        app:layout_constraintVertical_bias="0.120000005">
+        android:background="@drawable/background_profile_text">
 
         <LinearLayout
-            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="26pt"
-            android:background="#FFFFFF"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/background_profile_text">
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="계정 정보"
+            android:paddingStart="20dp"
+            tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/background_profile_text">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="phone:"
-                android:textSize="9pt" />
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="전화번호"
+                android:textSize="17dp"
+                tools:ignore="RtlCompat"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"/>
 
             <TextView
                 android:id="@+id/user_phone"
-                android:layout_width="163dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="010-4952-2308"
-                android:textSize="6pt" />
-
+                android:text="010-6392-7114"
+                android:textSize="17dp"
+                android:paddingEnd="20dp"
+                tools:ignore="RtlCompat" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout10"
             android:layout_width="match_parent"
-            android:layout_height="26pt"
-            android:layout_marginTop="2dp"
-            android:background="#FFFFFF"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/background_profile_text">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="E-mail:"
-                android:textSize="9pt" />
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="이메일"
+                android:textSize="17dp"
+                tools:ignore="RtlCompat"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"/>
 
             <TextView
                 android:id="@+id/user_email"
-                android:layout_width="163dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="chlwlsdn0828@gmail.com"
-                android:textSize="6pt" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="26pt"
-            android:layout_marginTop="2dp"
-            android:background="#FFFFFF"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="school:"
-                android:textSize="9pt" />
+                android:text="kjy031104@gmail.com"
+                android:textSize="17dp"
+                android:paddingEnd="20dp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/background_profile_text">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="학교"
+                android:textSize="17dp"
+                tools:ignore="RtlCompat"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"/>
 
             <TextView
                 android:id="@+id/user_school"
-                android:layout_width="163dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
                 android:text="대구소프트웨어고등학교"
-                android:textSize="6pt" />
-
+                android:textSize="17dp"
+                android:paddingEnd="20dp"
+                tools:ignore="RtlCompat" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="26pt"
-            android:layout_marginTop="2dp"
-            android:background="#FFFFFF"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/background_profile_text">
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="class:"
-                android:textSize="9pt" />
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="학반"
+                android:textSize="17dp"
+                tools:ignore="RtlCompat"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"/>
 
             <TextView
                 android:id="@+id/user_class"
-                android:layout_width="156dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="1학년 2반"
-                android:textSize="6pt" />
+                android:text="1학년 3반"
+                android:textSize="17dp"
+                android:paddingEnd="20dp"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/channel_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/background_profile_text">
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:paddingStart="20dp"
+                android:text="가입 채널 확인하기"
+                android:textSize="17dp"
+                tools:ignore="RtlCompat"
+                android:layout_weight="3"
+                android:textStyle="bold"
+                android:textColor="?android:textColorPrimary"/>
+
+            <ImageButton
+                android:id="@+id/check_channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_foreground"
+                android:layout_gravity="center"
+                android:paddingEnd="20dp"
+                android:textSize="20dp"
+                tools:ignore="RtlCompat,VectorDrawableCompat"
+                android:background="@android:color/transparent"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -178,7 +178,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/layout"
+                android:id="@+id/shadow_layout"
                 android:layout_width="125pt"
                 android:layout_height="29pt"
                 android:layout_gravity="center"

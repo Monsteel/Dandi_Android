@@ -1,134 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/image_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/login_background"
+    android:foregroundGravity="center"
+    android:orientation="vertical">
 
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/shadow_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:gravity="bottom"
+        android:onClick="layout_onclick"
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/login_background"
-            android:scaleType="centerCrop"/>
-
+            android:id="@+id/logo_imageView"
+            android:layout_width="110pt"
+            android:layout_height="90pt"
+            android:layout_gravity="center"
+            android:layout_marginTop="30pt"
+            android:layout_marginBottom="10pt"
+            app:srcCompat="@drawable/logo" />
 
         <LinearLayout
-            android:id="@+id/layout"
+            android:id="@+id/id_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#8C000000"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="110pt"
-                android:layout_height="90pt"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/id_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2pt"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/id"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/Id_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:inputType="textPersonName|text|textEmailAddress"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1pt"
                 android:layout_gravity="center"
-                android:layout_marginTop="30pt"
-                android:layout_marginBottom="10pt"
-                app:srcCompat="@drawable/logo" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-15dp"
+                android:layout_marginRight="20dp"
+                android:background="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pw_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="143pt"
-                    android:layout_height="25pt"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/pw_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2pt"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/pw"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/NoticeFirstName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="ID"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12.5pt"
-                        android:textStyle="normal" />
-
-                    <EditText
-                        android:id="@+id/Id_EditText"
-                        android:layout_width="250dp"
-                        android:layout_height="32dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:ems="10"
-                        android:gravity="left"
-                        android:inputType="textPersonName|text|textEmailAddress"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/Pw_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:inputType="textPassword"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
 
 
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="350dp"
-                    android:layout_height="3dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="-15dp"
-                    android:background="#FFFFFF" />
             </LinearLayout>
 
-            <LinearLayout
+            <View
+                android:id="@+id/view3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="1pt"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-15dp"
+                android:layout_marginRight="20dp"
+                android:background="#FFFFFF" />
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="143pt"
-                    android:layout_height="25pt"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/NoticeFirstName2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="PW"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12.5pt"
-                        android:textStyle="normal" />
-
-                    <EditText
-                        android:id="@+id/Pw_EditText"
-                        android:layout_width="241dp"
-                        android:layout_height="32dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:ems="10"
-                        android:gravity="left"
-                        android:inputType="textPassword"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp" />
-
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="350dp"
-                    android:layout_height="3dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="-15dp"
-                    android:background="#FFFFFF" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/additional_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/check_Id"
@@ -137,22 +147,22 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:buttonTint="#FFFFFF"
-                android:text="아이디를 저장하시겠습니까?"
+                android:text="@string/check_id"
                 android:textColor="#FFFFFF"
                 android:visibility="visible" />
 
             <Button
-                android:id="@+id/Login_Button"
+                android:id="@+id/login_button"
                 android:layout_width="143pt"
                 android:layout_height="25pt"
                 android:layout_gravity="center"
-                android:layout_marginTop="29pt"
+                android:layout_marginTop="20pt"
                 android:background="@drawable/final_login"
-                android:text="Login"
+                android:onClick="login_onclick"
+                android:text="@string/login"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -162,10 +172,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/noAccount_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아직 계정이 없으신가요?"
+                    android:text="@string/noAccount"
                     android:textColor="#FFFFFF"
                     android:textSize="7.5pt" />
 
@@ -174,15 +184,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="회원가입"
+                    android:onClick="join_onclick"
+                    android:text="@string/join"
                     android:textColor="#F2B705"
                     android:textSize="7.5pt"
                     android:textStyle="normal" />
             </LinearLayout>
-
-
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,11 +8,10 @@
     tools:openDrawer="start"
     android:id="@+id/drawerLayout">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout">
+        android:id="@+id/shadow_layout">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,7 +21,6 @@
             android:elevation="1dp"
             android:theme="@style/ActionBarTheme"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

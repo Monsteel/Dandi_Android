@@ -26,7 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -68,13 +70,14 @@ public class AccountFragment extends Fragment {
     // View
     ImageView profile;
     Button edit_profile;
-    Button check_channel;
+    ImageButton check_channel;
     TextView user_name;
     TextView user_id;
     TextView user_phone;
     TextView user_email;
     TextView user_school;
     TextView user_class;
+    LinearLayout channel_layout;
 
     private Boolean isPermission = true;
     private static final int PICK_FROM_ALBUM = 1;
@@ -106,6 +109,7 @@ public class AccountFragment extends Fragment {
         user_email = rootView.findViewById(R.id.user_email);
         user_school = rootView.findViewById(R.id.user_school);
         user_class = rootView.findViewById(R.id.user_class);
+        channel_layout = rootView.findViewById(R.id.channel_layout);
 
         // profile 즉 프로필 사진을 둥글게 만들어줍니다.
         profile.setBackground(new ShapeDrawable(new OvalShape()));
@@ -130,10 +134,18 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        Toast.makeText(getContext(), "HELLO", Toast.LENGTH_SHORT).show();
+        channel_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), JoinedChannel.class);
+                startActivity(intent);
+
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
         return rootView;
-
     }
 
     public void userProfile(){
@@ -150,10 +162,20 @@ public class AccountFragment extends Fragment {
                     // View 텍스트 삽입
                     user_name.setText(userData.getUser_name());
                     user_id.setText("(" + userData.getUser_id() + ")");
-                    user_phone.setText(userData.getUser_phone());
+
+                    if(userData.getUser_phone() == ""){
+                        user_phone.setText("전화번호 없음");
+                    } else{
+                        user_phone.setText(userData.getUser_phone());
+                    }
                     user_email.setText(userData.getUser_email());
                     user_school.setText(userData.getSchool().getSchool_name());
-                    user_class.setText(userData.getSchool_grade() + "학년 " + userData.getSchool_class() + "반");
+
+                    if(userData.getSchool_grade() == null){
+                        user_class.setText("학반 정보 없음");
+                    } else{
+                        user_class.setText(userData.getSchool_grade() + "학년 " + userData.getSchool_class() + "반");
+                    }
 
                     Glide.with(getActivity()).load(userData.getProfile_pic()).into(profile);
 
@@ -372,5 +394,4 @@ public class AccountFragment extends Fragment {
             }
         });
     }
-
 }

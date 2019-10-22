@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="check_id">아이디를 저장하시겠습니까?</string>
+    <string name="id">ID</string>
+    <string name="pw">PW</string>
+    <string name="login">LOGIN</string>
+    <string name="noAccount">아직 계정이 없으신가요?</string>
+    <string name="join">회원가입</string>
+
 </resources>

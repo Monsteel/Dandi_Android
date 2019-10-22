@@ -5,21 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +22,10 @@ import com.bumptech.glide.Glide;
 
 import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.MainActivity;
-import org.techtown.schooler.Model.ChannelInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.network.Data;
 import org.techtown.schooler.network.NetRetrofit;
 import org.techtown.schooler.network.response.Response;
-
-import java.io.InputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,7 +91,7 @@ public class ChannelContent extends AppCompatActivity {
         // XML View 를 초기화합니다.
         profile = findViewById(R.id.profile);
         backButton = findViewById(R.id.backButton);
-        layout = findViewById(R.id.layout);
+        layout = findViewById(R.id.shadow_layout);
         channel_layout = findViewById(R.id.channel_layout);
         event_title = findViewById(R.id.event_title);
         name = findViewById(R.id.user_name);

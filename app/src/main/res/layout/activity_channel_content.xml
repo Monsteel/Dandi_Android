@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:background="#FF7676"
             android:orientation="vertical"
-            android:id="@+id/layout">
+            android:id="@+id/shadow_layout">
 
             <ImageButton
                 android:id="@+id/backButton"
