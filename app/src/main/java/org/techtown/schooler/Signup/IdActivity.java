@@ -86,14 +86,20 @@ public class IdActivity extends AppCompatActivity {
 
     }
     private void idCheck(IsOverlapped isOverlapped) {
-        // 아이디를 입력하지 않은 경우
+        Pattern ps = Pattern.compile("^[a-zA-Z0-9]+$");
         if (InputId.getText().toString().length() == 0) {
             noticeIdError.setText("아이디를 입력해주세요.");
+
             noticeIdError.setTextColor(Color.parseColor("#bc0000"));
             GotoPassword.setBackgroundResource(R.color.gray);
             GotoPassword.setEnabled(false);
         }else if(InputId.getText().toString().length() < 6) {
             noticeIdError.setText("아이디는 6자 이상으로 구성하여야 합니다");
+            noticeIdError.setTextColor(Color.parseColor("#bc0000"));
+            GotoPassword.setBackgroundResource(R.color.gray);
+            GotoPassword.setEnabled(false);
+        }else if(!ps.matcher(InputId.getText()).matches()){
+            noticeIdError.setText("아이디는 영문,숫자조합만 가능합니다.");
             noticeIdError.setTextColor(Color.parseColor("#bc0000"));
             GotoPassword.setBackgroundResource(R.color.gray);
             GotoPassword.setEnabled(false);

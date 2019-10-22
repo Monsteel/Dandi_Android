@@ -20,7 +20,8 @@
             android:name=".Signup.CheckPasswordActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Channels.ChannelHandling.MemberAllowActivity" />
-        <activity android:name=".Channels.ChannelHandling.EditChannelAcitivty" />
+        <activity android:name=".Channels.ChannelHandling.EditChannelAcitivty"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Account.JoinedChannel"
             android:theme="@style/AppTheme3" />

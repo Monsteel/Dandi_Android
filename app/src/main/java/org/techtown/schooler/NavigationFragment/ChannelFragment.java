@@ -47,19 +47,19 @@ import static android.view.View.GONE;
 
 public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    RecyclerView recyclerView;
-    List<ChannelInfo> DataList= new ArrayList<>();
+    static RecyclerView recyclerView;
+    static List<ChannelInfo> DataList= new ArrayList<>();
     SwipeRefreshLayout mSwipeRefreshLayout;
-    SharedPreferences Login;
-    EditText search;
-    Spinner field;
+    static SharedPreferences Login;
+    static EditText search;
+    static Spinner field;
     String user_id;
-    LinearLayout NoChannelMessage;
+    static LinearLayout NoChannelMessage;
     LinearLayout createChannel;
     ChannelsInfo channelsInfo = new ChannelsInfo();
 
-    String keyword ="";
-    Integer pick = null;
+    static String keyword ="";
+    static Integer pick = null;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -97,6 +97,9 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
         field = (Spinner)rootView.findViewById(R.id.channelField);
         NoChannelMessage = (LinearLayout)rootView.findViewById(R.id.NoChannelMessage);
         createChannel = (LinearLayout)rootView.findViewById(R.id.createChannel);
+        pick = null;
+        keyword ="";
+
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
@@ -220,6 +223,4 @@ public class ChannelFragment extends Fragment implements SwipeRefreshLayout.OnRe
             }
         });
     }
-
-
 }

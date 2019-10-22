@@ -41,7 +41,7 @@
                 <ImageView
                     android:id="@+id/isPublic_ImageView"
                     android:layout_width="7pt"
-                    android:layout_height="10dp"
+                    android:layout_height="7pt"
                     android:layout_gravity="center"
                     tools:srcCompat="@drawable/locked" />
 

@@ -150,7 +150,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
 
         }else if (item.getUserStatus() == 0) {
             holder.joinButton.setText("JOIN");
-            holder.joinButton.setTextColor(Color.parseColor("#FDFFFFFF"));
+            holder.joinButton.setTextColor(Color.parseColor("#7C000000"));
             holder.joinButton.setEnabled(true);
         }
 

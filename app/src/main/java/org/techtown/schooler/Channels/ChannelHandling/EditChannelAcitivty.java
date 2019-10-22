@@ -3,6 +3,8 @@ package org.techtown.schooler.Channels.ChannelHandling;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,6 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import org.techtown.schooler.Channels.CreateChannel.CreateChannel;
 import org.techtown.schooler.Model.ChannelEditRequest;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -123,14 +127,14 @@ public class EditChannelAcitivty extends AppCompatActivity {
                             Toast.makeText(EditChannelAcitivty.this,R.string.colorPickerMessage_1,Toast.LENGTH_LONG).show();
                             openColorPicker();
                         }else{
-                            inputColor.setBackgroundColor(color);
                             String strColor = String.format("#%06X", 0xFFFFFF & color);//Color int를 String 으로 변환하기
+                            inputColor.setCardBackgroundColor(color);
                             channelEditRequest.setColor(strColor);
                         }
                     }
                     @Override
                     public void onCancel() {
-                        // Cancel 버튼 클릭 시 이벤트
+
                     }
                 })
                 .show();  // dialog 생성
@@ -165,12 +169,10 @@ public class EditChannelAcitivty extends AppCompatActivity {
     private void setData(){
         inputName.setText(channel_name);
         inputExplain.setText(channel_explain);
-        inputColor.setBackgroundColor(Color.parseColor(channel_color));
-
+        inputColor.setCardBackgroundColor(Color.parseColor(channel_color));
         channelEditRequest.setExplain(channel_explain);
         channelEditRequest.setColor(channel_color);
         channelEditRequest.setIsPublic(channel_check);
-
         if(channel_check.equals(1)){
             inputCheck.setChecked(false);
         }else{

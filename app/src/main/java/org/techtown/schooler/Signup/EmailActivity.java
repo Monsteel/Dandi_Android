@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.renderscript.ScriptGroup;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -38,7 +39,7 @@ public class EmailActivity extends AppCompatActivity {
     EditText InputEmail;
     TextView SendAuthCode;
     TextView ErrorEmail;
-    String AuthCode = "";
+    String AuthCode = null;
     LinearLayout Auth;
     LinearLayout Email;
     LinearLayout layout;
@@ -100,7 +101,6 @@ public class EmailActivity extends AppCompatActivity {
                     SendAuthCode.setText("다음");
                     SendAuthCode.setEnabled(true);
                     SendAuthCode.setBackgroundResource(R.color.mainColor);
-
                 }else{
                     SendAuthCode.setEnabled(false);
                     SendAuthCode.setBackgroundResource(R.color.gray);
@@ -113,12 +113,10 @@ public class EmailActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void toClickSendAuth(View view){
-
-        if(AuthCode.length()==0){
+        if(AuthCode == null){
             SendAuthCode.setEnabled(false);
             SendAuthCode.setText("이메일 전송중..");
             ErrorEmail.setVisibility(View.VISIBLE);
@@ -155,8 +153,9 @@ public class EmailActivity extends AppCompatActivity {
         ErrorEmail.setVisibility(View.VISIBLE);
         InputEmail.setInputType(InputType.TYPE_NULL);
         showUserEmail.setText(InputEmail.getText().toString()+"으로\n인증번호를 전송하였습니다.");
-        SendAuthCode.setEnabled(false);
         SendAuthCode.setBackgroundResource(R.color.gray);
+        InputAuthCode.setEnabled(true);
+        InputAuthCode.setText("");
 
         countDownTimer();
         Email.setVisibility(View.GONE);
@@ -165,22 +164,21 @@ public class EmailActivity extends AppCompatActivity {
 
     public void countDownTimer(){
         countDownTimer = new CountDownTimer(30000, 1000) { //30초 동안 1초의 간격으로 onTick 메소드를 호출합니다.
-
             @Override
             public void onTick(long millisUntilFinished) {
                 long time = millisUntilFinished/1000;
                 if(!InputAuthCode.getText().toString().equals(AuthCode))
                     SendAuthCode.setText("남은시간 : "+(time % 3600 / 60)+":"+(time % 3600 % 60));
-
             } //1초마다 호출되면서 남은 시간을 초 단위로 보여 줍니다. 30, 29, 28.. 이런식으로 나타나게 됩니다.
-
 
             @Override
             public void onFinish() {
-                AuthCode = "";
+                AuthCode = null;
                 SendAuthCode.setText("시간만료\n재전송");
-                SendAuthCode.setEnabled(true);
+                InputAuthCode.setEnabled(false);
+                InputAuthCode.setText("");
                 SendAuthCode.setBackgroundResource(R.color.mainColor);
+                SendAuthCode.setEnabled(true);
             } //종료 되었을 때, "done!" 이라는 문자열을 보여줍니다.
         }.start(); //카운트 시작
     }

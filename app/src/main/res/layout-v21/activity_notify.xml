@@ -25,7 +25,7 @@
             android:background="@android:color/transparent"
             android:onClick="toGoBack"
             android:scaleType="fitStart"
-            android:src="@drawable/ic_chevron_left_yellow_24dp" />
+            app:srcCompat="@drawable/ic_chevron_left_yellow_24dp" />
 
     </LinearLayout>
 
@@ -401,19 +401,36 @@
         android:layout_height="match_parent"
         android:gravity="bottom|center|center_vertical"
         android:orientation="horizontal">
-    <TextView
-        android:id="@+id/Finish"
-        android:layout_width="match_parent"
-        android:layout_height="25pt"
-        android:layout_gravity="bottom"
-        android:background="@color/mainColor"
-        android:gravity="center"
-        android:scaleType="fitEnd"
-        android:src="@drawable/ic_chevron_right_yellow_24dp"
-        android:text="회원가입"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBar6"
+                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="9"
+                android:progress="8" />
+
+            <TextView
+                android:id="@+id/Finish"
+                android:layout_width="match_parent"
+                android:layout_height="25pt"
+                android:layout_gravity="bottom"
+                android:background="@color/mainColor"
+                android:gravity="center"
+                android:scaleType="fitEnd"
+                android:text="회원가입"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:srcCompat="@drawable/ic_chevron_right_yellow_24dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

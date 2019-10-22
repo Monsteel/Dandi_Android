@@ -34,20 +34,37 @@
         android:gravity="bottom|center|center_vertical"
         android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25pt"
-            android:layout_gravity="bottom"
-            android:background="@color/mainColor"
-            android:enabled="true"
-            android:gravity="center"
-            android:onClick="MAINGAZAA"
-            android:scaleType="fitEnd"
-            android:src="@drawable/ic_chevron_right_yellow_24dp"
-            android:text="메인으로"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBar7"
+                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:max="9"
+                android:progress="9" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25pt"
+                android:layout_gravity="bottom"
+                android:background="@color/mainColor"
+                android:enabled="true"
+                android:gravity="center"
+                android:onClick="MAINGAZAA"
+                android:scaleType="fitEnd"
+                android:text="메인으로"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:srcCompat="@drawable/ic_chevron_right_yellow_24dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 

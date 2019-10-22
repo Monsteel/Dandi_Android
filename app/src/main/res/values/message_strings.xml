@@ -40,5 +40,5 @@
 
     <string name = "createChannelMessage_1">동일한 이름의 채널이 존재합니다.</string>
 
-    <string name = "imageUploadMessage_1">동일한 이름의 채널이 존재합니다.</string>
+    <string name = "imageUploadMessage_1">이미지가 선택되지 않았습니다.</string>
 </resources>

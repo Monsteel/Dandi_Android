@@ -102,10 +102,10 @@ public class CreateChannel extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (next1 && next2 && next3) {
                     Next.setEnabled(true);
-                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
+                    Next.setBackgroundResource(R.color.mainColor);
                 }else{
                     Next.setEnabled(false);
-                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
+                    Next.setBackgroundResource(R.color.gray);
                 }
             }
         });
@@ -129,10 +129,10 @@ public class CreateChannel extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (next1 && next2 && next3) {
                     Next.setEnabled(true);
-                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
+                    Next.setBackgroundResource(R.color.mainColor);
                 }else{
                     Next.setEnabled(false);
-                    Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
+                    Next.setBackgroundResource(R.color.gray);
                 }
             }
         });
@@ -163,7 +163,7 @@ public class CreateChannel extends AppCompatActivity {
         Next = (TextView)findViewById(R.id.Finish);
         Login = getSharedPreferences("Login", MODE_PRIVATE);
         Next.setEnabled(false);
-        Next.setTextColor(Color.parseColor("#FF5C5C5C"));
+        Next.setBackgroundResource(R.color.gray);
 
     }//엑티비티 설정
 
@@ -201,11 +201,11 @@ public class CreateChannel extends AppCompatActivity {
 
                             if (next1 && next2 && next3) {
                                 Next.setEnabled(true);
-                                Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
+                                Next.setBackgroundResource(R.color.mainColor);
                             }else{
                                 Next.setEnabled(false);
-                                Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
-                            }
+                                Next.setBackgroundResource(R.color.gray);
+                        }
                         }
                     }
                     @Override
@@ -214,10 +214,10 @@ public class CreateChannel extends AppCompatActivity {
                         next3 = false;
                         if (next1 && next2 && next3) {
                             Next.setEnabled(true);
-                            Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.mainColor));
+                            Next.setBackgroundResource(R.color.mainColor);
                         }else{
                             Next.setEnabled(false);
-                            Next.setTextColor(ContextCompat.getColor(CreateChannel.this, R.color.gray));
+                            Next.setBackgroundResource(R.color.gray);
                         }
                     }
                 })

@@ -1,5 +1,6 @@
 package org.techtown.schooler.Channels.ChannelHandling;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -7,7 +8,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -18,9 +22,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -34,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.PrimitiveIterator;
 import java.util.Random;
 
 import okhttp3.MediaType;
@@ -62,6 +69,7 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     private Boolean isPermission = false;
 
     private ImageView backgroundImage;
+    private TextView Button;;
     private TextView title;
     private TextView content;
     private TextView user;
@@ -72,6 +80,7 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     private String channel_explain = null;
     private String channel_isPublic = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +93,7 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         content = (TextView)findViewById(R.id.Content_TextView);
         user = (TextView)findViewById(R.id.MakeUser_TextView);
         isPublicImage = (ImageView)findViewById(R.id.isPublic_ImageView);
+        Button = (TextView)findViewById(R.id.finish);
 
 
         channel_name = getIntent().getStringExtra("channel_name");
@@ -92,6 +102,16 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
         channel_isPublic = getIntent().getStringExtra("channel_isPublic");
         channel_id = getIntent().getStringExtra("channel_id");
 
+        backgroundImage.setBackground(new ShapeDrawable(new OvalShape()));
+        backgroundImage.setClipToOutline(true);
+
+        if (getIntent().getStringExtra("channel_thumbnail")!=null){
+            String backgroundImageLink = getIntent().getStringExtra("channel_thumbnail");
+            Glide.with(UploadChannelsThumbnail.this).load(backgroundImageLink).into(backgroundImage);
+        }else{
+            String backgroundImageLink_default= "http://10.80.163.154:5000/static/image/basic_thumbnail.jpg";
+            Glide.with(UploadChannelsThumbnail.this).load(backgroundImageLink_default).into(backgroundImage);
+        }
 
         title.setText(channel_name);
         content.setText(channel_explain);
@@ -164,13 +184,13 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     }
 
     //사진 선택 시 uri를 업로드이미지로 보냄.
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(this, R.string.cancelMessage_1, Toast.LENGTH_SHORT).show();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        if (resultCode != Activity.RESULT_OK)
+        {            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
             if(tempFile != null) {
                 if (tempFile.exists()) {
@@ -217,6 +237,10 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
                     }
                 }
 
+
+                Button.setEnabled(true);
+                Button.setBackgroundResource(R.color.mainColor);
+
                 backgroundImage.setImageURI(Uri.fromFile(tempFile));
 
                 break;
@@ -232,9 +256,6 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
     public void Click_Finsih(View view) {
         if (tempFile != null)
             uploadImage(changeToBytes(), tempFile.getName());
-        else {
-            Toast.makeText(this, R.string.imageUploadMessage_1, Toast.LENGTH_SHORT).show();
-        }
     }
 
     //uri를 패스로 변환해서, 서버통신 시작.
@@ -275,6 +296,10 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
                 Toast.makeText(UploadChannelsThumbnail.this, R.string.networkErrorMessage_1, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void toGoBack (View view) {
+        onBackPressed();
     }
 
     @Override

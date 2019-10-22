@@ -37,8 +37,6 @@ public class ClassActivity extends AppCompatActivity {
     String SchoolKind;
 
     TextView SchoolName;
-    TextView DecideGrade;
-    TextView DecideClass;
     ArrayList<String> arrayListClass;
     ArrayAdapter<String> arrayAdapterClass;
     ArrayList<String> arrayListGrade;

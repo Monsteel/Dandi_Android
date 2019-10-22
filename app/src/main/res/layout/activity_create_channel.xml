@@ -18,206 +18,185 @@
         android:theme="?attr/actionBarTheme"
         />
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_margin="10pt"
+                android:layout_marginBottom="25pt"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/Name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="14.5pt"
-                    android:layout_marginTop="1pt"
-                    android:text="NAME"
-                    android:textColor="#707070"
-                    android:textSize="14pt"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="159pt"
-                android:layout_height="20pt"
-                android:layout_gravity="center"
-                android:layout_marginTop="1pt"
-                android:background="@drawable/register_events"
-                android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:gravity="left|center_vertical"
+                        android:text="채널 이름"
+                        android:textColor="#525252"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/InputChannelName"
-                    android:layout_width="340dp"
-                    android:layout_height="43dp"
-                    android:layout_marginLeft="5pt"
-                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3pt"
+                    android:layout_marginRight="3pt"
+                    android:layout_weight="1"
                     android:ems="10"
                     android:enabled="true"
-                    android:hint="채널 이름"
+                    android:hint="채널 이름을 입력해주세요"
                     android:inputType="textPersonName"
                     android:textColor="#525252"
-                    android:textSize="6.5pt" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2.5pt"
-                android:orientation="horizontal">
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="14.5pt"
-                    android:layout_marginTop="6pt"
-                    android:text="EXPLAIN"
-                    android:textColor="#707070"
-                    android:textSize="14pt"
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15pt"
+                    android:layout_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:text="채널 설명"
+                    android:textColor="#525252"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="159pt"
-                android:layout_height="30pt"
-                android:layout_gravity="center"
-                android:layout_marginTop="1pt"
-                android:background="@drawable/register_events"
-                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/InputChannelExplain"
-                    android:layout_width="340dp"
-                    android:layout_height="30pt"
-                    android:layout_marginLeft="5pt"
-                    android:background="@android:color/transparent"
-                    android:ems="10"
-                    android:hint="채널 설명을 입력 해 주세요"
-                    android:inputType="textPersonName"
-                    android:textSize="6.5pt" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2.5pt"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="14.5pt"
-                    android:layout_marginTop="6pt"
-                    android:text="COLOR"
-                    android:textColor="#707070"
-                    android:textSize="14pt"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="159pt"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="1pt"
-                android:background="@drawable/register_events"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/pickColor"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:onClick="pickColor"
-                    android:orientation="horizontal"
-                    app:cardCornerRadius="20dp" />
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="3pt"
+                    android:layout_marginRight="3pt"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="색을 클릭해서 색상 선택"
-                    android:textAllCaps="false"
-                    android:textColor="#707070" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2.5pt"
-                android:orientation="horizontal">
+                    android:ems="10"
+                    android:hint="채널 설명을 입력해주세요"
+                    android:inputType="textMultiLine|textPersonName"
+                    android:maxLines="3"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="14.5pt"
-                    android:layout_marginTop="6pt"
-                    android:text="ANOTHER"
-                    android:textColor="#707070"
-                    android:textSize="14pt"
+                    android:layout_marginLeft="2pt"
+                    android:layout_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:text="세줄이 넘어가면 표시가 안될 수 있습니다."
+                    android:textColor="#B40000"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15pt"
+                    android:layout_marginBottom="2pt"
+                    android:layout_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:text="채널 색상"
+                    android:textColor="#525252"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="3pt"
+                    android:layout_marginRight="3pt"
+                    android:layout_weight="1"
+                    android:background="@drawable/register_events"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="159pt"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="1pt"
-                android:background="@drawable/register_events"
-                android:gravity="center"
-                android:orientation="vertical">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pickColor"
+                        android:layout_width="20pt"
+                        android:layout_height="20pt"
+                        android:layout_margin="2pt"
+                        android:gravity="center"
+                        android:onClick="pickColor"
+                        android:orientation="horizontal"
+                        app:cardCornerRadius="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="2pt"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="클릭해서 채널 색상을 선택하세요"
+                        android:textAllCaps="false"
+                        android:textColor="#707070"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
                 <Switch
                     android:id="@+id/isPublicForChannel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:text="가입승인 여부"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginTop="15pt"
+                    android:layout_marginBottom="40pt"
+                    android:layout_weight="1"
+                    android:text="채널 공개 여부     "
                     android:textColor="#525252"
-                    android:textSize="18sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center|center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/Finish"
                 android:layout_width="match_parent"
-                android:layout_height="30pt"
-                android:layout_margin="10pt"
-                android:background="@drawable/add_schedule"
+                android:layout_height="25pt"
+                android:layout_gravity="bottom"
+                android:background="@color/mainColor"
                 android:gravity="center"
-                android:onClick="createChannel"
-                android:text="채널 개설하기"
-                android:textColor="#525252"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:scaleType="fitEnd"
+                android:text="채널생성"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:srcCompat="@drawable/ic_chevron_right_yellow_24dp"
+                android:onClick="createChannel"/>
 
         </LinearLayout>
-    </ScrollView>
+
+    </FrameLayout>
+
 
 </LinearLayout>

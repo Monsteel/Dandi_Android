@@ -25,7 +25,8 @@
             android:background="@android:color/transparent"
             android:onClick="toGoBack"
             android:scaleType="fitStart"
-            android:src="@drawable/ic_chevron_left_yellow_24dp" />
+            app:srcCompat="@drawable/ic_chevron_left_yellow_24dp"
+            android:contentDescription="TODO" />
     </LinearLayout>
 
     <TextView
@@ -86,6 +87,14 @@
 
         </ListView>
 
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="@android:style/Widget.Material.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="9"
+            android:progress="6" />
+
         <TextView
             android:id="@+id/next_class"
             android:layout_width="match_parent"
@@ -96,7 +105,7 @@
             android:gravity="center"
             android:onClick="toGoNext"
             android:scaleType="fitEnd"
-            android:src="@drawable/ic_chevron_right_yellow_24dp"
+            app:srcCompat="@drawable/ic_chevron_right_yellow_24dp"
             android:text="다음"
             android:textColor="#FFFFFF"
             android:textSize="18sp"

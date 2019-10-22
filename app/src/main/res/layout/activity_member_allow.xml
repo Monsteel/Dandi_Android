@@ -33,20 +33,21 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="2"
-            android:src="@drawable/ic_noun_magnifier_2492482" />
+            app:srcCompat="@drawable/ic_noun_magnifier_2492482" />
 
         <View
             android:id="@+id/view4"
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:background="#FFBBBBBB" />
+            android:background="#7C000000" />
 
         <EditText
             android:id="@+id/searchMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_margin="2pt"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textPersonName" />
 

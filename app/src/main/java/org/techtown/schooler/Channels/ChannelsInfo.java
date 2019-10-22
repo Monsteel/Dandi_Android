@@ -27,6 +27,7 @@ import org.techtown.schooler.Channels.ChannelHandling.EditChannelAcitivty;
 import org.techtown.schooler.Channels.ChannelHandling.MemberAllowActivity;
 import org.techtown.schooler.Channels.ChannelHandling.UploadChannelsThumbnail;
 import org.techtown.schooler.Model.User;
+import org.techtown.schooler.NavigationFragment.ChannelFragment;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
@@ -129,6 +130,7 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
             intent.putExtra("channel_explain", channel_content);
             intent.putExtra("channel_isPublic", channel_check);
             intent.putExtra("channel_id", channel_id);
+            intent.putExtra("channel_thumbnail", channel_thumbnail);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
@@ -237,6 +239,7 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
                         } else {
                             Toast.makeText(ChannelsInfo.this, "채널가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         }
+                        onBackPressed();
                     }else if(response.code() == 409){
                         Toast.makeText(ChannelsInfo.this, "이미 가입된 채널입니다.", Toast.LENGTH_SHORT).show();
                     }else if(response.code() == 410){
@@ -263,7 +266,7 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
         builder.setNegativeButton("아니오", (dialogInterface, i) -> Log.e("아니오 버튼", "클릭됐어요"));
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
+    }//채널 가입 다이얼로그
 
     public void channelDelete(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -289,63 +292,61 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
     }//채널 삭제 다이얼로그
 
     private void channelInfoRoad(String input){
-    Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().ChannelInfo(login.getString("token",""),input);
+        Call<Response<Data>> res = NetRetrofit.getInstance().getChannel().ChannelInfo(login.getString("token",""),input);
         res.enqueue(new Callback<Response<Data>>() {
-        @Override
-        public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
-            if(response.code() == 200) {
-                channel_name = response.body().getData().getChannelInfo().getName();
+            @Override
+            public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
+                if(response.code() == 200) {
+                    channel_name = response.body().getData().getChannelInfo().getName();
 
-                channel_content = response.body().getData().getChannelInfo().getExplain();
-                channel_create_user = response.body().getData().getChannelInfo().getCreate_user();
-                channel_thumbnail = response.body().getData().getChannelInfo().getThumbnail();
-                channel_Color = response.body().getData().getChannelInfo().getColor();
-                channel_check = response.body().getData().getChannelInfo().getIsPublic();
+                    channel_content = response.body().getData().getChannelInfo().getExplain();
+                    channel_create_user = response.body().getData().getChannelInfo().getCreate_user();
+                    channel_thumbnail = response.body().getData().getChannelInfo().getThumbnail();
+                    channel_Color = response.body().getData().getChannelInfo().getColor();
+                    channel_check = response.body().getData().getChannelInfo().getIsPublic();
 
+                    name.setText(channel_name);
+                    name.setMaxLines(1);
+                    name.setEllipsize(TextUtils.TruncateAt.END);
+                    getSupportActionBar().setTitle(channel_name);
 
+                    content.setText(channel_content);
+                    content.setMaxLines(3);
+                    content.setEllipsize(TextUtils.TruncateAt.END);
 
-                name.setText(channel_name);
-                name.setMaxLines(1);
-                name.setEllipsize(TextUtils.TruncateAt.END);
-                getSupportActionBar().setTitle(channel_name);
+                    Glide.with(ChannelsInfo.this).load(channel_thumbnail).into(thumbnail);
 
-                content.setText(channel_content);
-                content.setMaxLines(3);
-                content.setEllipsize(TextUtils.TruncateAt.END);
+                    dataList = response.body().getData().getChannelInfo().getUsers();
+                    MemberListAdapter adapter = new MemberListAdapter(dataList);
+                    recyclerView.setAdapter(adapter);
+                    adapter.CatchChannelId(channel_id,channel_create_user);
 
-                Glide.with(ChannelsInfo.this).load(channel_thumbnail).into(thumbnail);
+                }else if(response.code() == 404){
+                    Toast.makeText(ChannelsInfo.this, "존재하지 않는 채널입니다.", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
 
-                dataList = response.body().getData().getChannelInfo().getUsers();
-                MemberListAdapter adapter = new MemberListAdapter(dataList);
-                recyclerView.setAdapter(adapter);
-                adapter.CatchChannelId(channel_id,channel_create_user);
+                }else if(response.code() == 410){
+                    SharedPreferences.Editor editor = login.edit();
+                    editor.putString("token",null);
+                    editor.putString("id",null);
+                    editor.commit();
+                    startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
+                    Log.e("","토큰 만료");
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.e("","오류 발생");
+                    Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
+                }
 
-            }else if(response.code() == 404){
-                Toast.makeText(ChannelsInfo.this, "존재하지 않는 채널입니다.", Toast.LENGTH_SHORT).show();
-                onBackPressed();
-
-            }else if(response.code() == 410){
-                SharedPreferences.Editor editor = login.edit();
-                editor.putString("token",null);
-                editor.putString("id",null);
-                editor.commit();
-                startActivity(new Intent(ChannelsInfo.this, LoginActivity.class));
-                Log.e("","토큰 만료");
-                Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
-            }else{
-                Log.e("","오류 발생");
-                Toast.makeText(ChannelsInfo.this, R.string.tokenMessage_1, Toast.LENGTH_SHORT).show();
             }
 
-        }
-
-        @Override
-        public void onFailure(Call<Response<Data>> call, Throwable t) {
-            Log.e("","네트워크 오류");
-            Toast.makeText(ChannelsInfo.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
-        }
-    });
-}//채널정보 로딩 (서버통신)
+            @Override
+            public void onFailure(Call<Response<Data>> call, Throwable t) {
+                Log.e("","네트워크 오류");
+                Toast.makeText(ChannelsInfo.this, R.string.serverErrorMessage_1, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }//채널정보 로딩 (서버통신)
 
     private void checkingAdmin(){
         Call<Response<Data>> res2 = NetRetrofit.getInstance().getProfile().GetProfile(login.getString("token",""),"");
@@ -353,8 +354,8 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                 if (response.code() == 200) {
-                    usr_id = response.body().getData().getUserInfo().getUser_id();
-                    if (channel_create_user.equals(usr_id))
+                    usr_id = response.body().getData().getUserInfo().getUser_id();;
+                    if (channel_create_user != null&&channel_create_user.equals(usr_id))
                         getMenuInflater().inflate(R.menu.channels_admin_page_menu, menu);
                     else if (getIntent().getStringExtra("userStatus").equals("2"))
                         getMenuInflater().inflate(R.menu.channel_user_page_menu, menu);
@@ -390,6 +391,8 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                 if(response.code() == 200){
                     Toast.makeText(ChannelsInfo.this, R.string.deleteMessage_1, Toast.LENGTH_SHORT).show();
+//                    ChannelFragment channelFragment = new ChannelFragment();
+//                    channelFragment.onSearch();
                     onBackPressed();
                 }else if(response.code() == 403){
                     Toast.makeText(ChannelsInfo.this, R.string.permission_3, Toast.LENGTH_SHORT).show();
@@ -425,6 +428,8 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
             public void onResponse(Call<Response<Data>> call, retrofit2.Response<Response<Data>> response) {
                 if(response.code() == 200){
                     Toast.makeText(ChannelsInfo.this, R.string.leaveMessage_1, Toast.LENGTH_SHORT).show();
+//                    ChannelFragment channelFragment = new ChannelFragment();
+//                    channelFragment.onSearch();
                     onBackPressed();
                 }else if(response.code() == 403){
                     Toast.makeText(ChannelsInfo.this, R.string.permission_3, Toast.LENGTH_SHORT).show();
@@ -455,9 +460,10 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onBackPressed () {
         setResult(RESULT_OK);
+        ChannelFragment channelFragment = new ChannelFragment();
+        channelFragment.onSearch();
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }//뒤로가기 버튼을 눌렀을 때
-
 
 }
