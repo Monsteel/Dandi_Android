@@ -28,7 +28,8 @@
         <activity android:name=".Channels.ChannelsInfo" />
         <activity
             android:name=".ChannelEvents.CreateChannelEvents"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ChannelEvents.ChannelContent" />
         <activity android:name=".ChannelEvents.UpdateEvents" />
         <activity android:name=".Channels.ChannelHandling.UploadChannelsThumbnail" />
