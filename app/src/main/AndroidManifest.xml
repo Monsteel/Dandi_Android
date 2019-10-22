@@ -16,12 +16,15 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".ChannelActivity" />
         <activity
             android:name=".Signup.CheckPasswordActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Channels.ChannelHandling.MemberAllowActivity" />
-        <activity android:name=".Channels.ChannelHandling.EditChannelAcitivty"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".Channels.ChannelHandling.EditChannelAcitivty"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Account.JoinedChannel"
             android:theme="@style/AppTheme3" />
@@ -29,7 +32,7 @@
         <activity
             android:name=".ChannelEvents.CreateChannelEvents"
             android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ChannelEvents.ChannelContent" />
         <activity android:name=".ChannelEvents.UpdateEvents" />
         <activity android:name=".Channels.ChannelHandling.UploadChannelsThumbnail" />
@@ -44,12 +47,14 @@
             android:name=".Signup.PasswordActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".Signup.ClassActivity" />
-        <activity android:name=".Signup.SchoolActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".Signup.SchoolActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Signup.IdActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".Signup.EmailActivity"
+        <activity
+            android:name=".Signup.EmailActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Signup.SignupOneActivity"

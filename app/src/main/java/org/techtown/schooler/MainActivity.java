@@ -20,7 +20,6 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,11 +29,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
-import org.techtown.schooler.NavigationFragment.AccountFragment;
-import org.techtown.schooler.NavigationFragment.ChannelFragment;
 import org.techtown.schooler.NavigationFragment.MainFragment;
-import org.techtown.schooler.NavigationFragment.Ready2Fragment;
-import org.techtown.schooler.NavigationFragment.SettingFragment;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 
 import org.techtown.schooler.network.Data;
@@ -137,15 +132,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // NavigationItemSelected Event
     public boolean onNavigationItemSelected(MenuItem item){
 
-        Fragment channel = new ChannelFragment();
-        Fragment account = new AccountFragment();
         Fragment main = new MainFragment();
 
         switch (item.getItemId()){
 
             case R.id.channel:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.shadow_layout, channel).commit();
+                Intent channel_intent = new Intent(MainActivity.this, ChannelActivity.class);
+                startActivity(channel_intent);
                 break;
 
             case R.id.main:
@@ -155,7 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.account:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.shadow_layout, account).commit();
+                Intent account_intent = new Intent(MainActivity.this, AccountActivity.class);
+                startActivity(account_intent);
                 break;
 
             case R.id.logout:
