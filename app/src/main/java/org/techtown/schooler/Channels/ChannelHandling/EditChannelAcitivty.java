@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.schooler.Channels.CreateChannel.CreateChannel;
@@ -43,6 +44,7 @@ public class EditChannelAcitivty extends AppCompatActivity {
     private EditText inputName;
     private EditText inputExplain;
     private Switch inputCheck;
+    private TextView displayIsPublicMessage;
     private CardView inputColor;
     public static ChannelEditRequest channelEditRequest  = new ChannelEditRequest("","","");
     private SharedPreferences login;
@@ -58,12 +60,17 @@ public class EditChannelAcitivty extends AppCompatActivity {
         inputCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    channelEditRequest.setIsPublic("false");
+                    channelEditRequest.setIsPublic("1");
+                    displayIsPublicMessage.setTextColor(getResources().getColor(R.color.blue));
+                    displayIsPublicMessage.setText(R.string.isPublic_2);
                 }else{
-                    channelEditRequest.setIsPublic("true");
+                    channelEditRequest.setIsPublic("0");
+                    displayIsPublicMessage.setTextColor(getResources().getColor(R.color.red));
+                    displayIsPublicMessage.setText(R.string.isPublic_1);
                 }
             }
         });
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +153,7 @@ public class EditChannelAcitivty extends AppCompatActivity {
         inputExplain = (EditText)findViewById(R.id.EditChannelExplain);
         inputCheck = (Switch)findViewById(R.id.EditChannelIsPublic);
         inputColor = (CardView)findViewById(R.id.EditChannelColor);
-
+        displayIsPublicMessage = (TextView)findViewById(R.id.displayChannelIsPublic);
         getExtra();
         setData();
     }//엑티비티 설정
@@ -167,17 +174,22 @@ public class EditChannelAcitivty extends AppCompatActivity {
     }//intent로 전달된 값들을 불러옵니다.(엑티비티 데이터전송 중, get)
 
     private void setData(){
+        if(channel_check.equals("1")){
+            inputCheck.setChecked(true);
+            displayIsPublicMessage.setTextColor(getResources().getColor(R.color.blue));
+            displayIsPublicMessage.setText(R.string.isPublic_2);
+        }else if(channel_check.equals("0")){
+            inputCheck.setChecked(false);
+            displayIsPublicMessage.setTextColor(getResources().getColor(R.color.red));
+            displayIsPublicMessage.setText(R.string.isPublic_1);
+        }
+
         inputName.setText(channel_name);
         inputExplain.setText(channel_explain);
         inputColor.setCardBackgroundColor(Color.parseColor(channel_color));
         channelEditRequest.setExplain(channel_explain);
         channelEditRequest.setColor(channel_color);
         channelEditRequest.setIsPublic(channel_check);
-        if(channel_check.equals(1)){
-            inputCheck.setChecked(false);
-        }else{
-            inputCheck.setChecked(true);
-        }
     }//데이터 불러오기
 
     @Override

@@ -48,6 +48,7 @@ public class CreateChannel extends AppCompatActivity {
     private String channel_explain = null;
     private String channel_isPublic = null;
     private String channel_id = null;
+    private TextView displayIsPublicMessage;
 
     private boolean next1 = false;
     private boolean next2 = false;
@@ -74,11 +75,15 @@ public class CreateChannel extends AppCompatActivity {
         isPublic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //승인 후 가입
-                    createChannelRequest.setIsPublic("false");
-                }else{
-                    //승인없이 바로 가입.
+                    //공개
                     createChannelRequest.setIsPublic("true");
+                    displayIsPublicMessage.setTextColor(getResources().getColor(R.color.blue));
+                    displayIsPublicMessage.setText(R.string.isPublic_2);
+                }else{
+                    //비공개
+                    createChannelRequest.setIsPublic("false");
+                    displayIsPublicMessage.setTextColor(getResources().getColor(R.color.red));
+                    displayIsPublicMessage.setText(R.string.isPublic_1);
                 }
             }
         });
@@ -156,6 +161,7 @@ public class CreateChannel extends AppCompatActivity {
 
     private void settingsActivity(){
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        displayIsPublicMessage = findViewById(R.id.displayChannelIsPublic2);
         colorView = (CardView) findViewById(R.id.pickColor);
         name =(EditText)findViewById(R.id.InputChannelName);
         explain = (EditText)findViewById(R.id.InputChannelExplain);
@@ -164,6 +170,8 @@ public class CreateChannel extends AppCompatActivity {
         Login = getSharedPreferences("Login", MODE_PRIVATE);
         Next.setEnabled(false);
         Next.setBackgroundResource(R.color.gray);
+        displayIsPublicMessage.setTextColor(getResources().getColor(R.color.red));
+        displayIsPublicMessage.setText(R.string.isPublic_1);
 
     }//엑티비티 설정
 

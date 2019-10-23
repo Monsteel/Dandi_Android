@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
+import org.techtown.schooler.Channels.ChannelActivity;
 import org.techtown.schooler.NavigationFragment.MainFragment;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 

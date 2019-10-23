@@ -103,7 +103,7 @@
                     android:layout_weight="5"
                     android:gravity="left|center_vertical"
                     android:text="세줄이 넘어가면 표시가 안될 수 있습니다."
-                    android:textColor="#B40000"
+                    android:textColor="@color/red"
                     android:textSize="10sp" />
 
                 <TextView
@@ -162,11 +162,23 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="left|center_vertical"
                     android:layout_marginTop="15pt"
-                    android:layout_marginBottom="40pt"
                     android:layout_weight="1"
                     android:text="채널 공개 여부     "
                     android:textColor="#525252"
                     android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/displayChannelIsPublic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2pt"
+                    android:layout_marginBottom="40pt"
+                    android:layout_weight="5"
+                    android:gravity="left|center_vertical"
+                    android:text="공개 채널이 개설됩니다."
+                    android:textColor="@color/blue"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
 

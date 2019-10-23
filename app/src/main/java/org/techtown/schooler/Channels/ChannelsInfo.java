@@ -27,7 +27,6 @@ import org.techtown.schooler.Channels.ChannelHandling.EditChannelAcitivty;
 import org.techtown.schooler.Channels.ChannelHandling.MemberAllowActivity;
 import org.techtown.schooler.Channels.ChannelHandling.UploadChannelsThumbnail;
 import org.techtown.schooler.Model.User;
-import org.techtown.schooler.NavigationFragment.ChannelFragment;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
 import org.techtown.schooler.network.Data;
@@ -460,8 +459,8 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onBackPressed () {
         setResult(RESULT_OK);
-        ChannelFragment channelFragment = new ChannelFragment();
-        channelFragment.onSearch();
+        ChannelActivity channelActivity= new ChannelActivity();
+        channelActivity.onSearch();
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }//뒤로가기 버튼을 눌렀을 때
