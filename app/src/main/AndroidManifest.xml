@@ -26,8 +26,7 @@
             android:name=".Channels.ChannelHandling.EditChannelAcitivty"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Account.JoinedChannel"
-            android:theme="@style/AppTheme3" />
+            android:name=".Account.JoinedChannel"/>
         <activity android:name=".Channels.ChannelsInfo" />
         <activity
             android:name=".ChannelEvents.CreateChannelEvents"
@@ -69,8 +68,7 @@
         </activity>
         <activity android:name=".StartMemberActivity.LoginActivity" />
         <activity
-            android:name=".MainActivity"
-            android:label="" />
+            android:name=".MainActivity" />
     </application>
 
 </manifest>

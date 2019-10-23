@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".ChannelEvents.CreateChannelEvents">
 
@@ -34,16 +34,48 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginTop="2.5pt"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/channel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="11.5pt"
+                                android:text="채널 선택"
+                                android:textColor="#707070"
+                                android:textSize="8.5pt"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp">
+
+                            <Spinner
+                                android:id="@+id/spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="32dp"
+                                android:layout_marginRight="32dp"
+                                android:scrollbarStyle="insideInset"
+                                android:spinnerMode="dialog" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="32dp"
-                            android:layout_marginTop="25dp"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="11.5pt"
                                 android:text="일정 제목"
                                 android:textColor="#707070"
                                 android:textSize="8.5pt"
@@ -121,39 +153,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginTop="2.5pt"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/channel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="11.5pt"
-                            android:text="채널 선택"
-                            android:textColor="#707070"
-                            android:textSize="8.5pt"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="25dp"
-                        android:background="@drawable/register_events"
-                        android:orientation="vertical">
-
-                        <Spinner
-                            android:id="@+id/spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
@@ -228,8 +227,7 @@
             android:layout_height="25pt"
             android:layout_gravity="bottom"
             android:layout_marginTop="10dp"
-            android:background="@color/gray"
-            android:onClick="edit"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
             <TextView
@@ -239,6 +237,7 @@
                 android:background="@color/gray"
                 android:enabled="false"
                 android:gravity="center"
+                android:onClick="edit"
                 android:scaleType="fitEnd"
                 android:text="일정 추가하기"
                 android:textColor="#FFFFFF"

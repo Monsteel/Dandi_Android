@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.techtown.schooler.MainActivity;
@@ -58,8 +61,7 @@ public class CreateChannelEvents extends AppCompatActivity {
     EditText title_editText;
     EditText content_editText;
     Spinner spinner;
-    LinearLayout add_button;
-    LinearLayout layout;
+    TextView add_schedule;
 
     // 부가 데이터
     String channelId;
@@ -69,6 +71,9 @@ public class CreateChannelEvents extends AppCompatActivity {
     // Retrofit2 AddChannelEvents
     public static AddChannelEvents addChannelEvents = new AddChannelEvents("","","","");
 
+
+    Boolean next1 = false;
+    Boolean next2 = false;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +86,9 @@ public class CreateChannelEvents extends AppCompatActivity {
         spinner = (Spinner)findViewById(R.id.spinner);
         start_button = findViewById(R.id.start_button);
         end_button = findViewById(R.id.end_button);
-        add_button = findViewById(R.id.shadow_layout);
         title_editText = findViewById(R.id.title_editText);
         content_editText = findViewById(R.id.content_editText);
-        layout = findViewById(R.id.shadow_layout);
+        add_schedule = findViewById(R.id.add_scheudle);
 
         // Channel Search
         searchChannel();
@@ -122,6 +126,66 @@ public class CreateChannelEvents extends AppCompatActivity {
         // addChannelEvents (start_date, end_date)
         addChannelEvents.setStart_date(start_date);
         addChannelEvents.setEnd_date(end_date);
+
+        title_editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count){
+
+                if(title_editText.length() != 0){
+                    next1 = true;
+                } else{
+                    next1 = false;
+                }
+
+                if(next1 && next2){
+                    add_schedule.setBackgroundResource(R.color.mainColor);
+                    add_schedule.setEnabled(true);
+                }else{
+                    add_schedule.setBackgroundResource(R.color.gray);
+                    add_schedule.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        content_editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(content_editText.length() != 0){
+                    next2 = true;
+                } else{
+                    next2 = false;
+                }
+
+                if(next2 && next1){
+                    add_schedule.setBackgroundResource(R.color.mainColor);
+                    add_schedule.setEnabled(true);
+                }else{
+                    add_schedule.setBackgroundResource(R.color.gray);
+                    add_schedule.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -184,7 +248,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                         }
                     });
                 } else if(response.code() == 204){
-                    Log.e("[status]","안된다아아");
+                    Log.e("[status]","채널 존재하지않음");
                     Toast.makeText(CreateChannelEvents.this, "채널 정보가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                 } else if(response.code() == 410){
                     SharedPreferences.Editor editor = Login.edit();
@@ -198,10 +262,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                     Log.e("","오류 발생");
                     Toast.makeText(CreateChannelEvents.this, "서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<Response<Data>> call, Throwable t) {
                 Log.e("","네트워크 오류");
@@ -327,7 +388,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                 } else if(response.code() == 400){
 
                     Log.e("[status 400]", "검증 오류입니다.");
-                    Toast.makeText(CreateChannelEvents.this, "입력하신 내용에 오류가 존재합니다, 수정을 해주십시오.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateChannelEvents.this, "일정 종료 날짜를 바르게 설정해주십시오.", Toast.LENGTH_SHORT).show();
                 } else if(response.code() == 403){
 
                     Log.e("[status 403]", "일정 추가 권한이 없습니다.");
@@ -337,7 +398,6 @@ public class CreateChannelEvents extends AppCompatActivity {
                     Log.e("[status 500]", "일정 추가에 실패하였습니다.");
                     Toast.makeText(CreateChannelEvents.this, "일정 추가에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override

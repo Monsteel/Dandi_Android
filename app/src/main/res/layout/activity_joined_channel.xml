@@ -4,19 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2B705"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     tools:context=".Account.JoinedChannel">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="1dp"
+        android:theme="@style/ActionBarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8pt"
-        android:text="JOINED CHANNELS"
-        android:textColor="#FFFFFF"
-        android:textSize="15pt"
+        android:layout_marginTop="10pt"
+        android:text="내가 가입된 채널"
+        android:textColor="#707070"
+        android:textSize="10pt"
         android:textStyle="bold" />
 
     <LinearLayout

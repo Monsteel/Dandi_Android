@@ -1,15 +1,11 @@
 package org.techtown.schooler.RecyclerView_main;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +24,6 @@ import org.techtown.schooler.ChannelEvents.ChannelContent;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.R;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -56,7 +51,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             schedule_title = view.findViewById(R.id.schedule_title);
             start_date = view.findViewById(R.id.textView16);
             end_date = view.findViewById(R.id.end_date);
-            channel_image = view.findViewById(R.id.channel_image);
+            channel_image = view.findViewById(R.id.channel_Image);
             top_layout = view.findViewById(R.id.top_layout);
             contentButton = view.findViewById(R.id.contentButton);
             button_layout = view.findViewById(R.id.button_layout);

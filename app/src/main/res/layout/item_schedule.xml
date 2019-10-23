@@ -95,7 +95,7 @@
                 android:layout_marginRight="150dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/schedule_title"
-                app:layout_constraintBottom_toTopOf="@+id/channel_image"
+                app:layout_constraintBottom_toTopOf="@+id/channel_Image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -170,7 +170,7 @@
             </FrameLayout>
 
             <ImageView
-                android:id="@+id/channel_image"
+                android:id="@+id/channel_Image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="5dp"

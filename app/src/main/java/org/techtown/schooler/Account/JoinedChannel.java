@@ -2,11 +2,14 @@ package org.techtown.schooler.Account;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +40,7 @@ public class JoinedChannel extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SharedPreferences Login;
+    Toolbar toolbar;
 
     ArrayList<org.techtown.schooler.Model.JoinedChannel> joinedChannel = new ArrayList<>();
 
@@ -50,11 +54,14 @@ public class JoinedChannel extends AppCompatActivity {
         setContentView(R.layout.activity_joined_channel);
 
         recyclerView = findViewById(R.id.recyclerView);
+        toolbar = findViewById(R.id.toolbar);
 
-        // Actionbar
+        // Toolbar Setting
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_gray_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f5f5f5")));
 
         Login = getApplicationContext().getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
 
@@ -65,22 +72,14 @@ public class JoinedChannel extends AppCompatActivity {
         showChannel();
     }
 
-    // ActionBar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    // ActionBar Events
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
 
             case android.R.id.home:
-
-                super.onBackPressed();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                onBackPressed();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -88,7 +87,7 @@ public class JoinedChannel extends AppCompatActivity {
     public void onBackPressed(){
 
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);;
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void showChannel(){

@@ -53,6 +53,15 @@ public class JoinedChannelAdapter extends RecyclerView.Adapter<RecyclerView.View
             isPublic_image = view.findViewById(R.id.isPublic);
             cardView = view.findViewById(R.id.ChannelCardView);
 
+            // profile 즉 프로필 사진을 둥글게 만들어줍니다.
+            channel_image.setBackground(new ShapeDrawable(new OvalShape()));
+            channel_image.setClipToOutline(true);
+
+
+            channel_name.setSingleLine(true);
+            channel_name.setEllipsize(TextUtils.TruncateAt.END);
+            channel_name.setSelected(true);
+
         }
     }
 
