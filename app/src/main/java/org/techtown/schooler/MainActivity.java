@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 } else if(response.code() == 500){
 
-                    Log.e("[status 500]", response.body().getMessage());
+                    Log.e("[status 500]", "프로필 조회에 실패하였습니다.");
                     Toast.makeText(MainActivity.this, "프로필 조회에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
 
