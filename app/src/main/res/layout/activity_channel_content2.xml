@@ -135,7 +135,8 @@
             android:background="@android:color/transparent"
             android:onClick="delete"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/deletebotton" />
+            app:srcCompat="@drawable/deletebotton"
+            android:tint="#707070"/>
 
         <ImageButton
             android:id="@+id/edit"
@@ -144,7 +145,8 @@
             android:background="@android:color/transparent"
             android:onClick="edit"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/editbotton" />
+            app:srcCompat="@drawable/editbotton"
+            android:tint="#707070"/>
     </LinearLayout>
 
     <LinearLayout

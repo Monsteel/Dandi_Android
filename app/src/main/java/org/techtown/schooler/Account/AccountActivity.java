@@ -403,8 +403,15 @@ public class AccountActivity extends AppCompatActivity {
 
             case android.R.id.home:
                 onBackPressed();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed(){
+
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

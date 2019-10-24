@@ -136,7 +136,6 @@ public class LoginActivity extends AppCompatActivity{
                         editor.putString("id",Id_EditText.getText().toString());
                         editor.commit();
 
-                        Toast.makeText(LoginActivity.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);

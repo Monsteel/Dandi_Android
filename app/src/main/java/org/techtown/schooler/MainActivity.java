@@ -142,17 +142,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Intent channel_intent = new Intent(MainActivity.this, ChannelActivity.class);
                 startActivity(channel_intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.main:
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.LinearLayout, main).commit();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
 
             case R.id.account:
 
                 Intent account_intent = new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(account_intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.logout:
