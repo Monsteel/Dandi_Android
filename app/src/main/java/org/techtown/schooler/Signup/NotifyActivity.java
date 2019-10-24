@@ -109,10 +109,7 @@ public class NotifyActivity extends AppCompatActivity {
         user.setUser_id(Id);
         user.setUser_pw(Pw);
         user.setUser_email(Email);
-        user.setUser_phone(Phone+"");
         user.setSchool(SchoolId);
-        user.setSchool_grade(Grade);
-        user.setSchool_class(Class);
 
         ClearName.setText(Name);
         ClearId.setText(Id);
@@ -120,11 +117,28 @@ public class NotifyActivity extends AppCompatActivity {
         if(Phone.equals("null")){
             ClearPhone.setText("없음");
             ClearPhone.setTextColor(Color.parseColor("#D10000"));
-        }else
+            user.setUser_phone(null);
+        }else{
             ClearPhone.setText(Phone);
+            user.setUser_phone(Phone);
+        }
         ClearSchool.setText(getIntent().getStringExtra("SchoolName"));
-        ClearGrade.setText(Grade+"학년");
-        ClearClass.setText(Class+"반");
+
+
+        if(Grade.equals("null")&&Class.equals("null")){
+            ClearGrade.setText("학년정보가 없습니다.");
+            ClearClass.setText("학반정보가 없습니다.");
+            user.setSchool_grade(null);
+            user.setSchool_class(null);
+            ClearGrade.setTextColor(Color.parseColor("#D10000"));
+            ClearClass.setTextColor(Color.parseColor("#D10000"));
+        }else{
+            ClearGrade.setText(Grade+"학년");
+            ClearClass.setText(Class+"반");
+            user.setSchool_grade(Grade);
+            user.setSchool_class(Class);
+        }
+
 
         Finish.setOnClickListener(new View.OnClickListener(){
             @Override

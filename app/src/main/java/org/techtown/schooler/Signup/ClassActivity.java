@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class ClassActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterGrade;
     Spinner classPick;
     Spinner gradePick;
+    CheckBox isTeacher;
 
 
 
@@ -60,6 +62,7 @@ public class ClassActivity extends AppCompatActivity {
         SchoolKind = getIntent().getStringExtra("SchoolKind");
         classPick = findViewById(R.id.classSpinner);
         gradePick = findViewById(R.id.gradeSpinner);
+        isTeacher = findViewById(R.id.isTeacher);
 
         arrayListClass = new ArrayList<>();
         arrayListGrade = new ArrayList<>();
@@ -100,6 +103,39 @@ public class ClassActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+
+
+        isTeacher.setOnClickListener(new CheckBox.OnClickListener() {
+            int PickClass_static;
+            int PickGrade_static;
+
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox)v).isChecked()) {
+                    gradePick.setEnabled(false);
+                    classPick.setEnabled(false);
+
+                    PickClass_static = PickClass;
+                    PickGrade_static = PickGrade;
+
+                    PickClass = null;
+                    PickGrade = null;
+                    Log.e("CLASS",PickClass+"");
+                    Log.e("GRADE",PickGrade+"");
+                } else {
+
+                    PickClass = PickClass_static;
+                    PickGrade = PickGrade_static;
+
+                    gradePick.setEnabled(true);
+                    classPick.setEnabled(true);
+
+                    Log.e("CLASS",PickClass+"");
+                    Log.e("GRADE",PickGrade+"");
+                }
+            }
+        }) ;
     }
 
     public void SearchClass(){
