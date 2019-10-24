@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5"
+    android:orientation="vertical"
+    tools:context=".Channels.ChannelsInfo2">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolBar"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="199dp">
+
+                <ImageView
+                    android:id="@+id/backgroundImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#75000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="5pt"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_TextView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginRight="30pt"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16pt"
+                        android:textStyle="bold"
+                        tools:text="B1ND" />
+
+                    <TextView
+                        android:id="@+id/content_TextView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="1pt"
+                        android:layout_marginRight="30pt"
+                        android:ellipsize="end"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        tools:text="b1nd 공식 일정입니다." />
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/content_TextView4"
+                android:layout_width="match_parent"
+                android:layout_height="25pt"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:text="Member"
+                android:textColor="@color/mainColor"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view15"
+                android:layout_width="50pt"
+                android:layout_height="1pt"
+                android:layout_gravity="center"
+                android:background="@color/mainColor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_Member"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                tools:listitem="@layout/item_member" />
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
