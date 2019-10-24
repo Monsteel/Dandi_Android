@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.EventLog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -61,7 +63,7 @@ import retrofit2.Callback;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class MainFragment extends Fragment  {
+public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     MaterialCalendarView materialCalendarView; // 캘린더
 
@@ -95,6 +97,7 @@ public class MainFragment extends Fragment  {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     ArrayList<CalendarDay> dates = new ArrayList<>();
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -134,6 +137,9 @@ public class MainFragment extends Fragment  {
         recyclerView = rootView.findViewById(R.id.recyclerView); // 리사이클러뷰
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
         view = rootView.findViewById(R.id.view);
+
+        mSwipeRefreshLayout = rootView.findViewById(R.id.refresh);
+        settingsSwipeRefreshLayout();
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -422,6 +428,24 @@ public class MainFragment extends Fragment  {
             }
         });
     }
+
+    private void settingsSwipeRefreshLayout(){
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);// 딜레이를 준 후 시작
+    }
+
 }
 
 

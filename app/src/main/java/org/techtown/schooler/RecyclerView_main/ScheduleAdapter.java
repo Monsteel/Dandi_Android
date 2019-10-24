@@ -1,5 +1,6 @@
 package org.techtown.schooler.RecyclerView_main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
@@ -36,6 +37,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView date;
         ImageView channel_image;
         LinearLayout top_layout;
+        LinearLayout layout;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
@@ -47,20 +49,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             channel_image = view.findViewById(R.id.channel_Image);
             top_layout = view.findViewById(R.id.top_layout);
             date = view.findViewById(R.id.date);
+            layout = view.findViewById(R.id.ChannelCardView);
 
             // schedule_title 타이틀 내용이 만약 글자 수를 초과할 시 흐르게 보여줍니다.
             schedule_title.setSingleLine(true);
             schedule_title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
             schedule_title.setSelected(true);
-
-            top_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(view.getContext(), ChannelContent.class);
-                    view.getContext().startActivity(intent);
-                }
-            });
 
             // Profile Round
             channel_image.setBackground(new ShapeDrawable(new OvalShape()));
@@ -123,7 +117,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             myViewHolder.channel_image.setImageResource(R.drawable.dgsw);
         }
 
-        myViewHolder.top_layout.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChannelContent.class);
@@ -141,11 +135,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 intent.putExtra("channel_id", channelEventsArrayList.get(position).getChannel().getId());
 
                 v.getContext().startActivity(intent);
+
+                Activity activity = (Activity) v.getContext();
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-
-
-
     }
 
     @Override

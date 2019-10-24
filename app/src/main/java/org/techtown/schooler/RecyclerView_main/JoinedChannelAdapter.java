@@ -1,5 +1,6 @@
 package org.techtown.schooler.RecyclerView_main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import com.bumptech.glide.Glide;
 
 import org.techtown.schooler.ChannelEvents.ChannelContent;
 import org.techtown.schooler.Channels.ChannelsInfo;
+import org.techtown.schooler.Channels.ChannelsInfo2;
 import org.techtown.schooler.Model.Events;
 import org.techtown.schooler.Model.JoinedChannel;
 import org.techtown.schooler.R;
@@ -105,10 +107,13 @@ public class JoinedChannelAdapter extends RecyclerView.Adapter<RecyclerView.View
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), ChannelsInfo.class);
+                Intent intent = new Intent(v.getContext(), ChannelsInfo2.class);
                 intent.putExtra("channel_id", joinedChannelArrayList.get(position).getId());
                 intent.putExtra("userStatus", "2");
                 v.getContext().startActivity(intent);
+
+                Activity activity = (Activity) v.getContext();
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

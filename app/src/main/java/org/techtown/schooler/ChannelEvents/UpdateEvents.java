@@ -204,7 +204,7 @@ public class UpdateEvents extends AppCompatActivity {
                   Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                   startActivity(intent);
 
-                  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                  overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
               } else if(response.code() == 400){
 
                   Log.e("[status 400]", response.message());
@@ -249,5 +249,11 @@ public class UpdateEvents extends AppCompatActivity {
         updateChannelEvents.setContent(events_content.getText().toString());
 
         updateChannelEvent();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
