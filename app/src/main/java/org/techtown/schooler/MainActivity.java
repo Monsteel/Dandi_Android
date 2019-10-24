@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
+import org.techtown.schooler.Account.AccountActivity;
 import org.techtown.schooler.Channels.ChannelActivity;
 import org.techtown.schooler.NavigationFragment.MainFragment;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -98,10 +99,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
         if(profile_check == true){
-            getSupportFragmentManager().beginTransaction().replace(R.id.shadow_layout, main).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.LinearLayout, main).commit();
             drawerLayout.openDrawer(navigationView);
         } else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.shadow_layout, main).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.LinearLayout, main).commit();
         }
 
         // Toolbar Setting
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.main:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.shadow_layout, main).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.LinearLayout, main).commit();
                 break;
 
             case R.id.account:

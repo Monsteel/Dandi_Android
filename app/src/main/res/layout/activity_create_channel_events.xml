@@ -222,7 +222,7 @@
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/shadow_layout"
+            android:id="@+id/LinearLayout"
             android:layout_width="match_parent"
             android:layout_height="25pt"
             android:layout_gravity="bottom"
@@ -231,7 +231,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/add_scheudle"
+                android:id="@+id/move_channel"
                 android:layout_width="match_parent"
                 android:layout_height="25pt"
                 android:background="@color/gray"

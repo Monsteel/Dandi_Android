@@ -32,14 +32,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         TextView channel_name;
         TextView user_name;
-        TextView user_id;
         TextView schedule_title;
-        TextView start_date;
-        TextView end_date;
+        TextView date;
         ImageView channel_image;
         LinearLayout top_layout;
-        ImageButton contentButton;
-        LinearLayout button_layout;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public MyViewHolder(View view){
@@ -47,33 +43,28 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             channel_name = view.findViewById(R.id.channel_name);
             user_name = view.findViewById(R.id.user_name);
-            user_id = view.findViewById(R.id.user_id);
             schedule_title = view.findViewById(R.id.schedule_title);
-            start_date = view.findViewById(R.id.textView16);
-            end_date = view.findViewById(R.id.end_date);
             channel_image = view.findViewById(R.id.channel_Image);
             top_layout = view.findViewById(R.id.top_layout);
-            contentButton = view.findViewById(R.id.contentButton);
-            button_layout = view.findViewById(R.id.button_layout);
-
-            // channel_image 둥글게 만들어줍니다.
-            channel_image.setBackground(new ShapeDrawable(new OvalShape()));
-            channel_image.setClipToOutline(true);
+            date = view.findViewById(R.id.date);
 
             // schedule_title 타이틀 내용이 만약 글자 수를 초과할 시 흐르게 보여줍니다.
             schedule_title.setSingleLine(true);
             schedule_title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
             schedule_title.setSelected(true);
 
-            contentButton.setOnClickListener(new View.OnClickListener() {
+            top_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Intent intent = new Intent(view.getContext(), ChannelContent.class);
                     view.getContext().startActivity(intent);
-
                 }
             });
+
+            // Profile Round
+            channel_image.setBackground(new ShapeDrawable(new OvalShape()));
+            channel_image.setClipToOutline(true);
 
         }
     }
@@ -90,7 +81,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule2, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -101,19 +92,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         MyViewHolder myViewHolder = (MyViewHolder) holder;
 
-        myViewHolder.channel_name.setText(channelEventsArrayList.get(position).getChannel().getName());
+        myViewHolder.channel_name.setText("channel : " + channelEventsArrayList.get(position).getChannel().getName());
 
         if(channelEventsArrayList.get(position).getAuthor().getUser_id() == null){
 
-            myViewHolder.user_id.setText(channelEventsArrayList.get(position).getAuthor().getUser_id());
+            myViewHolder.user_name.setText("user : " + channelEventsArrayList.get(position).getAuthor().getUser_name() + "(school)");
         } else{
-            myViewHolder.user_id.setText("(" + channelEventsArrayList.get(position).getAuthor().getUser_id() + ")");
+            myViewHolder.user_name.setText("user : " + channelEventsArrayList.get(position).getAuthor().getUser_name() + "(" + channelEventsArrayList.get(position).getAuthor().getUser_id() + ")");
         }
 
-        myViewHolder.user_name.setText(channelEventsArrayList.get(position).getAuthor().getUser_name());
+        myViewHolder.date.setText(channelEventsArrayList.get(position).getStart_date()+" ~ " + channelEventsArrayList.get(position).getEnd_date());
+
         myViewHolder.schedule_title.setText(channelEventsArrayList.get(position).getTitle());
-        myViewHolder.start_date.setText(channelEventsArrayList.get(position).getStart_date());
-        myViewHolder.end_date.setText(channelEventsArrayList.get(position).getEnd_date());
 
         if(channelEventsArrayList.get(position).getChannel().getColor() == null) {
 
@@ -133,7 +123,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             myViewHolder.channel_image.setImageResource(R.drawable.dgsw);
         }
 
-        myViewHolder.contentButton.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.top_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChannelContent.class);

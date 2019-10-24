@@ -26,7 +26,6 @@ import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import org.techtown.schooler.Channels.ChannelsInfo;
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -40,7 +39,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.PrimitiveIterator;
 import java.util.Random;
 
 import okhttp3.MediaType;
@@ -88,10 +86,10 @@ public class UploadChannelsThumbnail extends AppCompatActivity {
 
 
         Login = getSharedPreferences("Login", MODE_PRIVATE);//SharedPreferences 선언
-        backgroundImage = (ImageView)findViewById(R.id.Background_ImageView);
-        title = (TextView)findViewById(R.id.Title_TextView);
+        backgroundImage = (ImageView)findViewById(R.id.channel_Image);
+        title = (TextView)findViewById(R.id.schedule_title);
         content = (TextView)findViewById(R.id.Content_TextView);
-        user = (TextView)findViewById(R.id.MakeUser_TextView);
+        user = (TextView)findViewById(R.id.date);
         isPublicImage = (ImageView)findViewById(R.id.isPublic_ImageView);
         Button = (TextView)findViewById(R.id.finish);
 

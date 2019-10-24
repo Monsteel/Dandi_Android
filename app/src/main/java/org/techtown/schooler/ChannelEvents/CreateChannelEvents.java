@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,7 +87,7 @@ public class CreateChannelEvents extends AppCompatActivity {
         end_button = findViewById(R.id.end_button);
         title_editText = findViewById(R.id.title_editText);
         content_editText = findViewById(R.id.content_editText);
-        add_schedule = findViewById(R.id.add_scheudle);
+        add_schedule = findViewById(R.id.move_channel);
 
         // Channel Search
         searchChannel();

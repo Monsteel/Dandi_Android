@@ -1,16 +1,19 @@
 package org.techtown.schooler.ChannelEvents;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,24 +54,19 @@ public class ChannelContent extends AppCompatActivity {
     // XML View
     TextView event_title;
     TextView name;
-    TextView id;
-    TextView start;
-    TextView end;
     TextView event_content;
     TextView event_channel_name;
-    ImageView profile;
+    // ImageView profile;
     ImageButton delete;
     ImageButton edit;
-    ImageButton backButton;
-    LinearLayout layout; // Layout Background
-    LinearLayout channel_layout; // Button Background
-    LinearLayout content_layout;
+    TextView move_channel;
+    TextView event_date;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channel_content);
+        setContentView(R.layout.activity_channel_content2);
 
         Login = this.getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
 
@@ -89,61 +87,47 @@ public class ChannelContent extends AppCompatActivity {
         channel_id = intent.getExtras().getString("channel_id");
 
         // XML View 를 초기화합니다.
-        profile = findViewById(R.id.profile);
-        backButton = findViewById(R.id.backButton);
-        layout = findViewById(R.id.shadow_layout);
-        channel_layout = findViewById(R.id.channel_layout);
+        // profile = findViewById(R.id.profile);
         event_title = findViewById(R.id.event_title);
         name = findViewById(R.id.user_name);
-        id = findViewById(R.id.user_id);
-        start = findViewById(R.id.start_date);
-        end = findViewById(R.id.end_date);
         event_content = findViewById(R.id.event_content);
         event_channel_name = findViewById(R.id.channel_name);
         delete = findViewById(R.id.delete);
         edit = findViewById(R.id.edit);
-        content_layout = findViewById(R.id.content_layout);
+        move_channel = findViewById(R.id.move_channel);
+        event_date = findViewById(R.id.event_date);
 
-        // profile 즉 프로필 사진을 둥글게 만들어줍니다.
-        profile.setBackground(new ShapeDrawable(new OvalShape()));
-        profile.setClipToOutline(true);
+//        // profile 즉 프로필 사진을 둥글게 만들어줍니다.
+//        profile.setBackground(new ShapeDrawable(new OvalShape()));
+//        profile.setClipToOutline(true);
 
         if(channel_color != null){
 
-            // 레이아웃 배경을 채널의 색상으로 설정합니다.
-            layout.setBackgroundColor(Color.parseColor(channel_color)); // Layout Background
-            channel_layout.setBackgroundColor(Color.parseColor(channel_color)); // Button Background
+            move_channel.setBackgroundColor(Color.parseColor(channel_color));
         } else {
-
-            // 레이아웃 배경을 채널의 색상으로 설정합니다.
-            layout.setBackgroundColor(Color.parseColor("#F1B71C")); // Layout Background
-            channel_layout.setBackgroundColor(Color.parseColor("#F1B71C")); // Button Background
+            move_channel.setBackgroundColor(Color.parseColor("#F1B71C"));
         }
 
         // XML View 에 전달받은 부가 데이터를 저장합니다.
         event_title.setText(title);
-        name.setText(user_name);
-        id.setText(user_id);
-        start.setText(start_date);
-        end.setText(end_date);
+        event_title.setTextColor(Color.parseColor(channel_color));
+        name.setText(user_name + "(" + user_id + ")");
+        event_date.setText(start_date + " ~ " + end_date);
 
         if(content == null){
-
             event_content.setText("학사 일정은 상세 내용이 존재하지 않습니다.");
         }else {
-
             event_content.setText(content);
         }
 
-
         event_channel_name.setText(channel_name);
 
-        if(channel_image != null){
-            Glide.with(ChannelContent.this).load(channel_image).into(profile);
-        } else {
-
-            profile.setImageResource(R.drawable.dgsw);
-        }
+//        if(channel_image != null){
+//            Glide.with(ChannelContent.this).load(channel_image).into(profile);
+//        } else {
+//
+//            profile.setImageResource(R.drawable.dgsw);
+//        }
 
 
         // schedule_title 타이틀 내용이 만약 글자 수를 초과할 시 흐르게 보여줍니다.
@@ -151,7 +135,18 @@ public class ChannelContent extends AppCompatActivity {
         event_title.setEllipsize(TextUtils.TruncateAt.END);
         event_title.setSelected(true);
 
-        profile.setOnClickListener(new View.OnClickListener() {
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(ChannelContent.this, ChannelsInfo.class);
+//                intent.putExtra("channel_id", channel_id);
+//                intent.putExtra("userStatus", "2");
+//                startActivity(intent);
+//            }
+//        });
+
+        move_channel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -162,19 +157,10 @@ public class ChannelContent extends AppCompatActivity {
             }
         });
 
-        channel_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(ChannelContent.this, ChannelsInfo.class);
-                intent.putExtra("channel_id", channel_id);
-                intent.putExtra("userStatus", "2");
-                startActivity(intent);
-            }
-        });
-
-
-
+        // Actionbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp2);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     // 일정 삭제 (Retrofit2)
@@ -219,15 +205,6 @@ public class ChannelContent extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // backButton (Onclick)
-    public void back(View view){
-
-        Intent intent = new Intent(ChannelContent.this, MainActivity.class);
-        startActivity(intent);
-
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
-
     // delete (Onclick)
     public void delete(View view){
 
@@ -250,7 +227,23 @@ public class ChannelContent extends AppCompatActivity {
 
             updateEvents();
         }
-
     }
+
+    // ActionBar Events
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case android.R.id.home:
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                startActivity(mainIntent);
+
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

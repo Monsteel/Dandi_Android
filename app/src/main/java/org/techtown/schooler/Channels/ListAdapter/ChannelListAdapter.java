@@ -250,13 +250,13 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.Title_TextView);
+            title = itemView.findViewById(R.id.schedule_title);
             title.setSingleLine(true);
             title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
             title.setSelected(true);
-            create_User = itemView.findViewById(R.id.MakeUser_TextView);
+            create_User = itemView.findViewById(R.id.date);
             content = itemView.findViewById(R.id.Content_TextView);
-            BackGroundImage = itemView.findViewById(R.id.Background_ImageView);
+            BackGroundImage = itemView.findViewById(R.id.channel_Image);
             isPublicImage = itemView.findViewById(R.id.isPublic_ImageView);
             channelCardView = itemView.findViewById(R.id.ChannelCardView);
             joinButton = itemView.findViewById(R.id.JoinChannel_Button);

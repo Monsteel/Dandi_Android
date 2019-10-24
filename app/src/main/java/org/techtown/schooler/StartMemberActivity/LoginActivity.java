@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import org.techtown.schooler.MainActivity;
 import org.techtown.schooler.R;
@@ -58,7 +57,7 @@ public class LoginActivity extends AppCompatActivity{
         Pw_EditText = (EditText) findViewById(R.id.Pw_EditText);
         login_button = (Button) findViewById(R.id.login_button);
         join_textView = (TextView) findViewById(R.id.join_TextView);
-        layout = (LinearLayout) findViewById(R.id.shadow_layout);
+        layout = (LinearLayout) findViewById(R.id.LinearLayout);
         check_id = (CheckBox) findViewById(R.id.check_Id);
 
         // SharedPreferences

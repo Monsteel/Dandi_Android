@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/shadow_layout"
+        android:id="@+id/LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="201dp"
         android:background="#F2F2F2">

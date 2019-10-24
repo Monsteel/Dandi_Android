@@ -16,7 +16,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".Account.AccountActivity"></activity>
         <activity android:name=".Channels.ChannelActivity" />
         <activity
             android:name=".Signup.CheckPasswordActivity"
@@ -32,7 +32,8 @@
             android:name=".ChannelEvents.CreateChannelEvents"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ChannelEvents.ChannelContent" />
+        <activity android:name=".ChannelEvents.ChannelContent"
+            android:theme="@style/AppTheme2"/>
         <activity android:name=".ChannelEvents.UpdateEvents" />
         <activity android:name=".Channels.ChannelHandling.UploadChannelsThumbnail" />
         <activity android:name=".Channels.CreateChannel.FinishCreateChannels" />

@@ -20,7 +20,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/Background_ImageView"
+            android:id="@+id/channel_Image"
             android:layout_width="25pt"
             android:layout_height="25pt"
             android:layout_gravity="center"
@@ -46,7 +46,7 @@
                     tools:srcCompat="@drawable/locked" />
 
                 <TextView
-                    android:id="@+id/Title_TextView"
+                    android:id="@+id/schedule_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2pt"
@@ -66,7 +66,7 @@
                 tools:text="B1ND" />
 
             <TextView
-                android:id="@+id/MakeUser_TextView"
+                android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
