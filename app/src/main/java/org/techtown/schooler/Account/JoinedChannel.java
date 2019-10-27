@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.techtown.schooler.ChannelEvents.CreateChannelEvents;
@@ -36,7 +39,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class JoinedChannel extends AppCompatActivity {
+public class JoinedChannel extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView;
     SharedPreferences Login;
@@ -45,8 +48,7 @@ public class JoinedChannel extends AppCompatActivity {
     ArrayList<org.techtown.schooler.Model.JoinedChannel> joinedChannel = new ArrayList<>();
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(JoinedChannel.this);
-
-    String channel_id;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class JoinedChannel extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         showChannel();
+
+        settingsSwipeRefreshLayout();
     }
 
     @Override
@@ -104,7 +108,14 @@ public class JoinedChannel extends AppCompatActivity {
                     JoinedChannelAdapter myAdapter = new JoinedChannelAdapter(joinedChannel);
                     recyclerView.setAdapter(myAdapter);
 
-                }else if(response.code() == 410){//만약 Status값이 400이면 check에 false를 주고, 로그인 엑티비티로 이동
+                    recyclerView.setVisibility(View.VISIBLE);
+
+                } else if(response.code() == 204){
+                    Log.e("", "가입 채널이 존재하지 않습니다.");
+                    Toast.makeText(JoinedChannel.this, "가입 채널이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.GONE);
+                }
+                else if(response.code() == 410){//만약 Status값이 400이면 check에 false를 주고, 로그인 엑티비티로 이동
                     SharedPreferences.Editor editor = Login.edit();
                     editor.putString("token",null);
                     editor.putString("id",null);
@@ -113,8 +124,8 @@ public class JoinedChannel extends AppCompatActivity {
                     startActivity(new Intent(JoinedChannel.this,LoginActivity.class));
                     Log.e("","토큰 만료");
                     Toast.makeText(JoinedChannel.this, "토큰이 만료되었습니다\n다시 로그인 해 주세요", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(JoinedChannel.this,"서버에서 오류가 발생했습니다.\n문제가 지속되면 관리자에게 문의하세요", Toast.LENGTH_SHORT).show();
+                }else if(response.code() == 500){
+                    Log.e("500", "가입 채널 조회 실패");
                 }
             }
 
@@ -126,4 +137,26 @@ public class JoinedChannel extends AppCompatActivity {
         });
     }
 
+
+    private void settingsSwipeRefreshLayout(){
+
+        mSwipeRefreshLayout = findViewById(R.id.swipe_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+
+
+        showChannel();
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000);// 딜레이를 준 후 시작
+    }
 }

@@ -101,7 +101,6 @@ public class ChannelsInfo extends AppCompatActivity implements SwipeRefreshLayou
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }, 1000);// 딜레이를 준 후 시작
-
     }
 
     @Override

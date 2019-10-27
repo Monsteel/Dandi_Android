@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Token Available
         if(Login.getString("token",null) == null){
-
             Intent StatLogin = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(StatLogin);
             Log.e("[LoginCheck]", "로그인 X");

@@ -1,5 +1,6 @@
 package org.techtown.schooler.NavigationFragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -95,9 +96,14 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     View view;
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat s_year = new SimpleDateFormat("yyyy");
+    SimpleDateFormat s_month = new SimpleDateFormat("MM");
+    SimpleDateFormat s_day = new SimpleDateFormat("dd");
 
     ArrayList<CalendarDay> dates = new ArrayList<>();
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    Date today = new Date();
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -138,8 +144,8 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         Login = getActivity().getSharedPreferences("Login", MODE_PRIVATE); //SharedPreferences 선언
         view = rootView.findViewById(R.id.view);
 
-        mSwipeRefreshLayout = rootView.findViewById(R.id.refresh);
-        settingsSwipeRefreshLayout();
+//        mSwipeRefreshLayout = rootView.findViewById(R.id.refresh);
+//        settingsSwipeRefreshLayout();
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -147,6 +153,14 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
 
         checkChannelEvent();
+
+        materialCalendarView.setSelectedDate(CalendarDay.today());
+        selectedYear = s_year.format(today);
+        selectedMonth = Integer.parseInt(s_month.format(today));
+        selectedDay = s_day.format(today);
+
+        onChannelEvent();
+        onSchoolEvent();
 
         // 캘린더 클릭 시 발생하는 이벤트를 수행합니다.
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -244,8 +258,8 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         }
                     } else if (response.code() == 400) {
 
-                        Log.e("[status 400]", response.body().getMessage());
-                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("[status 400]","error");
+//                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 403) {
 
                         Log.e("[status 403]", response.body().getMessage());
@@ -415,10 +429,9 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                     materialCalendarView.addDecorator(new EventDecorator(Color.RED, dates));
+                    Log.e("test", "체크함");
                 }
             }
 
@@ -435,6 +448,16 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onRefresh() {
+
+//        EventsArrayList.clear();
+//
+//        onChannelEvent();
+//        onSchoolEvent();
+
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+
+        getActivity().overridePendingTransition(R.anim.loadfadein, R.anim.loadfadeout);
 
         new Handler().postDelayed(new Runnable()
         {

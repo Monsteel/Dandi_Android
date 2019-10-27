@@ -16,87 +16,103 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Account.AccountActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Channels.ChannelsInfo2"></activity>
-        <activity android:name=".Channels.ChannelActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".Account.AccountActivity2"></activity>
+        <activity
+            android:name=".Account.AccountActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Channels.ChannelsInfo2" />
+        <activity
+            android:name=".Channels.ChannelActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Signup.CheckPasswordActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Channels.ChannelHandling.MemberAllowActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Channels.ChannelHandling.MemberAllowActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Channels.ChannelHandling.EditChannelAcitivty"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Account.JoinedChannel"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Channels.ChannelsInfo"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Channels.ChannelsInfo"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ChannelEvents.CreateChannelEvents"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ChannelEvents.ChannelContent"
-            android:theme="@style/AppTheme2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ChannelEvents.UpdateEvents"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Channels.ChannelHandling.UploadChannelsThumbnail"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Channels.CreateChannel.FinishCreateChannels"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Channels.CreateChannel.CreateChannel"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Signup.FinishSignup"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ChannelEvents.ChannelContent"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ChannelEvents.UpdateEvents"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Channels.ChannelHandling.UploadChannelsThumbnail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Channels.CreateChannel.FinishCreateChannels"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Channels.CreateChannel.CreateChannel"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Signup.FinishSignup"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Signup.PhoneNumberActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Signup.NotifyActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Signup.NotifyActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Signup.PasswordActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Signup.ClassActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Signup.ClassActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Signup.SchoolActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Signup.IdActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Signup.EmailActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Signup.SignupOneActivity"
             android:parentActivityName=".StartMemberActivity.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SplashActivity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".SplashActivity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"
-                    android:screenOrientation="portrait"/>
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:screenOrientation="portrait" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartMemberActivity.LoginActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".StartMemberActivity.LoginActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
