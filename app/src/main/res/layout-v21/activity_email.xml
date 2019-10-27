@@ -76,7 +76,7 @@
                     android:layout_marginLeft="20pt"
                     android:layout_marginRight="20pt"
                     android:layout_weight="1"
-                    android:hint="5자리의 인증번호를 입력해주세요"
+                    android:hint="6자리의 인증번호를 입력해주세요"
                     android:inputType="number"
                     android:textSize="18sp" />
 

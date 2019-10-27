@@ -16,11 +16,15 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Account.AccountActivity2"></activity>
+        <activity
+            android:name=".Account.AccountActivity2"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Account.AccountActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Channels.ChannelsInfo2" />
+        <activity
+            android:name=".Channels.ChannelsInfo2"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Channels.ChannelActivity"
             android:screenOrientation="portrait" />
@@ -103,7 +107,6 @@
                 <action
                     android:name="android.intent.action.MAIN"
                     android:screenOrientation="portrait" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
