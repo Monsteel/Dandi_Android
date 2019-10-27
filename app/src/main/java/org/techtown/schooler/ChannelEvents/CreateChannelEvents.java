@@ -201,9 +201,7 @@ public class CreateChannelEvents extends AppCompatActivity {
         switch (item.getItemId()){
 
             case android.R.id.home:
-                Intent mainIntent = new Intent(this, MainActivity.class);
-                startActivity(mainIntent);
-
+                onBackPressed();//뒤로가기(이영은)
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
@@ -383,6 +381,7 @@ public class CreateChannelEvents extends AppCompatActivity {
                     Intent intent = new Intent(CreateChannelEvents.this, MainActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    add_schedule.setEnabled(false);//추가버튼 막기.(영은)
 
                 } else if(response.code() == 400){
 
@@ -409,13 +408,11 @@ public class CreateChannelEvents extends AppCompatActivity {
 
     // start_button (Onclick)
     public void start(View view){
-
         startDatePicker();
     }
 
     // end_button (Onclick)
     public void end(View view){
-
         endDatePicker();
     }
 

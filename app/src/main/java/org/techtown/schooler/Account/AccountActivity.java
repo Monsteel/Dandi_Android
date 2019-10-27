@@ -165,7 +165,7 @@ public class AccountActivity extends AppCompatActivity {
                     user_name.setText(userData.getUser_name());
                     user_id.setText("(" + userData.getUser_id() + ")");
 
-                    if(userData.getUser_phone() == ""){
+                    if(userData.getUser_phone() == null){
                         user_phone.setText("전화번호 없음");
                     } else{
                         user_phone.setText(userData.getUser_phone());
@@ -181,7 +181,6 @@ public class AccountActivity extends AppCompatActivity {
 
                     Glide.with(AccountActivity.this).load(userData.getProfile_pic()).into(profile);
 
-                    Toast.makeText(AccountActivity.this, "정상적으로 프로필을 조회하였습니다.", Toast.LENGTH_SHORT).show();
                     Log.e("[status 200]",response.message());
 
                 } else if(response.code() == 403){
@@ -331,32 +330,6 @@ public class AccountActivity extends AppCompatActivity {
         // startActivityForResult 매서드를 호출하면서 매개변수로 PICK_FROM_ALBUM 변수를 전달 합니다.
         // result_code 이다.
         startActivityForResult(intent, PICK_FROM_ALBUM);
-    }
-
-    public static class DownloadImageFromInternet extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageFromInternet(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String imageURL = urls[0];
-            Bitmap bimage = null;
-            try {
-                InputStream in = new java.net.URL(imageURL).openStream();
-                bimage = BitmapFactory.decodeStream(in);
-
-            } catch (Exception e) {
-                Log.e("[ImageDownLoad][Error]", e.getMessage());
-                e.printStackTrace();
-            }
-            return bimage;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
     }
 
     public void uploadProfile(byte[] imageBytes, String originalName){
