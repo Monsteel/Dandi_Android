@@ -1,5 +1,6 @@
 package org.techtown.schooler.Channels.ListAdapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ShapeDrawable;
@@ -19,6 +20,8 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+
+import org.techtown.schooler.Account.AccountActivity2;
 import org.techtown.schooler.Model.User;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -35,7 +38,6 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder>{
-
     private final List<User> mDataList;
     private SharedPreferences login;
     private String channel_id;
@@ -99,6 +101,14 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
                 }
             });
         }
+
+        Activity activity = (Activity) holder.masterMark1.getContext();
+        holder.MemberCardView.setOnClickListener(v ->{
+            Intent intent = new Intent(holder.masterMark1.getContext(), AccountActivity2.class);
+            intent.putExtra("user_id",item.getUser_id());
+            holder.masterMark1.getContext().startActivity(intent);
+            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
     }
 
     private void kickUser(String user_id,ViewHolder holder,int position){

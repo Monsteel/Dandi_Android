@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+
+import org.techtown.schooler.Account.AccountActivity2;
 import org.techtown.schooler.Model.UserInfo;
 import org.techtown.schooler.R;
 import org.techtown.schooler.StartMemberActivity.LoginActivity;
@@ -115,6 +118,13 @@ public class AwaitUserAdapter extends RecyclerView.Adapter<AwaitUserAdapter.View
         });
         //거절버튼 클릭 시
 
+        holder.cardView.setOnClickListener(v ->{
+            Intent intent = new Intent(activity, AccountActivity2.class);
+            intent.putExtra("user_id",item.getUser_id());
+            activity.startActivity(intent);
+            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -124,6 +134,7 @@ public class AwaitUserAdapter extends RecyclerView.Adapter<AwaitUserAdapter.View
         ImageView profile;//유저 프로필
         TextView allowbtn;//승인버튼
         TextView rejectbtn;//거절버튼
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -133,6 +144,7 @@ public class AwaitUserAdapter extends RecyclerView.Adapter<AwaitUserAdapter.View
             profile = (ImageView)itemView.findViewById(R.id.profile);
             allowbtn= (TextView)itemView.findViewById(R.id.Allow);
             rejectbtn = (TextView)itemView.findViewById(R.id.Reject);
+            cardView = (CardView)itemView.findViewById(R.id.ChannelCardView);
         }
     }
 
