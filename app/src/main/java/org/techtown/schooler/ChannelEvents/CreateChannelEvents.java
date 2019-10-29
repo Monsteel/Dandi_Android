@@ -202,7 +202,6 @@ public class CreateChannelEvents extends AppCompatActivity {
 
             case android.R.id.home:
                 onBackPressed();//뒤로가기(이영은)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
         return super.onOptionsItemSelected(item);
@@ -423,5 +422,11 @@ public class CreateChannelEvents extends AppCompatActivity {
         addChannelEvents.setContent(content_editText.getText().toString());
 
         addChannelEvent();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
