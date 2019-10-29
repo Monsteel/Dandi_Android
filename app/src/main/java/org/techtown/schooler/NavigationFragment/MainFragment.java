@@ -275,8 +275,8 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         startActivity(new Intent(getActivity(), LoginActivity.class));
                     } else if (response.code() == 500) {
 
-                        Log.e("[status 500]", response.body().getMessage());
-                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("[status 500]", "오류");
+                        Toast.makeText(getActivity(), "오류", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -382,7 +382,6 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                     if(check == true){
 
-                        // schoolEventsArrayList.add(null);
                         selectedEventsArrayList.add(date);
                         NoScheduleAdapter noScheduleAdapter = new NoScheduleAdapter(selectedEventsArrayList);
                         recyclerView.setAdapter(noScheduleAdapter);
