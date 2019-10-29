@@ -33,7 +33,6 @@ public class NoScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 button_layout = view.findViewById(R.id.button_layout);
                 imageButton = view.findViewById(R.id.imageButton);
-
         }
     }
 

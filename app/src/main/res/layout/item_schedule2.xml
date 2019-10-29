@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="5pt"
+            android:layout_marginLeft="3pt"
             android:gravity="left|center_vertical"
             android:orientation="vertical">
 
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginRight="15dp"
-            android:layout_weight="2"
+            android:layout_weight="5"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

@@ -307,16 +307,16 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 if(selectedMonth < 10){
 
                     if(Integer.parseInt(selectedDay) < 10){
-                        date = selectedYear + "-0" + selectedMonth + "-" + selectedDay;
+                        date = selectedYear + "-0" + selectedMonth + "-0" + selectedDay;
                     } else {
 
-                        date = selectedYear + "-0" + selectedMonth + selectedDay;
+                        date = selectedYear + "-0" + selectedMonth + "-" + selectedDay;
                     }
                 } else {
 
                     if(Integer.parseInt(selectedDay) < 10){
 
-                        date = selectedYear + selectedMonth + "-0" + selectedDay;
+                        date = selectedYear + "-"+ selectedMonth + "-0" + selectedDay;
                     } else {
 
                         date = selectedYear + "-" + selectedMonth +"-" + selectedDay;
