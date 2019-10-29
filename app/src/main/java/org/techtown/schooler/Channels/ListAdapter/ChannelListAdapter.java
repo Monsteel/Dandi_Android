@@ -124,7 +124,7 @@ public class ChannelListAdapter extends RecyclerView.Adapter<ChannelListAdapter.
         holder.content.setText(item.getExplain());
         holder.content.setMaxLines(2);
         holder.content.setEllipsize(TextUtils.TruncateAt.END);
-        holder.create_User.setText("Master : " + item.getCreate_user());
+        holder.create_User.setText("Master : " + item.getCreateUser().getUser_name()+"("+item.getCreateUser().getUser_id()+")");
 
         holder.BackGroundImage.setBackground(new ShapeDrawable(new OvalShape()));
         holder.BackGroundImage.setClipToOutline(true);
