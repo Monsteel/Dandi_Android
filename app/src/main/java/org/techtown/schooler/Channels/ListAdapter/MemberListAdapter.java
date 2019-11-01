@@ -67,11 +67,14 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
         String user_id;
         login = holder.Id.getContext().getSharedPreferences("Login", MODE_PRIVATE);
 
+        holder.masterMark2.setVisibility(View.GONE);
+        holder.masterMark1.setVisibility(View.GONE);
+
         holder.Name.setText(item.getUser_name());
         holder.Id.setText(item.getUser_id());
         user_id = item.getUser_id();
 
-        if(position == 0){
+        if(create_user.equals(user_id)){
             holder.masterMark2.setVisibility(View.VISIBLE);
             holder.masterMark1.setVisibility(View.VISIBLE);
         }
