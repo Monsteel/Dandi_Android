@@ -57,7 +57,8 @@
                 android:layout_marginTop="50dp"
                 android:background="@android:color/transparent"
                 app:mcv_arrowColor="#FFFFFF"
-                app:mcv_selectionColor="#FFC107" />
+                app:mcv_selectionColor="#FFC107"
+                app:mcv_showOtherDates="none"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
