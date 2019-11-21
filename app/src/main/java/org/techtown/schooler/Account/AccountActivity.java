@@ -115,7 +115,7 @@ public class AccountActivity extends AppCompatActivity {
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 사용자로부터 권한 요청을 받는 tedPermission() 매서드를 호출
+                // 사용자로부터 권한 요청을 받는 tedPermission() 매서드를 호출울
                 tedPermission();
             }
         });
