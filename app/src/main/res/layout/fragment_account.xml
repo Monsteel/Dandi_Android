@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".NavigationFragment.AccountFragment">
+    tools:context="dgsw.bind4th.dandi.NavigationFragment.AccountFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

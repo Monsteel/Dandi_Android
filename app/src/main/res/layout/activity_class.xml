@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Signup.ClassActivity"
+    tools:context="dgsw.bind4th.dandi.Signup.ClassActivity"
     android:orientation="vertical">
 
     <LinearLayout

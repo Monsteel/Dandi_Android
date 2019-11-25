@@ -17,91 +17,91 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Account.AccountActivity2"
+            android:name="dgsw.bind4th.dandi.Account.AccountActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Account.AccountActivity"
+            android:name="dgsw.bind4th.dandi.Account.AccountActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.ChannelsInfo2"
+            android:name="dgsw.bind4th.dandi.Channels.ChannelsInfo2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.ChannelActivity"
+            android:name="dgsw.bind4th.dandi.Channels.ChannelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signup.CheckPasswordActivity"
+            android:name="dgsw.bind4th.dandi.Signup.CheckPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Channels.ChannelHandling.MemberAllowActivity"
+            android:name="dgsw.bind4th.dandi.Channels.ChannelHandling.MemberAllowActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.ChannelHandling.EditChannelAcitivty"
+            android:name="dgsw.bind4th.dandi.Channels.ChannelHandling.EditChannelAcitivty"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Account.JoinedChannel"
+            android:name="dgsw.bind4th.dandi.Account.JoinedChannel"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.ChannelsInfo"
+            android:name="dgsw.bind4th.dandi.Channels.ChannelsInfo"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChannelEvents.CreateChannelEvents"
+            android:name="dgsw.bind4th.dandi.ChannelEvents.CreateChannelEvents"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ChannelEvents.ChannelContent"
+            android:name="dgsw.bind4th.dandi.ChannelEvents.ChannelContent"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".ChannelEvents.UpdateEvents"
+            android:name="dgsw.bind4th.dandi.ChannelEvents.UpdateEvents"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.ChannelHandling.UploadChannelsThumbnail"
+            android:name="dgsw.bind4th.dandi.Channels.ChannelHandling.UploadChannelsThumbnail"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.CreateChannel.FinishCreateChannels"
+            android:name="dgsw.bind4th.dandi.Channels.CreateChannel.FinishCreateChannels"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Channels.CreateChannel.CreateChannel"
+            android:name="dgsw.bind4th.dandi.Channels.CreateChannel.CreateChannel"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signup.FinishSignup"
+            android:name="dgsw.bind4th.dandi.Signup.FinishSignup"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signup.PhoneNumberActivity"
+            android:name="dgsw.bind4th.dandi.Signup.PhoneNumberActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Signup.NotifyActivity"
+            android:name="dgsw.bind4th.dandi.Signup.NotifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signup.PasswordActivity"
+            android:name="dgsw.bind4th.dandi.Signup.PasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Signup.ClassActivity"
+            android:name="dgsw.bind4th.dandi.Signup.ClassActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Signup.SchoolActivity"
+            android:name="dgsw.bind4th.dandi.Signup.SchoolActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Signup.IdActivity"
+            android:name="dgsw.bind4th.dandi.Signup.IdActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Signup.EmailActivity"
+            android:name="dgsw.bind4th.dandi.Signup.EmailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Signup.SignupOneActivity"
-            android:parentActivityName=".StartMemberActivity.LoginActivity"
+            android:name="dgsw.bind4th.dandi.Signup.SignupOneActivity"
+            android:parentActivityName="dgsw.bind4th.dandi.StartMemberActivity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SplashActivity.SplashActivity"
+            android:name="dgsw.bind4th.dandi.SplashActivity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action
@@ -111,10 +111,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StartMemberActivity.LoginActivity"
+            android:name="dgsw.bind4th.dandi.StartMemberActivity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="dgsw.bind4th.dandi.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".ChannelEvents.CreateChannelEvents">
+    tools:context="dgsw.bind4th.dandi.ChannelEvents.CreateChannelEvents">
 
     <FrameLayout
         android:layout_width="match_parent"
